@@ -18,6 +18,10 @@ public class Laptop {
         this.RAM = RAM;
     }
 
+    public Laptop() {
+      
+    }
+
     public String getID() {
         return ID;
     }

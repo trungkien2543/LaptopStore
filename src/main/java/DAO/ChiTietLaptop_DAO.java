@@ -4,8 +4,13 @@
  */
 package DAO;
 
+import DTO.ChiTietLaptop;
+import DTO.Laptop;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,5 +29,30 @@ public class ChiTietLaptop_DAO {
             System.out.println(e); 
         }       
     }
+    
+    public ArrayList<ChiTietLaptop> getListChiTietLaptop(){
+        ArrayList<ChiTietLaptop> list = new ArrayList<>();
+        String sql = "select * from ChiTietLaptop";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                ChiTietLaptop s = new ChiTietLaptop();
+                s.setIDRieng(rs.getString(1));
+                s.setGia(rs.getInt(2));
+                s.setNgayNhap(rs.getDate(3));
+                s.setTrangThai(rs.getString(4));
+                s.setMauLapTop(rs.getString(5));
+                list.add(s);
+            }
+
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    
     
 }

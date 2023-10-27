@@ -44,9 +44,6 @@ public class Laptop_DAO {
                 s.setRAM(rs.getInt(5));
                 s.setGPU(rs.getString(6));
                 s.setTrangThai(rs.getString(7));
-                
-                
-                System.out.println(s.getID());
                 list.add(s);
             }
 

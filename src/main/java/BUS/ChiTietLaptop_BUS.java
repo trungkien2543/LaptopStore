@@ -21,7 +21,7 @@ public class ChiTietLaptop_BUS {
         
     }
     
-    public ArrayList<ChiTietLaptop> getListLaptop(){
+    public ArrayList<ChiTietLaptop> getListChiTietLaptop(){
         ArrayList<ChiTietLaptop> list = new ChiTietLaptop_DAO().getListChiTietLaptop();
         
         return list;

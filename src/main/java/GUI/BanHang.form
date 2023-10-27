@@ -49,7 +49,7 @@
               <Group type="102" attributes="0">
                   <Component id="jpMenu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                  <Component id="jtab" max="32767" attributes="0"/>
               </Group>
               <Component id="jpThanhTieuDe" max="32767" attributes="0"/>
           </Group>
@@ -60,7 +60,7 @@
                   <Component id="jpThanhTieuDe" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                      <Component id="jtab" max="32767" attributes="0"/>
                       <Component id="jpMenu" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -374,7 +374,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+        <Container class="javax.swing.JTabbedPane" name="jtab">
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
@@ -466,6 +466,7 @@
                     <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtFindFocusGained"/>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtFindFocusLost"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFindActionPerformed"/>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFindKeyReleased"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lbTimKiem">
@@ -539,14 +540,19 @@
                         <Component class="javax.swing.JTable" name="tblMatHang">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="4">
+                              <Table columnCount="6" rowCount="4">
                                 <Column editable="true" title="ID" type="java.lang.Object"/>
                                 <Column editable="true" title="T&#xea;n" type="java.lang.Object"/>
-                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
+                                <Column editable="true" title="CPU" type="java.lang.Object"/>
+                                <Column editable="true" title="RAM" type="java.lang.Object"/>
+                                <Column editable="true" title="GPU" type="java.lang.Object"/>
                                 <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                               </Table>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblMatHangMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -630,14 +636,13 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable1">
+                        <Component class="javax.swing.JTable" name="tblChiTiet">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="4" rowCount="4">
-                                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                              <Table columnCount="3" rowCount="4">
+                                <Column editable="true" title="ID  Ri&#xea;ng" type="java.lang.Object"/>
+                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
+                                <Column editable="true" title="Ng&#xe0;y nh&#x1ead;p" type="java.lang.Object"/>
                               </Table>
                             </Property>
                           </Properties>
@@ -648,7 +653,7 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel4">
+            <Container class="javax.swing.JPanel" name="jpHoaDon">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">

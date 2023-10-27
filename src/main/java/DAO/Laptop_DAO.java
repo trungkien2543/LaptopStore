@@ -110,15 +110,4 @@ public class Laptop_DAO {
         return false;
      }
     
-    
-    public static void main(String[] args) {
-        Laptop_DAO test = new Laptop_DAO();
-        Laptop a = new Laptop("1235", "Laptop ACER Nitro 16 Phoenix", "Ryzen 5 7535HS", "RTX 4050", "CoHang", 10, 8);
-        
-//        System.out.println(test.addLaptop(a));
-//        System.out.println(test.deleteLaptop("1235"));
-
-        System.out.println(test.editLaptop(a));
-    }
-    
 }

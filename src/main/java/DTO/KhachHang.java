@@ -21,6 +21,11 @@ public class KhachHang {
         this.TichDiem = TichDiem;
     }
 
+    public KhachHang() {
+    }
+    
+    
+
     public String getMaKH() {
         return MaKH;
     }

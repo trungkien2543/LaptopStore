@@ -802,7 +802,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="txtTichDiem" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="jButton6" min="-2" pref="310" max="-2" attributes="0"/>
+                                              <Component id="btnAddKH" min="-2" pref="310" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="137" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -836,7 +836,7 @@
                                   <Component id="txtTichDiem" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButton6" min="-2" pref="56" max="-2" attributes="0"/>
+                              <Component id="btnAddKH" min="-2" pref="56" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -900,7 +900,7 @@
                         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTichDiemKeyReleased"/>
                       </Events>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton6">
+                    <Component class="javax.swing.JButton" name="btnAddKH">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="99" green="66" red="0" type="rgb"/>
@@ -914,7 +914,7 @@
                         <Property name="text" type="java.lang.String" value="Th&#xea;m kh&#xe1;ch h&#xe0;ng"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddKHActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

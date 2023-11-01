@@ -10,11 +10,13 @@ import BUS.Laptop_BUS;
 import DTO.ChiTietLaptop;
 import DTO.KhachHang;
 import DTO.Laptop;
+import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.codehaus.stax2.ri.Stax2Util;
 
 /**
  *
@@ -46,6 +48,8 @@ public class BanHang extends javax.swing.JFrame {
         
         // Khóa ô tích điểm
         txtTichDiem.setEditable(false);
+        
+        btnAddKH.setEnabled(false);
 
         Reset();        
     }
@@ -166,7 +170,7 @@ public class BanHang extends javax.swing.JFrame {
         txtDiaChi = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         txtTichDiem = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        btnAddKH = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtMaHD = new javax.swing.JLabel();
@@ -610,13 +614,13 @@ public class BanHang extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(0, 102, 153));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Thêm khách hàng");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnAddKH.setBackground(new java.awt.Color(0, 102, 153));
+        btnAddKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnAddKH.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddKH.setText("Thêm khách hàng");
+        btnAddKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnAddKHActionPerformed(evt);
             }
         });
 
@@ -645,7 +649,7 @@ public class BanHang extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTichDiem)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAddKH, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 137, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -669,7 +673,7 @@ public class BanHang extends javax.swing.JFrame {
                     .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTichDiem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddKH, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1023,24 +1027,50 @@ public class BanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTichDiemActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnAddKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddKHActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        String SDT = txtSDT.getText();
+        String Ten = txtTen.getText();
+        String DiaChi = txtDiaChi.getText();
+        
+        KhachHang kh = new KhachHang();
+        kh.setSDT(SDT);
+        kh.setTen(Ten);
+        kh.setDiaChi(DiaChi);
+        
+        JOptionPane.showMessageDialog(rootPane, new KhachHang_BUS().addKH_BanHang(kh));
+    }//GEN-LAST:event_btnAddKHActionPerformed
 
     private void txtSDTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSDTKeyReleased
         // TODO add your handling code here:
-        String text = txtSDT.getText();
-        for(KhachHang s : list_kh){
-            if (s.getMaKH().equals(text)){
-                txtTen.setText(s.getTen());
-                txtDiaChi.setText(s.getDiaChi());
-                txtTichDiem.setText(Integer.toString(s.getTichDiem()));
-                return;
+        if (evt.getKeyCode() != KeyEvent.VK_ENTER){
+            String text = txtSDT.getText();
+            for(KhachHang s : list_kh){
+                if (s.getMaKH().equals(text)){
+                    txtTen.setText(s.getTen());
+                    txtDiaChi.setText(s.getDiaChi());
+                    txtTichDiem.setText(Integer.toString(s.getTichDiem()));
+                    return;
+                }
             }
+            txtTen.setText("");
+            txtDiaChi.setText("");
+            txtTichDiem.setText("0");
+            
+            // kiểm tra xem nếu đủ 10 hoặc 11 số thì cho tạo khách hàng mới
+            if ((text.length() == 11 || text.length() == 10) && txtTen.getText().isEmpty() && txtDiaChi.getText().isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Không tìm thấy thông tin khách hàng này \nHãy thêm thông tin khách hàng mới");
+                btnAddKH.setEnabled(true);
+            }
+            
+            // Nếu dư số thì phải nhập lại và không cho thêm
+            if (text.length() > 11){
+                JOptionPane.showMessageDialog(rootPane, "Số điện thoại chỉ gồm 10 hoặc 11 số");
+                txtSDT.setText("");
+            }
+            
         }
-        if (text.length() > 10){
-            JOptionPane.showMessageDialog(rootPane, "Không tìm thấy thông tin khách hàng này \nHãy thêm thông tin khách hàng mới");
-        }
+        
     }//GEN-LAST:event_txtSDTKeyReleased
 
     private void txtTichDiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTichDiemKeyReleased
@@ -1097,11 +1127,11 @@ public class BanHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddKH;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

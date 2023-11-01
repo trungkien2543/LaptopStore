@@ -25,10 +25,30 @@ public class KhachHang_BUS {
         return list;
     }
     
-    public String addKH(KhachHang kh){
+    public String addKH_BanHang(KhachHang kh){
+        if (kh.getSDT().isEmpty() || kh.getTen().isEmpty() || kh.getDiaChi().isEmpty()){
+            return "Không được để trống thông tin";
+        }
+        // Kiểm tra số điện thoại có chứa chữ không
+        try{
+            int x = Integer.parseInt(kh.getSDT());
+        }
+        catch(NumberFormatException e){
+            return "Số điện thoại chỉ chứa số";
+        }
+        // Kiểm tra số điện thoại có đủ 10 hoặc 11 số ko
+        if (kh.getSDT().length() < 10 ||  kh.getSDT().length() > 11){
+            return "Số điện thoại chỉ gồm 10 hoặc 11 số";
+        }
         
-        
-        
+        // Thêm 1 số thông tin cơ bản để khởi tạo
+        kh.setMaKH(kh.getSDT());
+        kh.setTrangThai("1");
+        kh.setTichDiem(0);
+        // Thực hiện thêm vào database
+        if (new KhachHang_DAO().addKhachHang(kh)){
+            return "Thêm khách hàng thành công";
+        }
         return "Thêm Khách hàng thất bại";
     }
 }

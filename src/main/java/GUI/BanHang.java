@@ -1087,6 +1087,7 @@ public class BanHang extends javax.swing.JFrame {
         int Selected = jtab.getSelectedIndex();
         if (Selected == 1){
             txtSDT.requestFocus();
+            
         }
     }//GEN-LAST:event_jtabStateChanged
 

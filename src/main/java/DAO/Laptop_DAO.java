@@ -39,7 +39,7 @@ public class Laptop_DAO {
                 Laptop s = new Laptop();
                 s.setID(rs.getString(1));
                 s.setTen(rs.getString(2));
-                s.setSoLuongTonKho(3);
+                s.setSoLuongTonKho(rs.getInt(3));
                 s.setCPU(rs.getString(4));
                 s.setRAM(rs.getInt(5));
                 s.setGPU(rs.getString(6));

@@ -6,6 +6,8 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -25,4 +27,21 @@ public class HoaDon_DAO {
         }       
     }
     
+    public int LayMaHoaDon(){
+        String sql = "select max(MaHoaDon) from HoaDon";
+        String MaHD = "1";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                MaHD = rs.getString(1);
+                System.out.println();
+            }
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return Integer.parseInt(MaHD);
+    }
 }

@@ -14,7 +14,9 @@ import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import org.codehaus.stax2.ri.Stax2Util;
 
@@ -50,16 +52,18 @@ public class BanHang extends javax.swing.JFrame {
         txtTichDiem.setEditable(false);
         
         btnAddKH.setEnabled(false);
+       
 
         Reset();        
-    }
+    }  
+    
+    
+    
+    
     
     public void Reset(){
         // Gọi model để thao tác với dữ liệu trên bảng
         model = (DefaultTableModel) tblMatHang.getModel();
-        
-        model_ct = (DefaultTableModel) tblChiTiet.getModel();
-        model_ct.setRowCount(0);
         
         model_gh = (DefaultTableModel) tblGioHang.getModel();
         model_gh.setRowCount(0);
@@ -87,7 +91,7 @@ public class BanHang extends javax.swing.JFrame {
         model.setRowCount(0);
         for (Laptop laptop : list_mh) {
             if (laptop.getTrangThai().equals("1")){
-                model.addRow(new Object[]{laptop.getID(),laptop.getTen(),laptop.getCPU(),laptop.getRAM(),laptop.getGPU(),laptop.getSoLuongTonKho()});
+                model.addRow(new Object[]{laptop.getID(),laptop.getTen(),laptop.getCPU(),laptop.getRAM(),laptop.getGPU(),currencyVN.format(TimGiaLaptop(laptop.getID())),laptop.getSoLuongTonKho()});
             }
             
         }
@@ -96,19 +100,14 @@ public class BanHang extends javax.swing.JFrame {
         
     }
     
-      public void showTableChiTiet(String idLaptop){
-        model_ct.setRowCount(0);
-        for (ChiTietLaptop laptop : list_ct) {
-            // Kiểm tra trạng thái
-            if (laptop.getTrangThai().equals("1")){
-                // Kiểm tra mẫu laptop
-                if (laptop.getMauLapTop().equals(idLaptop)){
-                        model_ct.addRow(new Object[]{laptop.getIDRieng(),currencyVN.format(laptop.getGia()),laptop.getNgayNhap()});
-                }
+    // Giá bán hơn giá nhập 5%
+    public int TimGiaLaptop(String ID){
+        for (ChiTietLaptop ct : list_ct){
+            if (ct.getMauLapTop().equals(ID)){
+                return ct.getGia()+(ct.getGia()*5/100);
             }
         }
-        tblChiTiet.setModel(model_ct);
-        
+        return 0;
     }
     
     /**
@@ -144,7 +143,6 @@ public class BanHang extends javax.swing.JFrame {
         jtab = new javax.swing.JTabbedPane();
         jpKho = new javax.swing.JPanel();
         txtFind = new javax.swing.JTextField();
-        lbTimKiem = new javax.swing.JLabel();
         btnXoa = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -153,9 +151,7 @@ public class BanHang extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblGioHang = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblChiTiet = new javax.swing.JTable();
+        cbxTieuChi = new javax.swing.JComboBox<>();
         jpHoaDon = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -386,8 +382,6 @@ public class BanHang extends javax.swing.JFrame {
             }
         });
 
-        lbTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/TimKiem.png"))); // NOI18N
-
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Xoa.png"))); // NOI18N
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -408,13 +402,13 @@ public class BanHang extends javax.swing.JFrame {
 
         tblMatHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên", "CPU", "RAM", "GPU", "Số lượng"
+                "Mã laptop", "Tên", "CPU", "RAM", "GPU", "Giá bán", "Số lượng"
             }
         ));
         tblMatHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -432,20 +426,20 @@ public class BanHang extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách giỏ hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
 
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID Rieng", "Giá bán"
+                "Mã riêng laptop", "Mã laptop", "Giá bán"
             }
         ));
         tblGioHang.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -459,38 +453,19 @@ public class BanHang extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết mặt hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
-
-        tblChiTiet.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID  Riêng", "Giá bán", "Ngày nhập"
+        cbxTieuChi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiêu chí tìm kiếm", "Mã laptop", "Tên", "CPU", "RAM", "GPU", "Giá bán" }));
+        cbxTieuChi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxTieuChiActionPerformed(evt);
             }
-        ));
-        jScrollPane3.setViewportView(tblChiTiet);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
+        });
 
         javax.swing.GroupLayout jpKhoLayout = new javax.swing.GroupLayout(jpKho);
         jpKho.setLayout(jpKhoLayout);
@@ -501,35 +476,32 @@ public class BanHang extends javax.swing.JFrame {
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpKhoLayout.createSequentialGroup()
                         .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbTimKiem)
-                        .addGap(518, 518, 518)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxTieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(371, 371, 371)
                         .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jpKhoLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jpKhoLayout.setVerticalGroup(
             jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpKhoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lbTimKiem, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFind, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxTieuChi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFind, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -861,7 +833,7 @@ public class BanHang extends javax.swing.JFrame {
     
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        int SelectedRow = tblChiTiet.getSelectedRow();
+        int SelectedRow = tblMatHang.getSelectedRow();
         if (SelectedRow != -1){
             
             // Thêm vào giỏ hàng
@@ -884,9 +856,6 @@ public class BanHang extends javax.swing.JFrame {
             // Hiện thị thông báo 
             JOptionPane.showMessageDialog(rootPane, "Tổng tiền hiện tại là: "+currencyVN.format(TongTien_int)+"\nSố lượng sản phẩm là: "+model_gh.getRowCount());
             
-            // Ẩn sản phẩm vừa thêm khỏi bảng chi tiết
-            ChuyenTrangThai(model_ct.getValueAt(SelectedRow, 0).toString(),"0");
-            showTableChiTiet(model.getValueAt(tblMatHang.getSelectedRow(), 0).toString());
             
             // Thay đổi số lượng tồn kho hiện trên bảng
             int SL = (int) tblMatHang.getValueAt(tblMatHang.getSelectedRow(), 5);
@@ -919,22 +888,80 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFindFocusLost
 
     private void tblMatHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMatHangMouseClicked
-        // TODO add your handling code here:
-        int selectedRow = tblMatHang.getSelectedRow();
-        String idLaptop = (String) model.getValueAt(selectedRow, 0);
-        showTableChiTiet(idLaptop);
+
     }//GEN-LAST:event_tblMatHangMouseClicked
 
     private void txtFindKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindKeyReleased
         // TODO add your handling code here:
         model.setRowCount(0);
         String text = txtFind.getText();
-        for(Laptop s : list_mh){
-            if (s.getID().contains(text) || s.getCPU().contains(text)|| Integer.toString(s.getRAM()).contains(text) || s.getGPU().contains(text) || s.getTen().contains(text)){
-                model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),s.getSoLuongTonKho()});
-            }
+        int Selectedcb = cbxTieuChi.getSelectedIndex();
+        switch(Selectedcb){
+            case 1:
+                for(Laptop s : list_mh){
+                    if (s.getID().contains(text)){
+                        if (s.getTrangThai().equals("1")){
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                        }
+                    }
+                }
+                tblMatHang.setModel(model);
+                break;
+            case 2:
+                for(Laptop s : list_mh){
+                    if (s.getTen().contains(text)){
+                        if (s.getTrangThai().equals("1")){
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                        }
+                    }
+                }
+                tblMatHang.setModel(model);
+                break;
+            case 3:
+                for(Laptop s : list_mh){
+                    if (s.getCPU().contains(text)){
+                        if (s.getTrangThai().equals("1")){
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                        }
+                    }
+                }
+                tblMatHang.setModel(model);
+                break;
+            case 4:
+                for(Laptop s : list_mh){
+                    if (Integer.toString(s.getRAM()).contains(text)){
+                        if (s.getTrangThai().equals("1")){
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                        }
+                    }
+                }
+                tblMatHang.setModel(model);
+                break;
+            case 5:
+                for(Laptop s : list_mh){
+                    if (s.getGPU().contains(text)){
+                        if (s.getTrangThai().equals("1")){
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                        }
+                    }
+                }
+                tblMatHang.setModel(model);
+                break;
+            case 6:
+                for(Laptop s : list_mh){
+                    if (Integer.toString(TimGiaLaptop(s.getID())).contains(text)){
+                        if (s.getTrangThai().equals("1")){
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                        }
+                    }
+                }
+                tblMatHang.setModel(model);
+                break;
+            default:
+                JOptionPane.showMessageDialog(rootPane, "Vui lòng chọn tiêu chí tìm kiếm");
+                break;
+
         }
-        tblMatHang.setModel(model);
     }//GEN-LAST:event_txtFindKeyReleased
     
     public String MaLaptop(String idRieng){
@@ -962,11 +989,7 @@ public class BanHang extends javax.swing.JFrame {
         if (SelectedRow != -1){
             
             String idRieng = model_gh.getValueAt(SelectedRow, 0).toString();
-            
-            // Hiển thị lại sản phẩm sẽ xóa vào danh sách chi tiết laptop
-            ChuyenTrangThai(idRieng, "1");
-            showTableChiTiet(MaLaptop(idRieng));
-            
+
             // Cộng lại số lượng trong bảng mặt hàng
             int MatHangSelectedRow = tblMatHang.getSelectedRow();
             tblMatHang.setValueAt(Integer.parseInt(tblMatHang.getValueAt( MatHangSelectedRow, 5).toString())+1, MatHangSelectedRow,5);
@@ -1005,9 +1028,6 @@ public class BanHang extends javax.swing.JFrame {
             
             // Thực hiện trỏ vào hàng có mẫu laptop vừa xóa khỏi giỏ hàng
             tblMatHang.setRowSelectionInterval(TimHangChuaMauLaptop(MaLaptop(idRieng)), TimHangChuaMauLaptop(MaLaptop(idRieng)));
-            
-            // Thực hiện show bảng chi tiết laptop theo cái đã trỏ vào ở bảng mặt hàng
-            showTableChiTiet(MaLaptop(idRieng));
         }
     }//GEN-LAST:event_tblGioHangMouseClicked
 
@@ -1091,6 +1111,12 @@ public class BanHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtabStateChanged
 
+    private void cbxTieuChiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTieuChiActionPerformed
+        // TODO add your handling code here:
+        txtFind.setText("");
+        showTableMatHang();
+    }//GEN-LAST:event_cbxTieuChiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1131,6 +1157,7 @@ public class BanHang extends javax.swing.JFrame {
     private javax.swing.JButton btnAddKH;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
+    private javax.swing.JComboBox<String> cbxTieuChi;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
@@ -1153,18 +1180,15 @@ public class BanHang extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JPanel jpHoaDon;
     private javax.swing.JPanel jpKho;
     private javax.swing.JPanel jpMenu;
     private javax.swing.JPanel jpThanhTieuDe;
     private javax.swing.JTabbedPane jtab;
-    private javax.swing.JLabel lbTimKiem;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBanHang;
     private javax.swing.JLabel lblBanHang1;
@@ -1177,7 +1201,6 @@ public class BanHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblKhoHang;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNhapHang;
-    private javax.swing.JTable tblChiTiet;
     private javax.swing.JTable tblChiTietHoaDon;
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblMatHang;

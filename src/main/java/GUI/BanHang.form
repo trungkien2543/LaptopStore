@@ -407,25 +407,24 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="txtFind" min="-2" pref="332" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lbTimKiem" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="518" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="cbxTieuChi" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
                                   <Component id="btnXoa" pref="139" max="32767" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnThem" min="-2" pref="149" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
+                                  <Component id="jPanel1" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="jPanel3" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jPanel1" max="32767" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -433,22 +432,20 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="btnXoa" alignment="3" max="32767" attributes="0"/>
                                   <Component id="btnThem" alignment="3" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="lbTimKiem" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtFind" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbxTieuChi" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="txtFind" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanel1" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jPanel3" max="32767" attributes="0"/>
-                              <Component id="jPanel5" max="32767" attributes="0"/>
+                              <Component id="jPanel1" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -472,13 +469,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtFindActionPerformed"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFindKeyReleased"/>
                   </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="lbTimKiem">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/ICON/TimKiem.png"/>
-                    </Property>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnXoa">
                   <Properties>
@@ -521,7 +511,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="0" pref="235" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -536,12 +526,13 @@
                         <Component class="javax.swing.JTable" name="tblMatHang">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="4">
-                                <Column editable="true" title="ID" type="java.lang.Object"/>
+                              <Table columnCount="7" rowCount="4">
+                                <Column editable="true" title="M&#xe3; laptop" type="java.lang.Object"/>
                                 <Column editable="true" title="T&#xea;n" type="java.lang.Object"/>
                                 <Column editable="true" title="CPU" type="java.lang.Object"/>
                                 <Column editable="true" title="RAM" type="java.lang.Object"/>
                                 <Column editable="true" title="GPU" type="java.lang.Object"/>
+                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
                                 <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                               </Table>
                             </Property>
@@ -568,12 +559,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="1" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane2" alignment="0" pref="252" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="0" pref="525" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -588,8 +579,9 @@
                         <Component class="javax.swing.JTable" name="tblGioHang">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="2" rowCount="4">
-                                <Column editable="true" title="ID Rieng" type="java.lang.Object"/>
+                              <Table columnCount="3" rowCount="4">
+                                <Column editable="true" title="M&#xe3; ri&#xea;ng laptop" type="java.lang.Object"/>
+                                <Column editable="true" title="M&#xe3; laptop" type="java.lang.Object"/>
                                 <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
                               </Table>
                             </Property>
@@ -602,52 +594,27 @@
                     </Container>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel5">
+                <Component class="javax.swing.JComboBox" name="cbxTieuChi">
                   <Properties>
-                    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Chi ti&#x1ebf;t m&#x1eb7;t h&#xe0;ng">
-                          <Font PropertyName="font" name="Segoe UI" size="18" style="1"/>
-                        </TitledBorder>
-                      </Border>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="7">
+                        <StringItem index="0" value="Ti&#xea;u ch&#xed; t&#xec;m ki&#x1ebf;m"/>
+                        <StringItem index="1" value="M&#xe3; laptop"/>
+                        <StringItem index="2" value="T&#xea;n"/>
+                        <StringItem index="3" value="CPU"/>
+                        <StringItem index="4" value="RAM"/>
+                        <StringItem index="5" value="GPU"/>
+                        <StringItem index="6" value="Gi&#xe1; b&#xe1;n"/>
+                      </StringArray>
                     </Property>
                   </Properties>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="565" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tblChiTiet">
-                          <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="4">
-                                <Column editable="true" title="ID  Ri&#xea;ng" type="java.lang.Object"/>
-                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
-                                <Column editable="true" title="Ng&#xe0;y nh&#x1ead;p" type="java.lang.Object"/>
-                              </Table>
-                            </Property>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxTieuChiActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jpHoaDon">

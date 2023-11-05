@@ -527,13 +527,13 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="7" rowCount="4">
-                                <Column editable="true" title="M&#xe3; laptop" type="java.lang.Object"/>
-                                <Column editable="true" title="T&#xea;n" type="java.lang.Object"/>
-                                <Column editable="true" title="CPU" type="java.lang.Object"/>
-                                <Column editable="true" title="RAM" type="java.lang.Object"/>
-                                <Column editable="true" title="GPU" type="java.lang.Object"/>
-                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
-                                <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
+                                <Column editable="false" title="M&#xe3; laptop" type="java.lang.Object"/>
+                                <Column editable="false" title="T&#xea;n" type="java.lang.Object"/>
+                                <Column editable="false" title="CPU" type="java.lang.Object"/>
+                                <Column editable="false" title="RAM" type="java.lang.Object"/>
+                                <Column editable="false" title="GPU" type="java.lang.Object"/>
+                                <Column editable="false" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
+                                <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                               </Table>
                             </Property>
                           </Properties>
@@ -580,9 +580,9 @@
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="3" rowCount="4">
-                                <Column editable="true" title="M&#xe3; ri&#xea;ng laptop" type="java.lang.Object"/>
-                                <Column editable="true" title="M&#xe3; laptop" type="java.lang.Object"/>
-                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
+                                <Column editable="false" title="M&#xe3; ri&#xea;ng laptop" type="java.lang.Object"/>
+                                <Column editable="false" title="M&#xe3; laptop" type="java.lang.Object"/>
+                                <Column editable="false" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
                               </Table>
                             </Property>
                           </Properties>
@@ -720,10 +720,10 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="4" rowCount="4">
-                            <Column editable="true" title="ID Ri&#xea;ng" type="java.lang.Object"/>
-                            <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
-                            <Column editable="true" title="M&#xe3; laptop" type="java.lang.Object"/>
-                            <Column editable="true" title="T&#xea;n laptop" type="java.lang.Object"/>
+                            <Column editable="false" title="ID Ri&#xea;ng" type="java.lang.Object"/>
+                            <Column editable="false" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
+                            <Column editable="false" title="M&#xe3; laptop" type="java.lang.Object"/>
+                            <Column editable="false" title="T&#xea;n laptop" type="java.lang.Object"/>
                           </Table>
                         </Property>
                       </Properties>

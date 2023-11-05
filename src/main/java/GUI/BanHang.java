@@ -26,7 +26,7 @@ import org.codehaus.stax2.ri.Stax2Util;
  */
 public class BanHang extends javax.swing.JFrame {
     
-    DefaultTableModel model, model_ct, model_gh, model_cthd;
+    DefaultTableModel model, model_gh, model_cthd;
 
     ArrayList<Laptop> list_mh;
     
@@ -52,7 +52,15 @@ public class BanHang extends javax.swing.JFrame {
         txtTichDiem.setEditable(false);
         
         btnAddKH.setEnabled(false);
+        
+        ListSelectionModel selectionModel = tblChiTietHoaDon.getSelectionModel();
+        selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chọn một hàng duy nhất
+        
+        ListSelectionModel selectionModel1 = tblGioHang.getSelectionModel();
+        selectionModel1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chọn một hàng duy nhất
        
+        ListSelectionModel selectionModel2 = tblMatHang.getSelectionModel();
+        selectionModel2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chọn một hàng duy nhất
 
         Reset();        
     }  
@@ -90,12 +98,11 @@ public class BanHang extends javax.swing.JFrame {
     public void showTableMatHang(){
         model.setRowCount(0);
         for (Laptop laptop : list_mh) {
-            if (laptop.getTrangThai().equals("1")){
+            if (laptop.getTrangThai().equals("1") && laptop.getSoLuongTonKho() > 0){
                 model.addRow(new Object[]{laptop.getID(),laptop.getTen(),laptop.getCPU(),laptop.getRAM(),laptop.getGPU(),currencyVN.format(TimGiaLaptop(laptop.getID())),laptop.getSoLuongTonKho()});
             }
             
         }
-        
         tblMatHang.setModel(model);
         
     }
@@ -103,7 +110,7 @@ public class BanHang extends javax.swing.JFrame {
     // Giá bán hơn giá nhập 5%
     public int TimGiaLaptop(String ID){
         for (ChiTietLaptop ct : list_ct){
-            if (ct.getMauLapTop().equals(ID)){
+            if (ct.getMauLapTop().equals(ID) || ct.getIDRieng().equals(ID)){
                 return ct.getGia()+(ct.getGia()*5/100);
             }
         }
@@ -410,7 +417,15 @@ public class BanHang extends javax.swing.JFrame {
             new String [] {
                 "Mã laptop", "Tên", "CPU", "RAM", "GPU", "Giá bán", "Số lượng"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblMatHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMatHangMouseClicked(evt);
@@ -441,7 +456,15 @@ public class BanHang extends javax.swing.JFrame {
             new String [] {
                 "Mã riêng laptop", "Mã laptop", "Giá bán"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblGioHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblGioHangMouseClicked(evt);
@@ -534,7 +557,15 @@ public class BanHang extends javax.swing.JFrame {
             new String [] {
                 "ID Riêng", "Giá bán", "Mã laptop", "Tên laptop"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tblChiTietHoaDon);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin khách hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
@@ -831,41 +862,90 @@ public class BanHang extends javax.swing.JFrame {
         }
     }
     
+    public String TimIDRieng(String ID){
+        for (ChiTietLaptop ct : list_ct){
+            if (ct.getTrangThai().equals("1") && ct.getMauLapTop().equals(ID)){
+                return ct.getIDRieng();
+            }
+        }
+        return "";
+    }
+    
+    public void TruSoLuong(String ID){
+        for (Laptop l : list_mh){
+            if (l.getID().equals(ID)){
+                l.setSoLuongTonKho(l.getSoLuongTonKho()-1);
+            }
+        }
+    }
+    
+    public int SoLuong(String ID){
+        for (Laptop l : list_mh){
+            if (l.getID().equals(ID)){
+                return l.getSoLuongTonKho();
+            }
+        }
+        return 0;
+    }
+   
+    
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         int SelectedRow = tblMatHang.getSelectedRow();
         if (SelectedRow != -1){
             
-            // Thêm vào giỏ hàng
-            model_gh.addRow(new Object[]{model_ct.getValueAt(SelectedRow, 0),model_ct.getValueAt(SelectedRow, 1)}); 
+            String MaLaptop = model.getValueAt(SelectedRow, 0).toString();
             
-            // Thêm vào bảng chi tiết đơn hàng bên phần chi tiết hóa đơn
-            model_cthd.addRow(new Object[]{model_ct.getValueAt(SelectedRow, 0),model_ct.getValueAt(SelectedRow, 1),model.getValueAt(tblMatHang.getSelectedRow(), 0),model.getValueAt(tblMatHang.getSelectedRow(), 1)});
-
-            // Tính tổng tiền
-            int TienBan = 0;
-            for(ChiTietLaptop s : list_ct){
-                if (s.getIDRieng().equals(model_ct.getValueAt(SelectedRow, 0).toString())){
-                    TienBan = s.getGia();
-                    break;
-                }
+            // Nhập số lượng muốn mua
+            int SoLuong = 0;
+            try{
+                SoLuong  = Integer.parseInt(JOptionPane.showInputDialog("Nhập số lượng hàng muốn mua"));
             }
-         
-            TongTien_int += TienBan;
+            catch (NumberFormatException ex){
+                JOptionPane.showMessageDialog(rootPane, "Bạn chỉ nên nhập số và nhập đủ số lượng tồn kho");
+                return;
+            }
+
+            if (SoLuong <= SoLuong(MaLaptop)){
+                for (int i=1;i<=SoLuong;i++){
+                    String idRieng = TimIDRieng(model.getValueAt(SelectedRow, 0).toString());
             
-            // Hiện thị thông báo 
-            JOptionPane.showMessageDialog(rootPane, "Tổng tiền hiện tại là: "+currencyVN.format(TongTien_int)+"\nSố lượng sản phẩm là: "+model_gh.getRowCount());
-            
-            
-            // Thay đổi số lượng tồn kho hiện trên bảng
-            int SL = (int) tblMatHang.getValueAt(tblMatHang.getSelectedRow(), 5);
-            tblMatHang.setValueAt(SL-1,tblMatHang.getSelectedRow() , 5);
-            
-            // Bỏ chọn các trường của 2 bảng mặt hàng
-            
-            jtab.setEnabledAt(1, true);
-            btnXoa.setEnabled(true);
+
+                    // Thêm vào giỏ hàng
+                    model_gh.addRow(new Object[]{idRieng,MaLaptop,model.getValueAt(SelectedRow, 5)}); 
+
+                    // Thêm vào bảng chi tiết đơn hàng bên phần chi tiết hóa đơn
+                    model_cthd.addRow(new Object[]{idRieng,model.getValueAt(SelectedRow, 5),MaLaptop,model.getValueAt(SelectedRow, 1)});
+
+
+                    // Chuyển trạng thái
+                    ChuyenTrangThai(idRieng, "0");
+
+                    // Trừ số lượng
+                    TruSoLuong(MaLaptop);
+
+                    // Cập nhật lại bảng mặt hàng
+                    showTableMatHang();
+
+
+                    // Tính tổng tiền
+                    int TienBan = TimGiaLaptop(idRieng);
+                    TongTien_int += TienBan;
+
+                }
+
+                // Hiện thị thông báo 
+               JOptionPane.showMessageDialog(rootPane, "Tổng tiền hiện tại là: "+currencyVN.format(TongTien_int)+"\nSố lượng sản phẩm là: "+model_gh.getRowCount());
+
+
+                jtab.setEnabledAt(1, true);
+                btnXoa.setEnabled(true);
                 
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Số lượng không đủ");
+            }
+   
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -981,7 +1061,13 @@ public class BanHang extends javax.swing.JFrame {
         }
         return 0;
     }
-    
+    public void CongSoLuong(String ID){
+        for (Laptop l : list_mh){
+            if (l.getID().equals(ID)){
+                l.setSoLuongTonKho(l.getSoLuongTonKho()+1);
+            }
+        }
+    }
     
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
@@ -989,20 +1075,19 @@ public class BanHang extends javax.swing.JFrame {
         if (SelectedRow != -1){
             
             String idRieng = model_gh.getValueAt(SelectedRow, 0).toString();
-
-            // Cộng lại số lượng trong bảng mặt hàng
-            int MatHangSelectedRow = tblMatHang.getSelectedRow();
-            tblMatHang.setValueAt(Integer.parseInt(tblMatHang.getValueAt( MatHangSelectedRow, 5).toString())+1, MatHangSelectedRow,5);
+            String MaLaptop = model_gh.getValueAt(SelectedRow, 1).toString();
+            
+            // Chuyển trạng thái
+            ChuyenTrangThai(idRieng, "1");
+            
+            // Cập nhật lại số lượng
+            CongSoLuong(MaLaptop);
+            
+            // Cập nhật bảng mặt hàng
+            showTableMatHang();
             
             // Tính lại tổng tiền
-            int TienBan = 0;
-            for(ChiTietLaptop s : list_ct){
-                if (s.getIDRieng().equals(idRieng)){
-                    TienBan = s.getGia();
-                    break;
-                }
-            }
-         
+            int TienBan = TimGiaLaptop(idRieng);
             TongTien_int -= TienBan;
             
             // Hiện thị thông báo 
@@ -1024,10 +1109,17 @@ public class BanHang extends javax.swing.JFrame {
         int SelectedRow = tblGioHang.getSelectedRow();
         if (SelectedRow != -1){
             
-            String idRieng = model_gh.getValueAt(SelectedRow, 0).toString();
+            String MaLaptop = model_gh.getValueAt(SelectedRow, 1).toString();
             
-            // Thực hiện trỏ vào hàng có mẫu laptop vừa xóa khỏi giỏ hàng
-            tblMatHang.setRowSelectionInterval(TimHangChuaMauLaptop(MaLaptop(idRieng)), TimHangChuaMauLaptop(MaLaptop(idRieng)));
+            // Tìm mã laptop để seleted
+            for (int i=0;i<model.getRowCount();i++){
+                if (model.getValueAt(i, 0).toString().equals(MaLaptop)){
+                    // Thực hiện trỏ vào hàng có mẫu laptop
+                    tblMatHang.setRowSelectionInterval(i, i);
+                }
+                
+            }
+  
         }
     }//GEN-LAST:event_tblGioHangMouseClicked
 

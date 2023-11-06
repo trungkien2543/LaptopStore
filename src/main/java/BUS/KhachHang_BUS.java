@@ -37,8 +37,8 @@ public class KhachHang_BUS {
             return "Số điện thoại chỉ chứa số";
         }
         // Kiểm tra số điện thoại có đủ 10 hoặc 11 số ko
-        if (kh.getSDT().length() < 10 ||  kh.getSDT().length() > 11){
-            return "Số điện thoại chỉ gồm 10 hoặc 11 số";
+        if (kh.getSDT().length() != 10){
+            return "Số điện thoại chỉ gồm 10";
         }
         
         // Thêm 1 số thông tin cơ bản để khởi tạo
@@ -50,5 +50,9 @@ public class KhachHang_BUS {
             return "Thêm khách hàng thành công";
         }
         return "Thêm Khách hàng thất bại";
+    }
+    
+    public boolean TichDiem(int DiemHT, int DiemThem, String MaKH){
+        return new KhachHang_DAO().TichDiem(DiemHT+DiemThem, MaKH);
     }
 }

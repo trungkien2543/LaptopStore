@@ -54,5 +54,19 @@ public class ChiTietLaptop_DAO {
     }
     
     
+    public boolean CapNhatTrangThai(String TrangThai,String idRieng){
+        String sql = "update  ChiTietLaptop set TrangThai=? where idRieng=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,TrangThai);
+            ps.setString(2, idRieng);
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     
 }

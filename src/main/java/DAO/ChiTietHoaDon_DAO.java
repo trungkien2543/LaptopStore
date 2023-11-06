@@ -4,8 +4,11 @@
  */
 package DAO;
 
+import DTO.ChiTietHoaDon;
+import DTO.HoaDon;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -24,5 +27,21 @@ public class ChiTietHoaDon_DAO {
             System.out.println(e); 
         }       
     }
+    
+    public boolean ThemChiTietHoaDon(ChiTietHoaDon ct){
+        String sql = "insert into HoaDon (idRieng,MaHoaDon,Gia) values (?,?,?)";
+        try{
+            PreparedStatement ps = con.prepareCall(sql);
+            ps.setString(1, ct.getIDRieng());
+            ps.setInt(2, ct.getMaHD());
+            ps.setInt(3, ct.getGia());
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
       
 }

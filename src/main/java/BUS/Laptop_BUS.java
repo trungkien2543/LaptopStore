@@ -27,10 +27,11 @@ public class Laptop_BUS {
     }
     
     public String addLaptop(Laptop laptop){
-        
-        
-        
         return "Thêm laptop thất bại";
+    }
+    
+    public boolean TruSoLuongTonKho(int sl,String id){
+        return new Laptop_DAO().TruSoLuongTonKho(sl, id);
     }
     
 }

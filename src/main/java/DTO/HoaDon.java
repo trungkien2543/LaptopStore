@@ -4,6 +4,7 @@
  */
 package DTO;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -14,10 +15,10 @@ import java.util.Date;
  */
 public class HoaDon {
     private int MaHD, SoLuong, TongTien;
-    private Date NgayLap;
+    private LocalDateTime NgayLap;
     private String KhachHang, NhanVien;
 
-    public HoaDon(int MaHD, int SoLuong, int TongTien, Date NgayLap, String KhachHang, String NhanVien) {
+    public HoaDon(int MaHD, int SoLuong, int TongTien, LocalDateTime NgayLap, String KhachHang, String NhanVien) {
         this.MaHD = MaHD;
         this.SoLuong = SoLuong;
         this.TongTien = TongTien;
@@ -50,11 +51,11 @@ public class HoaDon {
         this.TongTien = TongTien;
     }
 
-    public Date getNgayLap() {
+    public LocalDateTime getNgayLap() {
         return NgayLap;
     }
 
-    public void setNgayLap(Date NgayLap) {
+    public void setNgayLap(LocalDateTime NgayLap) {
         this.NgayLap = NgayLap;
     }
 

@@ -74,5 +74,19 @@ public class KhachHang_DAO {
         return false;
     }
 
+    
+    public boolean TichDiem(int Diem, String MaKH){
+        String sql = "update  KhachHang set TichDiem where idKhachHang=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, Diem);
+            ps.setString(2, MaKH);
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

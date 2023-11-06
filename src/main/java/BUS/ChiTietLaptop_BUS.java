@@ -27,12 +27,10 @@ public class ChiTietLaptop_BUS {
         return list;
     }
     
-    public String addLaptop(Laptop laptop){
-        
-        
-        
-        return "Thêm laptop thất bại";
+    public boolean CapNhatTrangThai(String trangthai, String idRieng){
+        return new ChiTietLaptop_DAO().CapNhatTrangThai(trangthai, idRieng);
     }
+    
     
     
 }

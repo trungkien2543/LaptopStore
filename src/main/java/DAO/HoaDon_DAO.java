@@ -4,10 +4,13 @@
  */
 package DAO;
 
+import DTO.HoaDon;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -29,19 +32,38 @@ public class HoaDon_DAO {
     
     public int LayMaHoaDon(){
         String sql = "select max(MaHoaDon) from HoaDon";
-        String MaHD = "1";
+        int MaHD = 0;
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                MaHD = rs.getString(1);
-                System.out.println();
+                MaHD = rs.getInt(1)+1;
             }
 
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return Integer.parseInt(MaHD);
+        return (MaHD);
     }
+    
+    public boolean ThemHoaDon(HoaDon hd){
+        String sql = "insert into HoaDon (MaHoaDon,NgayLap,TongTien,SoLuong,NhanVien,KhachHang) values (?,?,?,?,?,?)";
+        try{
+            PreparedStatement ps = con.prepareCall(sql);
+            ps.setInt(1, hd.getMaHD());
+            ps.setObject(2, hd.getNgayLap());
+            ps.setInt(3, hd.getTongTien());
+            ps.setInt(4, hd.getSoLuong());
+            ps.setString(5,hd.getNhanVien());
+            ps.setString(6, hd.getKhachHang());
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 }

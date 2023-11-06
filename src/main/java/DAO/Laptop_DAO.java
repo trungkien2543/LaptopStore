@@ -107,4 +107,18 @@ public class Laptop_DAO {
         return false;
      }
     
+    
+    public boolean TruSoLuongTonKho(int sl,String id){
+        String sql = "update  Laptop set SoLuongTonKho=? where id=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, sl);
+            ps.setString(2, id);
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

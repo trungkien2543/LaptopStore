@@ -77,7 +77,7 @@ public class Laptop_DAO {
     
     
     public boolean deleteLaptop(String ID){
-        String sql = "update  Laptop set TrangThai = 'DaXoa'"+" where id=?";
+        String sql = "update  Laptop set TrangThai = '0'"+" where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, ID);

@@ -18,6 +18,11 @@ public class HoaDon {
     private LocalDateTime NgayLap;
     private String KhachHang, NhanVien;
 
+    public HoaDon() {
+    }
+    
+    
+
     public HoaDon(int MaHD, int SoLuong, int TongTien, LocalDateTime NgayLap, String KhachHang, String NhanVien) {
         this.MaHD = MaHD;
         this.SoLuong = SoLuong;

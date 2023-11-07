@@ -29,7 +29,7 @@ public class ChiTietHoaDon_DAO {
     }
     
     public boolean ThemChiTietHoaDon(ChiTietHoaDon ct){
-        String sql = "insert into HoaDon (idRieng,MaHoaDon,Gia) values (?,?,?)";
+        String sql = "insert into ChiTietHoaDon (idRieng,MaHoaDon,Gia) values (?,?,?)";
         try{
             PreparedStatement ps = con.prepareCall(sql);
             ps.setString(1, ct.getIDRieng());
@@ -42,6 +42,5 @@ public class ChiTietHoaDon_DAO {
         }
         return false;
     }
-    
       
 }

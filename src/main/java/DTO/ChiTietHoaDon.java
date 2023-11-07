@@ -12,6 +12,11 @@ public class ChiTietHoaDon {
     private String IDRieng;
     private int MaHD, Gia;
 
+    public ChiTietHoaDon() {
+    }
+    
+    
+
     public ChiTietHoaDon(String IDRieng, int MaHD, int Gia) {
         this.IDRieng = IDRieng;
         this.MaHD = MaHD;

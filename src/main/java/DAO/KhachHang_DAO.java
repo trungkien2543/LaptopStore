@@ -76,7 +76,7 @@ public class KhachHang_DAO {
 
     
     public boolean TichDiem(int Diem, String MaKH){
-        String sql = "update  KhachHang set TichDiem where idKhachHang=?";
+        String sql = "update  KhachHang set TichDiem = ? where idKhachHang = ?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, Diem);

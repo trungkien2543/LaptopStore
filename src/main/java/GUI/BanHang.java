@@ -8,7 +8,10 @@ import BUS.ChiTietLaptop_BUS;
 import BUS.HoaDon_BUS;
 import BUS.KhachHang_BUS;
 import BUS.Laptop_BUS;
+import DAO.ChiTietHoaDon_DAO;
+import DTO.ChiTietHoaDon;
 import DTO.ChiTietLaptop;
+import DTO.HoaDon;
 import DTO.KhachHang;
 import DTO.Laptop;
 import java.awt.event.KeyEvent;
@@ -50,6 +53,8 @@ public class BanHang extends javax.swing.JFrame {
     DateTimeFormatter NgayGio = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     DateTimeFormatter Ngay = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     
+    String MaNV;
+    
 
     /**
      * Creates new form Test
@@ -70,6 +75,8 @@ public class BanHang extends javax.swing.JFrame {
        
         ListSelectionModel selectionModel2 = tblMatHang.getSelectionModel();
         selectionModel2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chọn một hàng duy nhất
+        
+        MaNV = "NV002";
 
         Reset();        
     }  
@@ -96,15 +103,28 @@ public class BanHang extends javax.swing.JFrame {
         //Hiển thị danh sách các mặt hàng
         showTableMatHang();
         
+        // Chọn tab đầu tiên
+        jtab.setSelectedIndex(0);
+        
         // Khóa một số chức năng khi bảng giỏ hàng rỗng
         jtab.setEnabledAt(1, false);
         btnXoa.setEnabled(false);
+        
+        // Khóa nút thêm khách hàng
+        btnAddKH.setEnabled(false);
+        btnThanhToan.setEnabled(false);
         
         // Khởi tạo tổng tiền
         TongTien_int = 0;
         
         // Khởi tạo điểm
         TichDiem = 0;
+        
+        // reset lại vùng nhập thông tin khách hàng
+        txtSDT.setText("");
+        txtTen.setText("");
+        txtDiaChi.setText("");
+        txtTichDiem.setText("0");
     }
     
     public void showTableMatHang(){
@@ -546,6 +566,11 @@ public class BanHang extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Hủy bỏ");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         btnThanhToan.setBackground(new java.awt.Color(0, 102, 153));
         btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -951,6 +976,66 @@ public class BanHang extends javax.swing.JFrame {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
         
+        //Thực hiện thêm thông tin hóa đơn mới
+        HoaDon hd = new HoaDon();
+        hd.setMaHD(Integer.parseInt(txtMaHD.getText()));
+        hd.setSoLuong(Integer.parseInt(txtSL.getText()));
+        
+        // Lấy ngày giờ hiện tại
+        LocalDateTime ngayGioHienTai = LocalDateTime.now();
+        hd.setNgayLap(ngayGioHienTai);
+        hd.setKhachHang(txtSDT.getText());
+        hd.setNhanVien(MaNV);
+        hd.setTongTien((int) TongTien_int);
+        if (new HoaDon_BUS().ThemHoaDon(hd)){
+            // Thêm các chi tiết hóa đơn
+            for (int i=0;i<tblChiTietHoaDon.getRowCount();i++){
+                
+                // Gọi các đối tượng thuộc chi tiết hóa đơn
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                String idRieng = model_cthd.getValueAt(i, 0).toString();
+                cthd.setIDRieng(idRieng);
+                cthd.setGia(TimGiaLaptop(idRieng));
+                cthd.setMaHD(Integer.parseInt(txtMaHD.getText()));
+                
+                // Thực hiện thêm chi tiết hóa đơn vào database
+                if (!new ChiTietHoaDon_DAO().ThemChiTietHoaDon(cthd)){
+                    JOptionPane.showMessageDialog(rootPane, "Chi tiết có mã :" + idRieng+" bị lỗi");
+                    return;
+                }
+                
+                // Cập nhật trạng thái cho sản phẩm tương ứng với idRieng vừa thêm
+                if (!new ChiTietLaptop_BUS().CapNhatTrangThai("0", idRieng)){
+                    JOptionPane.showMessageDialog(rootPane, "Cập nhật trạng thái mã :" + idRieng+" bị lỗi");
+                    return;
+                }
+                    
+            }
+            
+            // Cập nhật só lượng tồn kho
+            for (Laptop l : list_mh){
+                if (!new Laptop_BUS().TruSoLuongTonKho(l.getSoLuongTonKho(), l.getID())){
+                    JOptionPane.showMessageDialog(rootPane, "Cập nhật số lượng tồn kho mã :" + l.getID()+" bị lỗi");
+                    return;
+                }
+            }
+            
+            // Cập nhật tích điểm cho khách
+            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), txtSDT.getText())){
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật tích điểm bị lỗi");
+                return;
+            }
+            
+            // Thông báo 
+            JOptionPane.showMessageDialog(rootPane, "Thanh toán hóa đơn thành công");
+            Reset();
+            
+                
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Thêm hóa đơn thất bại");
+        }
+          
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void txtFindFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindFocusGained
@@ -1155,8 +1240,15 @@ public class BanHang extends javax.swing.JFrame {
         kh.setTen(Ten);
         kh.setDiaChi(DiaChi);
         
-        JOptionPane.showMessageDialog(rootPane, new KhachHang_BUS().addKH_BanHang(kh));
-        list_kh = new KhachHang_BUS().getListKhachHang();
+        String kq = new KhachHang_BUS().addKH_BanHang(kh);
+        
+        if (kq.equals("Thêm khách hàng thành công")){
+            JOptionPane.showMessageDialog(rootPane, kq);
+            btnAddKH.setEnabled(false);
+            btnThanhToan.setEnabled(true);
+            list_kh = new KhachHang_BUS().getListKhachHang();
+        }
+        
     }//GEN-LAST:event_btnAddKHActionPerformed
 
     private void txtSDTKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSDTKeyReleased
@@ -1168,7 +1260,7 @@ public class BanHang extends javax.swing.JFrame {
                     txtTen.setText(s.getTen());
                     txtDiaChi.setText(s.getDiaChi());
                     txtTichDiem.setText(Integer.toString(s.getTichDiem()));
-                    btnAddKH.setEnabled(false);
+                    btnThanhToan.setEnabled(true);
                     return;
                 }
             }
@@ -1179,6 +1271,11 @@ public class BanHang extends javax.swing.JFrame {
             // kiểm tra xem nếu đủ 10 hoặc 11 số thì cho tạo khách hàng mới
             if (text.length() == 10 && txtTen.getText().isEmpty() && txtDiaChi.getText().isEmpty()){
                 JOptionPane.showMessageDialog(rootPane, "Không tìm thấy thông tin khách hàng này \nHãy thêm thông tin khách hàng mới");
+                // Bật nút thêm khách hàng
+                btnAddKH.setEnabled(true);
+            }
+            else {
+                btnAddKH.setEnabled(false);
             }
             
             // Nếu dư số thì phải nhập lại và không cho thêm
@@ -1187,8 +1284,10 @@ public class BanHang extends javax.swing.JFrame {
                 txtSDT.setText("");
             }
             
-            // Bật nút thêm khách hàng
-            btnAddKH.setEnabled(true);
+            
+            // Chỉ có 2 trường hợp là tìm ra khách và mới thêm khách thì nút thanh toán được mở
+            btnThanhToan.setEnabled(false);
+            
         }
         
     }//GEN-LAST:event_txtSDTKeyReleased
@@ -1207,6 +1306,7 @@ public class BanHang extends javax.swing.JFrame {
         int Selected = jtab.getSelectedIndex();
         if (Selected == 1){
             txtSDT.requestFocus();
+            
             // Lấy ngày hiện tại
             LocalDateTime ngayGioHienTai = LocalDateTime.now();
             String ngayGioDinhDang = ngayGioHienTai.format(Ngay);
@@ -1227,6 +1327,11 @@ public class BanHang extends javax.swing.JFrame {
         txtFind.setText("");
         showTableMatHang();
     }//GEN-LAST:event_cbxTieuChiActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Reset();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,11 +4,11 @@
  */
 package DTO;
 
-public class Laptop_DTO {
+public class Laptop {
     private String ID, Ten, CPU, GPU, TrangThai;
     private int SoLuongTonKho, RAM,Gia;
 
-    public Laptop_DTO(String ID, String Ten, String CPU, String GPU, String TrangThai, int SoLuongTonKho, int Gia, int RAM) {
+    public Laptop(String ID, String Ten, String CPU, String GPU, String TrangThai, int SoLuongTonKho, int Gia, int RAM) {
         this.ID = ID;
         this.Ten = Ten;
         this.CPU = CPU;
@@ -19,7 +19,7 @@ public class Laptop_DTO {
         this.RAM = RAM;
     }
 
-    public Laptop_DTO() {
+    public Laptop() {
       
     }
 

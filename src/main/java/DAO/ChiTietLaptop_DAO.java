@@ -5,7 +5,7 @@
 package DAO;
 
 import DTO.ChiTietLaptop_DTO;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

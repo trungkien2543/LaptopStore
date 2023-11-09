@@ -8,7 +8,7 @@ import BUS.ChiTietLaptop_BUS;
 import BUS.Laptop_BUS;
 import DAO.Laptop_DAO;
 import DTO.ChiTietLaptop_DTO;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
@@ -33,7 +33,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class KhoHang extends javax.swing.JFrame {
     DefaultTableModel model1,model2;
-    ArrayList<Laptop_DTO> list1;
+    ArrayList<Laptop> list1;
     ArrayList<ChiTietLaptop_DTO> list2;
     /**
      * Creates new form KhoHang
@@ -57,7 +57,7 @@ public class KhoHang extends javax.swing.JFrame {
     public void ShowTable1(){
         model1.setRowCount(0);
         list1 = new Laptop_BUS().getAllLaptop();
-        for (Laptop_DTO s : list1) {
+        for (Laptop s : list1) {
             if(s.getTrangThai().equals("0")){
                 continue;
             }
@@ -511,7 +511,7 @@ public class KhoHang extends javax.swing.JFrame {
                 flag = true;
             }
 
-            for(Laptop_DTO s : list1){
+            for(Laptop s : list1){
                 if(s.getID().equals(str) && s.getTrangThai().equals("1")){
                     JOptionPane.showMessageDialog(this, "Id đã tồn tại!");
                     flag = true;
@@ -660,7 +660,7 @@ public class KhoHang extends javax.swing.JFrame {
         model1.setRowCount(0);
         String find = txtFind.getText();
 
-        for(Laptop_DTO s : list1){
+        for(Laptop s : list1){
             if(s.getTen()==null){
                 continue;
             }

@@ -7,7 +7,7 @@ package BUS;
 import DAO.ChiTietLaptop_DAO;
 import DAO.Laptop_DAO;
 import DTO.ChiTietLaptop_DTO;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.util.ArrayList;
 
 /**

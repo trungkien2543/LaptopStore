@@ -6,7 +6,7 @@ package GUI;
 
 import BUS.Laptop_BUS;
 import DAO.Laptop_DAO;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class SuaThongTinLaptop extends javax.swing.JFrame {
     private static String MaLaptop;
-    ArrayList<Laptop_DTO> list;
+    ArrayList<Laptop> list;
     /**
      * Creates new form SuaThongTinLaptop
      */
@@ -28,7 +28,7 @@ public class SuaThongTinLaptop extends javax.swing.JFrame {
         updateTableEdit();
     }
     public void updateTableEdit(){
-        for(Laptop_DTO s : list){
+        for(Laptop s : list){
             if(s.getID().equals(MaLaptop)){
                 txtTenLaptop.setText(s.getTen());
                 txtGia.setText(Integer.toString(s.getGia()));
@@ -184,7 +184,7 @@ public class SuaThongTinLaptop extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
-        Laptop_DTO lt = new Laptop_DTO();
+        Laptop lt = new Laptop();
         if(txtTenLaptop.getText().isEmpty()||txtGia.getText().isEmpty()|| txtRAM.getText().isEmpty() || txtCPU.getText().isEmpty() || txtGPU.getText().isEmpty() ){
             JOptionPane.showMessageDialog(this, "Không được để trống!");
             return;

@@ -13,7 +13,7 @@ import DTO.ChiTietHoaDon;
 import DTO.ChiTietLaptop_DTO;
 import DTO.HoaDon;
 import DTO.KhachHang;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -34,7 +34,7 @@ public class BanHang extends javax.swing.JFrame {
     
     DefaultTableModel model, model_gh, model_cthd;
 
-    ArrayList<Laptop_DTO> list_mh;
+    ArrayList<Laptop> list_mh;
     
     ArrayList<ChiTietLaptop_DTO> list_ct;
     
@@ -129,9 +129,9 @@ public class BanHang extends javax.swing.JFrame {
     
     public void showTableMatHang(){
         model.setRowCount(0);
-        for (Laptop_DTO laptop : list_mh) {
+        for (Laptop laptop : list_mh) {
             if (laptop.getTrangThai().equals("1") && laptop.getSoLuongTonKho() > 0){
-                model.addRow(new Object[]{laptop.getID(),laptop.getTen(),laptop.getCPU(),laptop.getRAM(),laptop.getGPU(),currencyVN.format(TimGiaLaptop(laptop.getID())),laptop.getSoLuongTonKho()});
+                model.addRow(new Object[]{laptop.getID(),laptop.getTen(),laptop.getCPU(),laptop.getRAM(),laptop.getGPU(),currencyVN.format(laptop.getGia()),laptop.getSoLuongTonKho()});
             }
             
         }
@@ -139,16 +139,15 @@ public class BanHang extends javax.swing.JFrame {
         
     }
     
-    // Giá bán hơn giá nhập 5%
-    public int TimGiaLaptop(String ID){
-        for (ChiTietLaptop_DTO ct : list_ct){
-            if (ct.getMauLapTop().equals(ID) || ct.getIDRieng().equals(ID)){
-//                return ct.getGia()+(ct.getGia()*5/100);
-            }
+    public long TimGia(String id){
+        for (Laptop l : list_mh){
+            if (l.getID().equals(id)){
+                return l.getGia();
+            }     
         }
         return 0;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -889,7 +888,7 @@ public class BanHang extends javax.swing.JFrame {
     }
     
     public void TruSoLuong(String ID){
-        for (Laptop_DTO l : list_mh){
+        for (Laptop l : list_mh){
             if (l.getID().equals(ID)){
                 l.setSoLuongTonKho(l.getSoLuongTonKho()-1);
             }
@@ -897,7 +896,7 @@ public class BanHang extends javax.swing.JFrame {
     }
     
     public int SoLuong(String ID){
-        for (Laptop_DTO l : list_mh){
+        for (Laptop l : list_mh){
             if (l.getID().equals(ID)){
                 return l.getSoLuongTonKho();
             }
@@ -946,11 +945,11 @@ public class BanHang extends javax.swing.JFrame {
 
 
                     // Tính tổng tiền
-                    long TienBan = TimGiaLaptop(idRieng);
+                    long TienBan = TimGia(MaLaptop);
                     TongTien_int += TienBan;
                     
                     // Tích điểm nếu được
-                    if (TimGiaLaptop(idRieng) > GiaTriTichDiem){
+                    if (TimGia(MaLaptop) > GiaTriTichDiem){
                         TichDiem +=2;
                                 
                     }
@@ -977,64 +976,64 @@ public class BanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //Thực hiện thêm thông tin hóa đơn mới
-        HoaDon hd = new HoaDon();
-        hd.setMaHD(Integer.parseInt(txtMaHD.getText()));
-        hd.setSoLuong(Integer.parseInt(txtSL.getText()));
-        
-        // Lấy ngày giờ hiện tại
-        LocalDateTime ngayGioHienTai = LocalDateTime.now();
-        hd.setNgayLap(ngayGioHienTai);
-        hd.setKhachHang(txtSDT.getText());
-        hd.setNhanVien(MaNV);
-        hd.setTongTien((int) TongTien_int);
-        if (new HoaDon_BUS().ThemHoaDon(hd)){
-            // Thêm các chi tiết hóa đơn
-            for (int i=0;i<tblChiTietHoaDon.getRowCount();i++){
-                
-                // Gọi các đối tượng thuộc chi tiết hóa đơn
-                ChiTietHoaDon cthd = new ChiTietHoaDon();
-                String idRieng = model_cthd.getValueAt(i, 0).toString();
-                cthd.setIDRieng(idRieng);
-                cthd.setGia(TimGiaLaptop(idRieng));
-                cthd.setMaHD(Integer.parseInt(txtMaHD.getText()));
-                
-                // Thực hiện thêm chi tiết hóa đơn vào database
-                if (!new ChiTietHoaDon_DAO().ThemChiTietHoaDon(cthd)){
-                    JOptionPane.showMessageDialog(rootPane, "Chi tiết có mã :" + idRieng+" bị lỗi");
-                    return;
-                }
-                
-                // Cập nhật trạng thái cho sản phẩm tương ứng với idRieng vừa thêm
-                if (!new ChiTietLaptop_BUS().CapNhatTrangThai("0", idRieng)){
-                    JOptionPane.showMessageDialog(rootPane, "Cập nhật trạng thái mã :" + idRieng+" bị lỗi");
-                    return;
-                }
-                    
-            }
-            
-            // Cập nhật só lượng tồn kho
-            for (Laptop_DTO l : list_mh){
-                if (!new Laptop_BUS().TruSoLuongTonKho(l.getSoLuongTonKho(), l.getID())){
-                    JOptionPane.showMessageDialog(rootPane, "Cập nhật số lượng tồn kho mã :" + l.getID()+" bị lỗi");
-                    return;
-                }
-            }
-            
-            // Cập nhật tích điểm cho khách
-            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), txtSDT.getText())){
-                JOptionPane.showMessageDialog(rootPane, "Cập nhật tích điểm bị lỗi");
-                return;
-            }
-            
-            // Thông báo 
-            JOptionPane.showMessageDialog(rootPane, "Thanh toán hóa đơn thành công");
-            Reset();
-            
-                
-        }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Thêm hóa đơn thất bại");
-        }
+//        HoaDon hd = new HoaDon();
+//        hd.setMaHD(Integer.parseInt(txtMaHD.getText()));
+//        hd.setSoLuong(Integer.parseInt(txtSL.getText()));
+//        
+//        // Lấy ngày giờ hiện tại
+//        LocalDateTime ngayGioHienTai = LocalDateTime.now();
+//        hd.setNgayLap(ngayGioHienTai);
+//        hd.setKhachHang(txtSDT.getText());
+//        hd.setNhanVien(MaNV);
+//        hd.setTongTien((int) TongTien_int);
+//        if (new HoaDon_BUS().ThemHoaDon(hd)){
+//            // Thêm các chi tiết hóa đơn
+//            for (int i=0;i<tblChiTietHoaDon.getRowCount();i++){
+//                
+//                // Gọi các đối tượng thuộc chi tiết hóa đơn
+//                ChiTietHoaDon cthd = new ChiTietHoaDon();
+//                String idRieng = model_cthd.getValueAt(i, 0).toString();
+//                cthd.setIDRieng(idRieng);
+//                cthd.setGia(TimGia(idRieng));
+//                cthd.setMaHD(Integer.parseInt(txtMaHD.getText()));
+//                
+//                // Thực hiện thêm chi tiết hóa đơn vào database
+//                if (!new ChiTietHoaDon_DAO().ThemChiTietHoaDon(cthd)){
+//                    JOptionPane.showMessageDialog(rootPane, "Chi tiết có mã :" + idRieng+" bị lỗi");
+//                    return;
+//                }
+//                
+//                // Cập nhật trạng thái cho sản phẩm tương ứng với idRieng vừa thêm
+//                if (!new ChiTietLaptop_BUS().CapNhatTrangThai("0", idRieng)){
+//                    JOptionPane.showMessageDialog(rootPane, "Cập nhật trạng thái mã :" + idRieng+" bị lỗi");
+//                    return;
+//                }
+//                    
+//            }
+//            
+//            // Cập nhật só lượng tồn kho
+//            for (Laptop l : list_mh){
+//                if (!new Laptop_BUS().TruSoLuongTonKho(l.getSoLuongTonKho(), l.getID())){
+//                    JOptionPane.showMessageDialog(rootPane, "Cập nhật số lượng tồn kho mã :" + l.getID()+" bị lỗi");
+//                    return;
+//                }
+//            }
+//            
+//            // Cập nhật tích điểm cho khách
+//            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), txtSDT.getText())){
+//                JOptionPane.showMessageDialog(rootPane, "Cập nhật tích điểm bị lỗi");
+//                return;
+//            }
+//            
+//            // Thông báo 
+//            JOptionPane.showMessageDialog(rootPane, "Thanh toán hóa đơn thành công");
+//            Reset();
+//            
+//                
+//        }
+//        else{
+//            JOptionPane.showMessageDialog(rootPane, "Thêm hóa đơn thất bại");
+//        }
           
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -1063,60 +1062,60 @@ public class BanHang extends javax.swing.JFrame {
         int Selectedcb = cbxTieuChi.getSelectedIndex();
         switch(Selectedcb){
             case 1:
-                for(Laptop_DTO s : list_mh){
+                for(Laptop s : list_mh){
                     if (s.getID().contains(text)){
                         if (s.getTrangThai().equals("1")){
-                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
                 }
                 tblMatHang.setModel(model);
                 break;
             case 2:
-                for(Laptop_DTO s : list_mh){
+                for(Laptop s : list_mh){
                     if (s.getTen().contains(text)){
                         if (s.getTrangThai().equals("1")){
-                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
                 }
                 tblMatHang.setModel(model);
                 break;
             case 3:
-                for(Laptop_DTO s : list_mh){
+                for(Laptop s : list_mh){
                     if (s.getCPU().contains(text)){
                         if (s.getTrangThai().equals("1")){
-                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
                 }
                 tblMatHang.setModel(model);
                 break;
             case 4:
-                for(Laptop_DTO s : list_mh){
+                for(Laptop s : list_mh){
                     if (Integer.toString(s.getRAM()).contains(text)){
                         if (s.getTrangThai().equals("1")){
-                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
                 }
                 tblMatHang.setModel(model);
                 break;
             case 5:
-                for(Laptop_DTO s : list_mh){
+                for(Laptop s : list_mh){
                     if (s.getGPU().contains(text)){
                         if (s.getTrangThai().equals("1")){
-                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
                 }
                 tblMatHang.setModel(model);
                 break;
             case 6:
-                for(Laptop_DTO s : list_mh){
-                    if (Integer.toString(TimGiaLaptop(s.getID())).contains(text)){
+                for(Laptop s : list_mh){
+                    if (Integer.toString(s.getGia()).contains(text)){
                         if (s.getTrangThai().equals("1")){
-                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
+                            model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
                 }
@@ -1147,7 +1146,7 @@ public class BanHang extends javax.swing.JFrame {
         return 0;
     }
     public void CongSoLuong(String ID){
-        for (Laptop_DTO l : list_mh){
+        for (Laptop l : list_mh){
             if (l.getID().equals(ID)){
                 l.setSoLuongTonKho(l.getSoLuongTonKho()+1);
             }
@@ -1172,11 +1171,11 @@ public class BanHang extends javax.swing.JFrame {
             showTableMatHang();
             
             // Tính lại tổng tiền
-            long TienBan = TimGiaLaptop(idRieng);
+            long TienBan = TimGia(MaLaptop);
             TongTien_int -= TienBan;
             
             // Trừ tích điểm 
-            if (TimGiaLaptop(idRieng) > GiaTriTichDiem){
+            if (TimGia(MaLaptop) > GiaTriTichDiem){
                 TichDiem -= 2;
             }
             

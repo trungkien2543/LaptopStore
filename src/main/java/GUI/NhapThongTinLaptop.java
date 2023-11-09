@@ -6,7 +6,7 @@ package GUI;
 
 import BUS.Laptop_BUS;
 import DAO.Laptop_DAO;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class NhapThongTinLaptop extends javax.swing.JFrame {
     private static String MaLaptop;
-    ArrayList<Laptop_DTO> list;
+    ArrayList<Laptop> list;
     /**
      * Creates new form NhapThongTinLaptop
      */
@@ -179,7 +179,7 @@ public class NhapThongTinLaptop extends javax.swing.JFrame {
 
     private void btnXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacNhanActionPerformed
         
-        Laptop_DTO lt = new Laptop_DTO();
+        Laptop lt = new Laptop();
         
         if(txtTenLaptop.getText().isEmpty()||txtGia.getText().isEmpty()|| txtRAM.getText().isEmpty() || txtCPU.getText().isEmpty() || txtGPU.getText().isEmpty() ){
             JOptionPane.showMessageDialog(this, "Không được để trống!");
@@ -202,7 +202,7 @@ public class NhapThongTinLaptop extends javax.swing.JFrame {
         lt.setTrangThai("1");
         
         boolean flag=true;
-        for(Laptop_DTO s : list){
+        for(Laptop s : list){
             if(lt.getID().equals(s.getID())){
                 flag = false;
             }

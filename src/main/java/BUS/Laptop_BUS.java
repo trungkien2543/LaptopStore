@@ -5,7 +5,7 @@
 package BUS;
 
 import DAO.Laptop_DAO;
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -17,11 +17,11 @@ public class Laptop_BUS {
     
     Laptop_DAO laptopDAO = new Laptop_DAO();
     
-    public ArrayList<Laptop_DTO> getAllLaptop(){
+    public ArrayList<Laptop> getAllLaptop(){
         return laptopDAO.getListLaptop();
     }
     
-    public String addLaptop(Laptop_DTO laptop, String kiemtra){
+    public String addLaptop(Laptop laptop, String kiemtra){
         if(laptop.getRAM()<=0){
             return"Ram phải lớn hơn 0!";
         }
@@ -41,7 +41,7 @@ public class Laptop_BUS {
         }
         return "Thêm thất bại";
     }
-    public String editLaptop(Laptop_DTO laptop){
+    public String editLaptop(Laptop laptop){
         if(laptop.getRAM()<=0){
             return"Ram phải lớn hơn 0!";
         }

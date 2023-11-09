@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import DTO.Laptop_DTO;
+import DTO.Laptop;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,14 +23,14 @@ public class Laptop_DAO {
         con = new SQLConnection().getCon();
     }       
     
-    public ArrayList<Laptop_DTO> getListLaptop(){
-        ArrayList<Laptop_DTO> list = new ArrayList<>();
+    public ArrayList<Laptop> getListLaptop(){
+        ArrayList<Laptop> list = new ArrayList<>();
         String sql = "select * from Laptop";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                Laptop_DTO s = new Laptop_DTO();
+                Laptop s = new Laptop();
                 s.setID(rs.getString(1));
                 s.setTen(rs.getString(2));
                 s.setSoLuongTonKho(rs.getInt(3));
@@ -49,7 +49,7 @@ public class Laptop_DAO {
         return list;
     }
     
-    public boolean addLaptop(Laptop_DTO laptop){
+    public boolean addLaptop(Laptop laptop){
         
         String sql = "insert into Laptop (id,Ten,SoLuongTonKho,Gia,CPU,RAM,GPU,TrangThai) values (?,?,?,?,?,?,?,?)";
         try{
@@ -86,7 +86,7 @@ public class Laptop_DAO {
     }
     
     
-    public boolean editLaptop(Laptop_DTO s){
+    public boolean editLaptop(Laptop s){
         String sql = "update  Laptop set Ten = ?,Gia=?, CPU=?, RAM=?, GPU=? where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -103,7 +103,7 @@ public class Laptop_DAO {
         }
         return false;
      }
-    public boolean editLaptopDaXoa(Laptop_DTO s){
+    public boolean editLaptopDaXoa(Laptop s){
         String sql = "update  Laptop set Ten = ?,SoLuongTonKho = 0,Gia=?, CPU=?, RAM=?, GPU=?, TrangThai='1' where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);

@@ -5,7 +5,7 @@
 package BUS;
 
 import DAO.Laptop_DAO;
-import DTO.Laptop;
+import DTO.Laptop_DTO;
 import java.util.ArrayList;
 
 /**
@@ -14,19 +14,19 @@ import java.util.ArrayList;
  */
 public class Laptop_BUS {
     
-    ArrayList<Laptop> list;
+    Laptop_DAO laptopDAO = new Laptop_DAO();
     
-    public Laptop_BUS(){
-        
+    public ArrayList<Laptop_DTO> getAllLaptop(){
+        return laptopDAO.getListLaptop();
     }
     
-    public ArrayList<Laptop> getListLaptop(){
-        list = new Laptop_DAO().getListLaptop();
-        
-        return list;
-    }
-    
-    public String addLaptop(Laptop laptop){
+    public String addLaptop(Laptop_DTO laptop){
+        if(laptop.getRAM()<=0){
+            return"Ram phải lớn hơn 0!";
+        }
+        if(laptopDAO.addLaptop(laptop)){
+            return "Thêm thành công";
+        }
         return "Thêm laptop thất bại";
     }
     

@@ -10,12 +10,12 @@ import java.util.Date;
  *
  * @author DELL
  */
-public class ChiTietLaptop {
+public class ChiTietLaptop_DTO {
     private String IDRieng, TrangThai, MauLapTop;
     private int Gia;
     private Date NgayNhap;
 
-    public ChiTietLaptop(String IDRieng, String TrangThai, String MauLapTop, int Gia, Date NgayNhap) {
+    public ChiTietLaptop_DTO(String IDRieng, String TrangThai, String MauLapTop, int Gia, Date NgayNhap) {
         this.IDRieng = IDRieng;
         this.TrangThai = TrangThai;
         this.MauLapTop = MauLapTop;
@@ -23,7 +23,7 @@ public class ChiTietLaptop {
         this.NgayNhap = NgayNhap;
     }
 
-    public ChiTietLaptop() {
+    public ChiTietLaptop_DTO() {
     }
 
     

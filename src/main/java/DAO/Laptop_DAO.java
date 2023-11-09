@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import DTO.Laptop;
+import DTO.Laptop_DTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,21 +29,22 @@ public class Laptop_DAO {
         }
     }       
     
-    public ArrayList<Laptop> getListLaptop(){
-        ArrayList<Laptop> list = new ArrayList<>();
+    public ArrayList<Laptop_DTO> getListLaptop(){
+        ArrayList<Laptop_DTO> list = new ArrayList<>();
         String sql = "select * from Laptop";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                Laptop s = new Laptop();
+                Laptop_DTO s = new Laptop_DTO();
                 s.setID(rs.getString(1));
                 s.setTen(rs.getString(2));
                 s.setSoLuongTonKho(rs.getInt(3));
-                s.setCPU(rs.getString(4));
-                s.setRAM(rs.getInt(5));
-                s.setGPU(rs.getString(6));
-                s.setTrangThai(rs.getString(7));
+                s.setGia(rs.getInt(4));
+                s.setCPU(rs.getString(5));
+                s.setRAM(rs.getInt(6));
+                s.setGPU(rs.getString(7));
+                s.setTrangThai(rs.getString(8));
                 list.add(s);
             }
 
@@ -54,18 +55,19 @@ public class Laptop_DAO {
         return list;
     }
     
-    public boolean addLaptop(Laptop laptop){
+    public boolean addLaptop(Laptop_DTO laptop){
         
-        String sql = "insert into Laptop (id,Ten,SoLuongTonKho,CPU,RAM,GPU,TrangThai) values (?,?,?,?,?,?,?)";
+        String sql = "insert into Laptop (id,Ten,SoLuongTonKho,Gia,CPU,RAM,GPU,TrangThai) values (?,?,?,?,?,?,?,?)";
         try{
             PreparedStatement ps = con.prepareCall(sql);
             ps.setString(1, laptop.getID());
             ps.setString(2, laptop.getTen());
             ps.setInt(3, laptop.getSoLuongTonKho());
-            ps.setString(4, laptop.getCPU());
-            ps.setInt(5, laptop.getRAM());
-            ps.setString(6, laptop.getGPU());
-            ps.setString(7, laptop.getTrangThai());
+            ps.setInt(4, laptop.getGia());
+            ps.setString(5, laptop.getCPU());
+            ps.setInt(6, laptop.getRAM());
+            ps.setString(7, laptop.getGPU());
+            ps.setString(8, laptop.getTrangThai());
             return ps.executeUpdate() > 0;
         }
         catch(Exception e){
@@ -89,7 +91,7 @@ public class Laptop_DAO {
         return false;
     }
     
-    public boolean editLaptop(Laptop s){
+    public boolean editLaptop(Laptop_DTO s){
         String sql = "update  Laptop set Ten = ?,SoLuongTonKho=?, CPU=?, RAM=?, GPU=? where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);

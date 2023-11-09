@@ -67,7 +67,7 @@
                   <Component id="jpThanhTieuDe" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jtab" pref="0" max="32767" attributes="0"/>
+                      <Component id="jtab" pref="647" max="32767" attributes="0"/>
                       <Component id="jpMenu" max="32767" attributes="0"/>
                   </Group>
               </Group>

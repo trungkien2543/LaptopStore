@@ -4,21 +4,22 @@
  */
 package DTO;
 
-public class Laptop {
+public class Laptop_DTO {
     private String ID, Ten, CPU, GPU, TrangThai;
-    private int SoLuongTonKho, RAM;
+    private int SoLuongTonKho, RAM,Gia;
 
-    public Laptop(String ID, String Ten, String CPU, String GPU, String TrangThai, int SoLuongTonKho, int RAM) {
+    public Laptop_DTO(String ID, String Ten, String CPU, String GPU, String TrangThai, int SoLuongTonKho, int Gia, int RAM) {
         this.ID = ID;
         this.Ten = Ten;
         this.CPU = CPU;
         this.GPU = GPU;
-        this.TrangThai = TrangThai;
-        this.SoLuongTonKho = SoLuongTonKho;
+        this.TrangThai = "1";
+        this.SoLuongTonKho = 0;
+        this.Gia=0;
         this.RAM = RAM;
     }
 
-    public Laptop() {
+    public Laptop_DTO() {
       
     }
 
@@ -69,7 +70,13 @@ public class Laptop {
     public void setSoLuongTonKho(int SoLuongTonKho) {
         this.SoLuongTonKho = SoLuongTonKho;
     }
+    public int getGia() {
+        return Gia;
+    }
 
+    public void setGia(int Gia) {
+        this.Gia = Gia;
+    }
     public int getRAM() {
         return RAM;
     }

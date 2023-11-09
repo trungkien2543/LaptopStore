@@ -10,10 +10,10 @@ import BUS.KhachHang_BUS;
 import BUS.Laptop_BUS;
 import DAO.ChiTietHoaDon_DAO;
 import DTO.ChiTietHoaDon;
-import DTO.ChiTietLaptop;
+import DTO.ChiTietLaptop_DTO;
 import DTO.HoaDon;
 import DTO.KhachHang;
-import DTO.Laptop;
+import DTO.Laptop_DTO;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -34,9 +34,9 @@ public class BanHang extends javax.swing.JFrame {
     
     DefaultTableModel model, model_gh, model_cthd;
 
-    ArrayList<Laptop> list_mh;
+    ArrayList<Laptop_DTO> list_mh;
     
-    ArrayList<ChiTietLaptop> list_ct;
+    ArrayList<ChiTietLaptop_DTO> list_ct;
     
     ArrayList<KhachHang> list_kh;
     
@@ -96,7 +96,7 @@ public class BanHang extends javax.swing.JFrame {
         model_cthd.setRowCount(0);
         
         // Gọi danh sách các mặt hàng
-        list_mh = new Laptop_BUS().getListLaptop();
+//        list_mh = new Laptop_BUS().getListLaptop();
         list_ct = new ChiTietLaptop_BUS().getListChiTietLaptop();
         list_kh = new KhachHang_BUS().getListKhachHang();
         
@@ -129,7 +129,7 @@ public class BanHang extends javax.swing.JFrame {
     
     public void showTableMatHang(){
         model.setRowCount(0);
-        for (Laptop laptop : list_mh) {
+        for (Laptop_DTO laptop : list_mh) {
             if (laptop.getTrangThai().equals("1") && laptop.getSoLuongTonKho() > 0){
                 model.addRow(new Object[]{laptop.getID(),laptop.getTen(),laptop.getCPU(),laptop.getRAM(),laptop.getGPU(),currencyVN.format(TimGiaLaptop(laptop.getID())),laptop.getSoLuongTonKho()});
             }
@@ -141,7 +141,7 @@ public class BanHang extends javax.swing.JFrame {
     
     // Giá bán hơn giá nhập 5%
     public int TimGiaLaptop(String ID){
-        for (ChiTietLaptop ct : list_ct){
+        for (ChiTietLaptop_DTO ct : list_ct){
             if (ct.getMauLapTop().equals(ID) || ct.getIDRieng().equals(ID)){
                 return ct.getGia()+(ct.getGia()*5/100);
             }
@@ -872,7 +872,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFindActionPerformed
 
     public void ChuyenTrangThai(String idRieng, String trangThai){
-        for (ChiTietLaptop l : list_ct){
+        for (ChiTietLaptop_DTO l : list_ct){
             if (l.getIDRieng().equals(idRieng)){
                 l.setTrangThai(trangThai);
             }
@@ -880,7 +880,7 @@ public class BanHang extends javax.swing.JFrame {
     }
     
     public String TimIDRieng(String ID){
-        for (ChiTietLaptop ct : list_ct){
+        for (ChiTietLaptop_DTO ct : list_ct){
             if (ct.getTrangThai().equals("1") && ct.getMauLapTop().equals(ID)){
                 return ct.getIDRieng();
             }
@@ -889,7 +889,7 @@ public class BanHang extends javax.swing.JFrame {
     }
     
     public void TruSoLuong(String ID){
-        for (Laptop l : list_mh){
+        for (Laptop_DTO l : list_mh){
             if (l.getID().equals(ID)){
                 l.setSoLuongTonKho(l.getSoLuongTonKho()-1);
             }
@@ -897,7 +897,7 @@ public class BanHang extends javax.swing.JFrame {
     }
     
     public int SoLuong(String ID){
-        for (Laptop l : list_mh){
+        for (Laptop_DTO l : list_mh){
             if (l.getID().equals(ID)){
                 return l.getSoLuongTonKho();
             }
@@ -1013,7 +1013,7 @@ public class BanHang extends javax.swing.JFrame {
             }
             
             // Cập nhật só lượng tồn kho
-            for (Laptop l : list_mh){
+            for (Laptop_DTO l : list_mh){
                 if (!new Laptop_BUS().TruSoLuongTonKho(l.getSoLuongTonKho(), l.getID())){
                     JOptionPane.showMessageDialog(rootPane, "Cập nhật số lượng tồn kho mã :" + l.getID()+" bị lỗi");
                     return;
@@ -1063,7 +1063,7 @@ public class BanHang extends javax.swing.JFrame {
         int Selectedcb = cbxTieuChi.getSelectedIndex();
         switch(Selectedcb){
             case 1:
-                for(Laptop s : list_mh){
+                for(Laptop_DTO s : list_mh){
                     if (s.getID().contains(text)){
                         if (s.getTrangThai().equals("1")){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
@@ -1073,7 +1073,7 @@ public class BanHang extends javax.swing.JFrame {
                 tblMatHang.setModel(model);
                 break;
             case 2:
-                for(Laptop s : list_mh){
+                for(Laptop_DTO s : list_mh){
                     if (s.getTen().contains(text)){
                         if (s.getTrangThai().equals("1")){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
@@ -1083,7 +1083,7 @@ public class BanHang extends javax.swing.JFrame {
                 tblMatHang.setModel(model);
                 break;
             case 3:
-                for(Laptop s : list_mh){
+                for(Laptop_DTO s : list_mh){
                     if (s.getCPU().contains(text)){
                         if (s.getTrangThai().equals("1")){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
@@ -1093,7 +1093,7 @@ public class BanHang extends javax.swing.JFrame {
                 tblMatHang.setModel(model);
                 break;
             case 4:
-                for(Laptop s : list_mh){
+                for(Laptop_DTO s : list_mh){
                     if (Integer.toString(s.getRAM()).contains(text)){
                         if (s.getTrangThai().equals("1")){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
@@ -1103,7 +1103,7 @@ public class BanHang extends javax.swing.JFrame {
                 tblMatHang.setModel(model);
                 break;
             case 5:
-                for(Laptop s : list_mh){
+                for(Laptop_DTO s : list_mh){
                     if (s.getGPU().contains(text)){
                         if (s.getTrangThai().equals("1")){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
@@ -1113,7 +1113,7 @@ public class BanHang extends javax.swing.JFrame {
                 tblMatHang.setModel(model);
                 break;
             case 6:
-                for(Laptop s : list_mh){
+                for(Laptop_DTO s : list_mh){
                     if (Integer.toString(TimGiaLaptop(s.getID())).contains(text)){
                         if (s.getTrangThai().equals("1")){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(TimGiaLaptop(s.getID())),s.getSoLuongTonKho()});
@@ -1130,7 +1130,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFindKeyReleased
     
     public String MaLaptop(String idRieng){
-        for (ChiTietLaptop laptop : list_ct){
+        for (ChiTietLaptop_DTO laptop : list_ct){
             if (idRieng.equals(laptop.getIDRieng())){
                 return laptop.getMauLapTop();
             }
@@ -1147,7 +1147,7 @@ public class BanHang extends javax.swing.JFrame {
         return 0;
     }
     public void CongSoLuong(String ID){
-        for (Laptop l : list_mh){
+        for (Laptop_DTO l : list_mh){
             if (l.getID().equals(ID)){
                 l.setSoLuongTonKho(l.getSoLuongTonKho()+1);
             }

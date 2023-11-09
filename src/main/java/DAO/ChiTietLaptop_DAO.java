@@ -4,8 +4,8 @@
  */
 package DAO;
 
-import DTO.ChiTietLaptop;
-import DTO.Laptop;
+import DTO.ChiTietLaptop_DTO;
+import DTO.Laptop_DTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -30,14 +30,14 @@ public class ChiTietLaptop_DAO {
         }       
     }
     
-    public ArrayList<ChiTietLaptop> getListChiTietLaptop(){
-        ArrayList<ChiTietLaptop> list = new ArrayList<>();
+    public ArrayList<ChiTietLaptop_DTO> getListChiTietLaptop(){
+        ArrayList<ChiTietLaptop_DTO> list = new ArrayList<>();
         String sql = "select * from ChiTietLaptop";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                ChiTietLaptop s = new ChiTietLaptop();
+                ChiTietLaptop_DTO s = new ChiTietLaptop_DTO();
                 s.setIDRieng(rs.getString(1));
                 s.setGia(rs.getInt(2));
                 s.setNgayNhap(rs.getDate(3));

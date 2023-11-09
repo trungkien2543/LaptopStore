@@ -21,8 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.CellType;
-import static org.apache.poi.ss.usermodel.CellType.STRING;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -587,31 +585,55 @@ public class KhoHang extends javax.swing.JFrame {
         XSSFSheet Sheet = wb.createSheet("KhoLaptop");
         XSSFRow row = null;
         Cell cell = null;
-        
         row = Sheet.createRow(0);
         
         cell = row.createCell(0, CellType.STRING);
-        cell.setCellValue("haha");
-        
-//        row.createCell(0, CellType.STRING).setCellValue("ID");
-//        row.createCell(1, CellType.STRING).setCellValue("Tên");
-//        row.createCell(2, CellType.STRING).setCellValue("Số lượng tồn kho");
-//        row.createCell(3, CellType.STRING).setCellValue("Giá");
-//        row.createCell(4, CellType.STRING).setCellValue("CPU");
-//        row.createCell(5, CellType.STRING).setCellValue("RAM");
-//        row.createCell(6, CellType.STRING).setCellValue("GPU");
-
-
+        cell.setCellValue("ID");
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("Tên");
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("Số lượng tồn kho");
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Giá");
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("CPU");
+        cell = row.createCell(5, CellType.STRING);
+        cell.setCellValue("RAM");
+        cell = row.createCell(6, CellType.STRING);
+        cell.setCellValue("GPU");
+        cell = row.createCell(7, CellType.STRING);
+        cell.setCellValue("  ");
+        cell = row.createCell(8, CellType.STRING);
+        cell.setCellValue("ID riêng");
+        cell = row.createCell(9, CellType.STRING);
+        cell.setCellValue("Ngày lập");
+        cell = row.createCell(10, CellType.STRING);
+        cell.setCellValue("Mẫu laptop");
         
         for(int i=0;i<tblLaptop.getRowCount();i++) {
-//            row = Sheet.createRow(i+1);
-//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 0));
-//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 1));
-//            row.createCell(0, CellType.NUMERIC).setCellValue((String) tblLaptop.getValueAt(i, 2));
-//            row.createCell(0, CellType.NUMERIC).setCellValue((String) tblLaptop.getValueAt(i, 3));
-//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 4));
-//            row.createCell(0, CellType.NUMERIC).setCellValue((String) tblLaptop.getValueAt(i, 5));
-//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 6));
+            row = Sheet.createRow(i+1);
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(tblLaptop.getValueAt(i, 0).toString());
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue(tblLaptop.getValueAt(i, 1).toString());
+            cell = row.createCell(2, CellType.NUMERIC);
+            cell.setCellValue((int) tblLaptop.getValueAt(i, 2));
+            cell = row.createCell(3, CellType.NUMERIC);
+            cell.setCellValue((int) tblLaptop.getValueAt(i, 3));
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue(tblLaptop.getValueAt(i, 4).toString());
+            cell = row.createCell(5, CellType.NUMERIC);
+            cell.setCellValue((int) tblLaptop.getValueAt(i, 5));
+            cell = row.createCell(6, CellType.STRING);
+            cell.setCellValue(tblLaptop.getValueAt(i, 6).toString());
+            cell = row.createCell(7, CellType.STRING);
+            cell.setCellValue(" ");
+            cell = row.createCell(8, CellType.STRING);
+            cell.setCellValue(tblCTLaptop.getValueAt(i, 0).toString());
+            cell = row.createCell(9, CellType.STRING);
+            cell.setCellValue(tblCTLaptop.getValueAt(i, 1).toString());
+            cell = row.createCell(10, CellType.STRING);
+            cell.setCellValue(tblCTLaptop.getValueAt(i, 2).toString());
         }
         try {
             file = new FileOutputStream(path+".xlsx");

@@ -9,11 +9,23 @@ import BUS.Laptop_BUS;
 import DAO.Laptop_DAO;
 import DTO.ChiTietLaptop_DTO;
 import DTO.Laptop_DTO;
+import com.lowagie.text.Cell;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.CellType;
+import static org.apache.poi.ss.usermodel.CellType.STRING;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -102,7 +114,7 @@ public class KhoHang extends javax.swing.JFrame {
         btnXoa = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnExcel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLaptop = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -325,11 +337,11 @@ public class KhoHang extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
-        jButton4.setText("Xuất file excel");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
+        btnExcel.setText("Xuất file excel");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExcelActionPerformed(evt);
             }
         });
 
@@ -396,7 +408,7 @@ public class KhoHang extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(jButton4)
+                        .addComponent(btnExcel)
                         .addGap(34, 34, 34))))
         );
         jpKhoLayout.setVerticalGroup(
@@ -410,7 +422,7 @@ public class KhoHang extends javax.swing.JFrame {
                         .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
@@ -538,9 +550,80 @@ public class KhoHang extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        String path=null,tenfile=null;
+        boolean flag;
+        do{
+            flag=false;
+            tenfile = JOptionPane.showInputDialog("Nhập tên file :");
+            if(tenfile == null){
+                return;
+            }
+            if(tenfile.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Bạn chưa nhập tên file");
+                flag=true;
+            }
+            else if (tenfile.contains(" ")){
+                JOptionPane.showMessageDialog(rootPane, "Tên file không có khoảng trắng");
+                flag=true;
+            }
+            else if (tenfile.contains("/") || tenfile.contains("%") || tenfile.contains("#") || tenfile.contains(":") ||tenfile.contains(";") ||tenfile.contains("~") ||tenfile.contains(".") ){
+                JOptionPane.showMessageDialog(rootPane, "Tên file không chứa kí tự đặc biệt");
+                flag=true;
+            }
+        }
+        while(flag);
+        
+        JFileChooser j = new JFileChooser();
+        j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int x = j.showSaveDialog(this);
+        if(x == JFileChooser.APPROVE_OPTION){
+            path=j.getSelectedFile().getPath()+"//"+tenfile;
+        }
+        FileOutputStream file;
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet Sheet = wb.createSheet("KhoLaptop");
+        XSSFRow row = null;
+        Cell cell = null;
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("haha");
+//        row = Sheet.createRow(0);
+//        row.createCell(0, CellType.STRING).setCellValue("ID");
+//        row.createCell(1, CellType.STRING).setCellValue("Tên");
+//        row.createCell(2, CellType.STRING).setCellValue("Số lượng tồn kho");
+//        row.createCell(3, CellType.STRING).setCellValue("Giá");
+//        row.createCell(4, CellType.STRING).setCellValue("CPU");
+//        row.createCell(5, CellType.STRING).setCellValue("RAM");
+//        row.createCell(6, CellType.STRING).setCellValue("GPU");
+
+
+        
+        for(int i=0;i<tblLaptop.getRowCount();i++) {
+//            row = Sheet.createRow(i+1);
+//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 0));
+//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 1));
+//            row.createCell(0, CellType.NUMERIC).setCellValue((String) tblLaptop.getValueAt(i, 2));
+//            row.createCell(0, CellType.NUMERIC).setCellValue((String) tblLaptop.getValueAt(i, 3));
+//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 4));
+//            row.createCell(0, CellType.NUMERIC).setCellValue((String) tblLaptop.getValueAt(i, 5));
+//            row.createCell(0, CellType.STRING).setCellValue((String) tblLaptop.getValueAt(i, 6));
+        }
+        try {
+            file = new FileOutputStream(path+".xlsx");
+            wb.write(file);
+            wb.close();
+            file.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Laptop_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(path != null){
+            JOptionPane.showMessageDialog(rootPane, "Xuất file Excel thành công");
+        }
+    }//GEN-LAST:event_btnExcelActionPerformed
 
     private void tblLaptopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLaptopMouseClicked
         // TODO add your handling code here:
@@ -623,10 +706,10 @@ public class KhoHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcel;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

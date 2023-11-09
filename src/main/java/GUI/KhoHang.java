@@ -9,7 +9,6 @@ import BUS.Laptop_BUS;
 import DAO.Laptop_DAO;
 import DTO.ChiTietLaptop_DTO;
 import DTO.Laptop_DTO;
-import com.lowagie.text.Cell;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
@@ -20,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CellType;
 import static org.apache.poi.ss.usermodel.CellType.STRING;
@@ -587,9 +587,12 @@ public class KhoHang extends javax.swing.JFrame {
         XSSFSheet Sheet = wb.createSheet("KhoLaptop");
         XSSFRow row = null;
         Cell cell = null;
+        
+        row = Sheet.createRow(0);
+        
         cell = row.createCell(0, CellType.STRING);
         cell.setCellValue("haha");
-//        row = Sheet.createRow(0);
+        
 //        row.createCell(0, CellType.STRING).setCellValue("ID");
 //        row.createCell(1, CellType.STRING).setCellValue("Tên");
 //        row.createCell(2, CellType.STRING).setCellValue("Số lượng tồn kho");

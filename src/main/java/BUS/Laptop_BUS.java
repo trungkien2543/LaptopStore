@@ -21,7 +21,7 @@ public class Laptop_BUS {
         return laptopDAO.getListLaptop();
     }
     
-    public String addLaptop(Laptop_DTO laptop){
+    public String addLaptop(Laptop_DTO laptop, String kiemtra){
         if(laptop.getRAM()<=0){
             return"Ram phải lớn hơn 0!";
         }
@@ -50,9 +50,9 @@ public class Laptop_BUS {
         }
         
         if(laptopDAO.editLaptop(laptop)){
-            return "Sửa thành công";
+            return "Thêm thành công";
         }
-        return "Sửa thất bại";
+        return "Thêm thất bại";
     }
     public boolean TruSoLuongTonKho(int sl,String id){
         return new Laptop_DAO().TruSoLuongTonKho(sl, id);

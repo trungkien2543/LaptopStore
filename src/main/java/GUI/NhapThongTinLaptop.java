@@ -210,13 +210,22 @@ public class NhapThongTinLaptop extends javax.swing.JFrame {
         
         String kq = "";
         if(flag==true){
-            kq = new Laptop_BUS().addLaptop(lt);
+            kq = new Laptop_BUS().addLaptop(lt,"add");
             JOptionPane.showMessageDialog(rootPane, kq);
             if(kq.equals("Thêm thành công")){
                 this.dispose();
                 return;
             }
         }
+        else{
+            kq = new Laptop_BUS().addLaptop(lt,"edit");
+            JOptionPane.showMessageDialog(rootPane, kq);
+            if(kq.equals("Thêm thành công")){
+                this.dispose();
+                return;
+            }
+        }
+        
         
     }//GEN-LAST:event_btnXacNhanActionPerformed
 

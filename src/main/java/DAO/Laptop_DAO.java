@@ -104,16 +104,15 @@ public class Laptop_DAO {
         return false;
      }
     public boolean editLaptopDaXoa(Laptop_DTO s){
-        String sql = "update  Laptop set Ten = ?,SoLuongTonKho = 0,Gia=?, CPU=?, RAM=?, GPU=? where id=?";
+        String sql = "update  Laptop set Ten = ?,SoLuongTonKho = 0,Gia=?, CPU=?, RAM=?, GPU=?, TrangThai='1' where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, s.getTen());
-            ps.setInt(2, s.getSoLuongTonKho());
-            ps.setInt(3, s.getGia());
-            ps.setString(4, s.getCPU());
-            ps.setInt(5, s.getRAM());
-            ps.setString(6, s.getGPU());
-            ps.setString(7, s.getID());
+            ps.setInt(2, s.getGia());
+            ps.setString(3, s.getCPU());
+            ps.setInt(4, s.getRAM());
+            ps.setString(5, s.getGPU());
+            ps.setString(6, s.getID());
             return ps.executeUpdate() > 0;
         }
         catch(Exception e){

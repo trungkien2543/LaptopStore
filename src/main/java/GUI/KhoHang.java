@@ -500,7 +500,7 @@ public class KhoHang extends javax.swing.JFrame {
             }
 
             for(Laptop_DTO s : list1){
-                if(s.getID().equals(str) && s.getTen()!=null){
+                if(s.getID().equals(str) && s.getTrangThai().equals("1")){
                     JOptionPane.showMessageDialog(this, "Id đã tồn tại!");
                     flag = true;
                 }

@@ -12,14 +12,12 @@ import java.util.Date;
  */
 public class ChiTietLaptop_DTO {
     private String IDRieng, TrangThai, MauLapTop;
-    private int Gia;
     private Date NgayNhap;
 
-    public ChiTietLaptop_DTO(String IDRieng, String TrangThai, String MauLapTop, int Gia, Date NgayNhap) {
+    public ChiTietLaptop_DTO(String IDRieng, String TrangThai, String MauLapTop, Date NgayNhap) {
         this.IDRieng = IDRieng;
         this.TrangThai = TrangThai;
         this.MauLapTop = MauLapTop;
-        this.Gia = Gia;
         this.NgayNhap = NgayNhap;
     }
 
@@ -52,13 +50,6 @@ public class ChiTietLaptop_DTO {
         this.MauLapTop = MauLapTop;
     }
 
-    public int getGia() {
-        return Gia;
-    }
-
-    public void setGia(int Gia) {
-        this.Gia = Gia;
-    }
 
     public Date getNgayNhap() {
         return NgayNhap;

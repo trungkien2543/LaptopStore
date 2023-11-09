@@ -21,7 +21,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
 
 import BUS.TaiKhoan_BUS;
-import GUI.AnimatedLabel.TestPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -303,7 +302,7 @@ public class DangNhap extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

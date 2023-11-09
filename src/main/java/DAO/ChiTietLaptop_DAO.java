@@ -39,10 +39,9 @@ public class ChiTietLaptop_DAO {
             while (rs.next()){
                 ChiTietLaptop_DTO s = new ChiTietLaptop_DTO();
                 s.setIDRieng(rs.getString(1));
-                s.setGia(rs.getInt(2));
-                s.setNgayNhap(rs.getDate(3));
-                s.setTrangThai(rs.getString(4));
-                s.setMauLapTop(rs.getString(5));
+                s.setNgayNhap(rs.getDate(2));
+                s.setTrangThai(rs.getString(3));
+                s.setMauLapTop(rs.getString(4));
                 list.add(s);
             }
 

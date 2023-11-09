@@ -20,13 +20,7 @@ public class Laptop_DAO {
     Connection con;
     
     public Laptop_DAO(){
-        try{
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLCuaHangLaptop;user=sa;password=1;"  + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2;"); 
-            } 
-        catch(Exception e){
-            System.out.println(e); 
-        }
+        con = new SQLConnection().getCon();
     }       
     
     public ArrayList<Laptop_DTO> getListLaptop(){
@@ -91,12 +85,13 @@ public class Laptop_DAO {
         return false;
     }
     
+    
     public boolean editLaptop(Laptop_DTO s){
-        String sql = "update  Laptop set Ten = ?,SoLuongTonKho=?, CPU=?, RAM=?, GPU=? where id=?";
+        String sql = "update  Laptop set Ten = ?,Gia=?, CPU=?, RAM=?, GPU=? where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, s.getTen());
-            ps.setInt(2, s.getSoLuongTonKho());
+            ps.setInt(2, s.getGia());
             ps.setString(3, s.getCPU());
             ps.setInt(4, s.getRAM());
             ps.setString(5, s.getGPU());
@@ -108,7 +103,24 @@ public class Laptop_DAO {
         }
         return false;
      }
-    
+    public boolean editLaptopDaXoa(Laptop_DTO s){
+        String sql = "update  Laptop set Ten = ?,SoLuongTonKho = 0,Gia=?, CPU=?, RAM=?, GPU=? where id=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, s.getTen());
+            ps.setInt(2, s.getSoLuongTonKho());
+            ps.setInt(3, s.getGia());
+            ps.setString(4, s.getCPU());
+            ps.setInt(5, s.getRAM());
+            ps.setString(6, s.getGPU());
+            ps.setString(7, s.getID());
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+     }
     
     public boolean TruSoLuongTonKho(int sl,String id){
         String sql = "update  Laptop set SoLuongTonKho=? where id=?";

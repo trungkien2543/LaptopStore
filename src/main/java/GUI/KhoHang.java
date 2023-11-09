@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.ChiTietLaptop_BUS;
 import BUS.Laptop_BUS;
+import DAO.Laptop_DAO;
 import DTO.ChiTietLaptop_DTO;
 import DTO.Laptop_DTO;
 import java.awt.event.WindowAdapter;
@@ -32,6 +33,7 @@ public class KhoHang extends javax.swing.JFrame {
         model2 = (DefaultTableModel) tblCTLaptop.getModel();
         tblLaptop.setModel(model1);
         tblCTLaptop.setModel(model2);
+        tblCTLaptop.setEnabled(false);
         
         list1 = new Laptop_BUS().getAllLaptop();
         list2 = new ChiTietLaptop_BUS().getListChiTietLaptop();
@@ -48,7 +50,7 @@ public class KhoHang extends javax.swing.JFrame {
                 continue;
             }
             model1.addRow(new Object[]{
-                s.getID(), s.getTen(), s.getSoLuongTonKho(), s.getCPU(), s.getRAM(), s.getGPU(), s.getTrangThai()
+                s.getID(), s.getTen(), s.getSoLuongTonKho(), s.getGia(), s.getCPU(), s.getRAM(), s.getGPU(),
             });
         }
     }
@@ -60,7 +62,7 @@ public class KhoHang extends javax.swing.JFrame {
                 continue;
             }
             model2.addRow(new Object[]{
-                s.getIDRieng(), s.getGia(), s.getNgayNhap(), s.getTrangThai(), s.getMauLapTop()
+                s.getIDRieng(), s.getNgayNhap(), s.getMauLapTop()
             });
         }
     }
@@ -97,9 +99,9 @@ public class KhoHang extends javax.swing.JFrame {
         jpKho = new javax.swing.JPanel();
         txtFind = new javax.swing.JTextField();
         lbTimKiem = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnXoa = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSua = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLaptop = new javax.swing.JTable();
@@ -299,11 +301,11 @@ public class KhoHang extends javax.swing.JFrame {
 
         lbTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/TimKiem.png"))); // NOI18N
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Xoa.png"))); // NOI18N
-        jButton1.setText("Xóa");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Xoa.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -315,11 +317,11 @@ public class KhoHang extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Sửa.png"))); // NOI18N
-        jButton3.setText("Sửa");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Sửa.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
@@ -339,7 +341,7 @@ public class KhoHang extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên", "Số lượng tồn kho", "CPU", "RAM", "GPU", "Trạng thái"
+                "ID", "Tên", "Số lượng tồn kho", "Giá", "CPU", "RAM", "GPU"
             }
         ));
         tblLaptop.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,15 +353,23 @@ public class KhoHang extends javax.swing.JFrame {
 
         tblCTLaptop.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID riêng", "Giá", "Ngày nhập", "Trạng thái", "Mẫu Laptop"
+                "ID riêng", "Ngày nhập", "Mẫu Laptop"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblCTLaptop);
 
         javax.swing.GroupLayout jpKhoLayout = new javax.swing.GroupLayout(jpKho);
@@ -382,9 +392,9 @@ public class KhoHang extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                         .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
+                        .addComponent(btnSua)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(jButton4)
                         .addGap(34, 34, 34))))
@@ -397,9 +407,9 @@ public class KhoHang extends javax.swing.JFrame {
                     .addComponent(lbTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtFind)
                     .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,9 +457,32 @@ public class KhoHang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFindActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        String str=txtFind.getText();
+        int row = tblLaptop.getSelectedRow();
+        if (row == -1 ){
+            JOptionPane.showMessageDialog(rootPane, "Hãy chọn 1 dòng rồi nhấn nút xoá!");
+            return;
+        }
+        else{
+            if((int)tblLaptop.getValueAt(row, 2) != 0){
+                JOptionPane.showMessageDialog(rootPane, "Laptop đang có hàng trong kho. Không thể xóa!");
+                return ;
+            }
+            int dk=JOptionPane.showConfirmDialog(this,"Bạn có muốn xóa" , "Confirm", JOptionPane.YES_NO_OPTION);
+            if(dk!=JOptionPane.YES_OPTION){
+                return;
+            }
+            if(new Laptop_DAO().deleteLaptop((String) tblLaptop.getValueAt(row, 0))){
+                JOptionPane.showMessageDialog(rootPane, "Xóa thành công!");
+                list1 = new Laptop_DAO().getListLaptop();
+                txtFind.setText("");
+                ShowTable1();
+                return ;
+            }
+
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String str;
@@ -484,26 +517,26 @@ public class KhoHang extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
-//        String str=txtFind.getText();
-//        int row = tblLaptop.getSelectedRow();
-//        if (row == -1 ){
-//            JOptionPane.showMessageDialog(rootPane, "Hãy chọn 1 dòng rồi nhấn nút sửa!");
-//            return;
-//        }
-//        else{
-//            SuaThongTinSach a = new SuaThongTinSach(str);
-//            a.setVisible(true);
-//            a.setLocationRelativeTo(null);
-//            a.addWindowListener(new WindowAdapter() {
-//                public void windowClosed(WindowEvent e) {
-//                    ShowTable1();
-//                }
-//            });
-//        }
+        String str=txtFind.getText();
+        int row = tblLaptop.getSelectedRow();
+        if (row == -1 ){
+            JOptionPane.showMessageDialog(rootPane, "Hãy chọn 1 dòng rồi nhấn nút sửa!");
+            return;
+        }
+        else{
+            SuaThongTinLaptop a = new SuaThongTinLaptop(str);
+            a.setVisible(true);
+            a.setLocationRelativeTo(null);
+            a.addWindowListener(new WindowAdapter() {
+                public void windowClosed(WindowEvent e) {
+                    ShowTable1();
+                }
+            });
+        }
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -590,9 +623,9 @@ public class KhoHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnXoa;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

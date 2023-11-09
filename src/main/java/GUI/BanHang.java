@@ -143,7 +143,7 @@ public class BanHang extends javax.swing.JFrame {
     public int TimGiaLaptop(String ID){
         for (ChiTietLaptop_DTO ct : list_ct){
             if (ct.getMauLapTop().equals(ID) || ct.getIDRieng().equals(ID)){
-                return ct.getGia()+(ct.getGia()*5/100);
+//                return ct.getGia()+(ct.getGia()*5/100);
             }
         }
         return 0;

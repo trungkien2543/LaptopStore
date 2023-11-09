@@ -7,6 +7,7 @@ package BUS;
 import DAO.Laptop_DAO;
 import DTO.Laptop_DTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,12 +25,35 @@ public class Laptop_BUS {
         if(laptop.getRAM()<=0){
             return"Ram phải lớn hơn 0!";
         }
-        if(laptopDAO.addLaptop(laptop)){
-            return "Thêm thành công";
+        if(laptop.getGia()<=0){
+            return "Giá phải lớn hơn 0!";
         }
-        return "Thêm laptop thất bại";
+        
+        if(kiemtra.equals("add")){
+            if(laptopDAO.addLaptop(laptop)){
+                return "Thêm thành công";
+            }
+        }
+        else{
+            if(laptopDAO.editLaptopDaXoa(laptop)){
+                return "Thêm thành công";
+            }
+        }
+        return "Thêm thất bại";
     }
-    
+    public String editLaptop(Laptop_DTO laptop){
+        if(laptop.getRAM()<=0){
+            return"Ram phải lớn hơn 0!";
+        }
+        if(laptop.getGia()<=0){
+            return "Giá phải lớn hơn 0!";
+        }
+        
+        if(laptopDAO.editLaptop(laptop)){
+            return "Sửa thành công";
+        }
+        return "Sửa thất bại";
+    }
     public boolean TruSoLuongTonKho(int sl,String id){
         return new Laptop_DAO().TruSoLuongTonKho(sl, id);
     }

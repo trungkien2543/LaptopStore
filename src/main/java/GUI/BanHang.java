@@ -24,7 +24,9 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import org.codehaus.stax2.ri.Stax2Util;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  *
@@ -77,6 +79,22 @@ public class BanHang extends javax.swing.JFrame {
         selectionModel2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Chọn một hàng duy nhất
         
         MaNV = "NV002";
+        
+        // Thực hiện lặp lại thời gian liên tục
+        
+        Timer timer = new Timer();
+
+        // Đặt hàm cần thực hiện lại sau mỗi 1000 milliseconds (1 giây)
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                LocalDateTime ngayGioHienTai = LocalDateTime.now();
+                String ngayGioDinhDang = ngayGioHienTai.format(NgayGio);
+                txtNgayLap.setText(ngayGioDinhDang);
+            }
+        }, 0, 1000);
+        
+        
 
         Reset();        
     }  
@@ -96,7 +114,7 @@ public class BanHang extends javax.swing.JFrame {
         model_cthd.setRowCount(0);
         
         // Gọi danh sách các mặt hàng
-//        list_mh = new Laptop_BUS().getListLaptop();
+        list_mh = new Laptop_BUS().getAllLaptop();
         list_ct = new ChiTietLaptop_BUS().getListChiTietLaptop();
         list_kh = new KhachHang_BUS().getListKhachHang();
         
@@ -976,64 +994,64 @@ public class BanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //Thực hiện thêm thông tin hóa đơn mới
-//        HoaDon hd = new HoaDon();
-//        hd.setMaHD(Integer.parseInt(txtMaHD.getText()));
-//        hd.setSoLuong(Integer.parseInt(txtSL.getText()));
-//        
-//        // Lấy ngày giờ hiện tại
-//        LocalDateTime ngayGioHienTai = LocalDateTime.now();
-//        hd.setNgayLap(ngayGioHienTai);
-//        hd.setKhachHang(txtSDT.getText());
-//        hd.setNhanVien(MaNV);
-//        hd.setTongTien((int) TongTien_int);
-//        if (new HoaDon_BUS().ThemHoaDon(hd)){
-//            // Thêm các chi tiết hóa đơn
-//            for (int i=0;i<tblChiTietHoaDon.getRowCount();i++){
-//                
-//                // Gọi các đối tượng thuộc chi tiết hóa đơn
-//                ChiTietHoaDon cthd = new ChiTietHoaDon();
-//                String idRieng = model_cthd.getValueAt(i, 0).toString();
-//                cthd.setIDRieng(idRieng);
-//                cthd.setGia(TimGia(idRieng));
-//                cthd.setMaHD(Integer.parseInt(txtMaHD.getText()));
-//                
-//                // Thực hiện thêm chi tiết hóa đơn vào database
-//                if (!new ChiTietHoaDon_DAO().ThemChiTietHoaDon(cthd)){
-//                    JOptionPane.showMessageDialog(rootPane, "Chi tiết có mã :" + idRieng+" bị lỗi");
-//                    return;
-//                }
-//                
-//                // Cập nhật trạng thái cho sản phẩm tương ứng với idRieng vừa thêm
-//                if (!new ChiTietLaptop_BUS().CapNhatTrangThai("0", idRieng)){
-//                    JOptionPane.showMessageDialog(rootPane, "Cập nhật trạng thái mã :" + idRieng+" bị lỗi");
-//                    return;
-//                }
-//                    
-//            }
-//            
-//            // Cập nhật só lượng tồn kho
-//            for (Laptop l : list_mh){
-//                if (!new Laptop_BUS().TruSoLuongTonKho(l.getSoLuongTonKho(), l.getID())){
-//                    JOptionPane.showMessageDialog(rootPane, "Cập nhật số lượng tồn kho mã :" + l.getID()+" bị lỗi");
-//                    return;
-//                }
-//            }
-//            
-//            // Cập nhật tích điểm cho khách
-//            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), txtSDT.getText())){
-//                JOptionPane.showMessageDialog(rootPane, "Cập nhật tích điểm bị lỗi");
-//                return;
-//            }
-//            
-//            // Thông báo 
-//            JOptionPane.showMessageDialog(rootPane, "Thanh toán hóa đơn thành công");
-//            Reset();
-//            
-//                
-//        }
-//        else{
-//            JOptionPane.showMessageDialog(rootPane, "Thêm hóa đơn thất bại");
-//        }
+        HoaDon hd = new HoaDon();
+        hd.setMaHD(Integer.parseInt(txtMaHD.getText()));
+        hd.setSoLuong(Integer.parseInt(txtSL.getText()));
+        
+        // Lấy ngày giờ hiện tại
+        LocalDateTime ngayGioHienTai = LocalDateTime.now();
+        hd.setNgayLap(ngayGioHienTai);
+        hd.setKhachHang(txtSDT.getText());
+        hd.setNhanVien(MaNV);
+        hd.setTongTien((int) TongTien_int);
+        if (new HoaDon_BUS().ThemHoaDon(hd)){
+            // Thêm các chi tiết hóa đơn
+            for (int i=0;i<tblChiTietHoaDon.getRowCount();i++){
+                
+                // Gọi các đối tượng thuộc chi tiết hóa đơn
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                String idRieng = model_cthd.getValueAt(i, 0).toString();
+                cthd.setIDRieng(idRieng);
+                cthd.setGia((int) TimGia(model_cthd.getValueAt(i, 2).toString()));
+                cthd.setMaHD(Integer.parseInt(txtMaHD.getText()));
+                
+                // Thực hiện thêm chi tiết hóa đơn vào database
+                if (!new ChiTietHoaDon_DAO().ThemChiTietHoaDon(cthd)){
+                    JOptionPane.showMessageDialog(rootPane, "Chi tiết có mã :" + idRieng+" bị lỗi");
+                    return;
+                }
+                
+                // Cập nhật trạng thái cho sản phẩm tương ứng với idRieng vừa thêm
+                if (!new ChiTietLaptop_BUS().CapNhatTrangThai("0", idRieng)){
+                    JOptionPane.showMessageDialog(rootPane, "Cập nhật trạng thái mã :" + idRieng+" bị lỗi");
+                    return;
+                }
+                    
+            }
+            
+            // Cập nhật só lượng tồn kho
+            for (Laptop l : list_mh){
+                if (!new Laptop_BUS().TruSoLuongTonKho(l.getSoLuongTonKho(), l.getID())){
+                    JOptionPane.showMessageDialog(rootPane, "Cập nhật số lượng tồn kho mã :" + l.getID()+" bị lỗi");
+                    return;
+                }
+            }
+            
+            // Cập nhật tích điểm cho khách
+            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), txtSDT.getText())){
+                JOptionPane.showMessageDialog(rootPane, "Cập nhật tích điểm bị lỗi");
+                return;
+            }
+            
+            // Thông báo 
+            JOptionPane.showMessageDialog(rootPane, "Thanh toán hóa đơn thành công");
+            Reset();
+            
+                
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Thêm hóa đơn thất bại");
+        }
           
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
@@ -1305,16 +1323,12 @@ public class BanHang extends javax.swing.JFrame {
         int Selected = jtab.getSelectedIndex();
         if (Selected == 1){
             txtSDT.requestFocus();
-            
-            // Lấy ngày hiện tại
-            LocalDateTime ngayGioHienTai = LocalDateTime.now();
-            String ngayGioDinhDang = ngayGioHienTai.format(Ngay);
+ 
             
             // Tạo 1 số thông tin cần thiết cho hóa đơn
             txtMaHD.setText(Integer.toString(new HoaDon_BUS().LayMaHoaDon()));
             txtSL.setText(Integer.toString(tblGioHang.getRowCount()));
             txtTongTIen.setText(currencyVN.format(TongTien_int));
-            txtNgayLap.setText(ngayGioDinhDang);
             txtDiemTichThem.setText(Integer.toString(TichDiem));
             
         }
@@ -1325,6 +1339,7 @@ public class BanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         txtFind.setText("");
         showTableMatHang();
+        txtFind.requestFocus();
     }//GEN-LAST:event_cbxTieuChiActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

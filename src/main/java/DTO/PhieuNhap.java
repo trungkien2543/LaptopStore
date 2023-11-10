@@ -14,8 +14,16 @@ public class PhieuNhap {
     private int MaPhieu, TongTien;
     private Date NgayNhap;
     private String NhaCungCap, NhanVien;
-
-    public PhieuNhap(int MaPhieu, int TongTien, Date NgayNhap, String NhaCungCap, String NhanVien) {
+    
+    public PhieuNhap(){
+        this.MaPhieu=0;
+        this.NgayNhap=null;
+        this.TongTien=0;
+        this.NhaCungCap=null;
+        this.NhanVien=null;
+    }
+    
+    public PhieuNhap(int MaPhieu, Date NgayNhap, int TongTien,  String NhaCungCap, String NhanVien) {
         this.MaPhieu = MaPhieu;
         this.TongTien = TongTien;
         this.NgayNhap = NgayNhap;

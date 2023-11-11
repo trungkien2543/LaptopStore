@@ -4,17 +4,27 @@
  */
 package GUI;
 
+import BUS.Laptop_BUS;
 import BUS.ThongKe_BUS;
+import DTO.Laptop;
 import DTO.ThongKeTinhHinh;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
  * @author DELL
  */
 public class ThongKe extends javax.swing.JFrame {
+    
+    ArrayList<Laptop> list_mh = new Laptop_BUS().getAllLaptop();
 
     /**
      * Creates new form ThongKe
@@ -22,6 +32,13 @@ public class ThongKe extends javax.swing.JFrame {
     public ThongKe() {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
+        setDataComboBox(list_mh);
+    }
+    
+    public void setDataComboBox(ArrayList<Laptop> list_mh){
+        for (Laptop l : list_mh){
+            cbxSanPham.addItem(l.getID());
+        }
     }
 
     /**
@@ -259,7 +276,12 @@ public class ThongKe extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Chọn sản phẩm: ");
 
-        cbxSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả sản phẩm" }));
+        cbxSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxSanPhamActionPerformed(evt);
+            }
+        });
 
         btnXacNhan.setBackground(new java.awt.Color(0, 102, 153));
         btnXacNhan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -350,7 +372,7 @@ public class ThongKe extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Thống kê tình hình kinh doanh trong một \tkhoảng thời gian của các sản phẩm thuộc một loại / tất cả sản \tphẩm", jPanel1);
+        jTabbedPane1.addTab("Thống kê số lượng sản phẩm bán được", jPanel1);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -475,14 +497,6 @@ public class ThongKe extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("Chọn khoảng thời gian:");
-
-        jMonthChooser1.setBackground(null);
-
-        jYearChooser2.setBackground(null);
-
-        jMonthChooser2.setBackground(null);
-
-        jYearChooser3.setBackground(null);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tháng", "Quý", "Năm" }));
 
@@ -609,7 +623,34 @@ public class ThongKe extends javax.swing.JFrame {
         Date From = jDateFrom1.getDate();
         Date To = jDateTo1.getDate();
         ArrayList<ThongKeTinhHinh> list_th = new ThongKe_BUS().getListTinhHinh(From, To);
-        System.out.println(list_th.size());
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        if(list_th != null){
+            if (cbxSanPham.getSelectedIndex() == 0){
+                    for(ThongKeTinhHinh s : list_th){
+                        dataset.addValue(s.getSoLuong(), "Số lượng", s.getIdLaptop());
+                    }
+            }
+            else {
+                    String id = cbxSanPham.getSelectedItem().toString();
+                    for(ThongKeTinhHinh s : list_th){
+                        if (id.equals(s.getIdLaptop())){
+                            dataset.addValue(s.getSoLuong(), "Số lượng", s.getIdLaptop());
+
+                        }
+                    }
+            }
+      
+            
+            JFreeChart barChart = ChartFactory.createBarChart("Thống kê số lượng hàng bán được của 1 sản phẩm hoặc toàn bộ sản phẩm trong 1 khoảng thời gian".toUpperCase(),"Mã laptop", "Số lượng", dataset, PlotOrientation.VERTICAL, false, true, false);
+            
+            ChartPanel chartPanel = new ChartPanel(barChart);
+            
+            jPanel6.removeAll();
+            jPanel6.setLayout(new BorderLayout());
+            jPanel6.add(chartPanel);
+        
+        }
     }//GEN-LAST:event_btnXacNhanActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -623,6 +664,10 @@ public class ThongKe extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void cbxSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSanPhamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxSanPhamActionPerformed
 
     /**
      * @param args the command line arguments

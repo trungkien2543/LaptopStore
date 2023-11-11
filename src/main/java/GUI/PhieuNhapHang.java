@@ -5,14 +5,35 @@
 package GUI;
 
 import BUS.PhieuNhap_BUS;
+import DAO.Laptop_DAO;
 import DTO.PhieuNhap;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Hashtable;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -89,7 +110,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         tblPhieuNhap = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         cbxDieuKienLoc = new javax.swing.JComboBox<>();
-        btnExcel1 = new javax.swing.JButton();
+        btnChiTietPhieu = new javax.swing.JButton();
         jpNgayLap = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -317,11 +338,11 @@ public class PhieuNhapHang extends javax.swing.JFrame {
             }
         });
 
-        btnExcel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
-        btnExcel1.setText("Xem chi tiết");
-        btnExcel1.addActionListener(new java.awt.event.ActionListener() {
+        btnChiTietPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
+        btnChiTietPhieu.setText("Xem chi tiết");
+        btnChiTietPhieu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcel1ActionPerformed(evt);
+                btnChiTietPhieuActionPerformed(evt);
             }
         });
 
@@ -333,6 +354,11 @@ public class PhieuNhapHang extends javax.swing.JFrame {
 
         btnNgayLap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnNgayLap.setText("Lọc");
+        btnNgayLap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNgayLapActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpNgayLapLayout = new javax.swing.GroupLayout(jpNgayLap);
         jpNgayLap.setLayout(jpNgayLapLayout);
@@ -378,6 +404,11 @@ public class PhieuNhapHang extends javax.swing.JFrame {
 
         btnTongTien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnTongTien.setText("Lọc");
+        btnTongTien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTongTienActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpTongTienLayout = new javax.swing.GroupLayout(jpTongTien);
         jpTongTien.setLayout(jpTongTienLayout);
@@ -437,7 +468,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
                 .addComponent(jpTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnExcel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnChiTietPhieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
@@ -449,7 +480,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
                     .addGroup(jpKhoLayout.createSequentialGroup()
                         .addComponent(btnExcel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcel1))
+                        .addComponent(btnChiTietPhieu))
                     .addGroup(jpKhoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -509,6 +540,81 @@ public class PhieuNhapHang extends javax.swing.JFrame {
 
     private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
         // TODO add your handling code here:
+        String path=null,tenfile=null;
+        boolean flag;
+        do{
+            flag=false;
+            tenfile = JOptionPane.showInputDialog("Nhập tên file :");
+            if(tenfile == null){
+                return;
+            }
+            if(tenfile.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Bạn chưa nhập tên file");
+                flag=true;
+            }
+            else if (tenfile.contains(" ")){
+                JOptionPane.showMessageDialog(rootPane, "Tên file không có khoảng trắng");
+                flag=true;
+            }
+            else if (tenfile.contains("/") || tenfile.contains("%") || tenfile.contains("#") || tenfile.contains(":") ||tenfile.contains(";") ||tenfile.contains("~") ||tenfile.contains(".") ){
+                JOptionPane.showMessageDialog(rootPane, "Tên file không chứa kí tự đặc biệt");
+                flag=true;
+            }
+        }
+        while(flag);
+        
+        JFileChooser j = new JFileChooser();
+        j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int x = j.showSaveDialog(this);
+        if(x == JFileChooser.APPROVE_OPTION){
+            path=j.getSelectedFile().getPath()+"//"+tenfile;
+        }
+        FileOutputStream file;
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet Sheet = wb.createSheet("PhieuNhap");
+        XSSFRow row = null;
+        Cell cell = null;
+        row = Sheet.createRow(0);
+        
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Mã phiếu");
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("Ngày nhập");
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("Tổng tiền");
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Nhà cung cấp");
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("Nhân viên");
+        
+        
+        for(int i=0;i<tblPhieuNhap.getRowCount();i++) {
+            row = Sheet.createRow(i+1);
+            cell = row.createCell(0, CellType.NUMERIC);
+            cell.setCellValue((int)tblPhieuNhap.getValueAt(i, 0));
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue(tblPhieuNhap.getValueAt(i, 1).toString());
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue( tblPhieuNhap.getValueAt(i, 2).toString());
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue( tblPhieuNhap.getValueAt(i, 3).toString());
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue( tblPhieuNhap.getValueAt(i, 4).toString());
+        }
+        try {
+            file = new FileOutputStream(path+".xlsx");
+            wb.write(file);
+            wb.close();
+            file.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Laptop_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(path != null){
+            JOptionPane.showMessageDialog(rootPane, "Xuất file Excel thành công");
+        }
     }//GEN-LAST:event_btnExcelActionPerformed
 
     private void txtFindKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindKeyReleased
@@ -596,15 +702,78 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         ShowTable();
     }//GEN-LAST:event_cbxDieuKienLocActionPerformed
 
-    private void btnExcel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcel1ActionPerformed
+    private void btnChiTietPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietPhieuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnExcel1ActionPerformed
+            int Selected_Row = tblPhieuNhap.getSelectedRow();
+        if(Selected_Row==-1){
+            JOptionPane.showMessageDialog(rootPane, "Hay chon 1 hoa don roi xem chi tiet");
+            return;
+        }
+        try{
+            Hashtable map = new Hashtable();
+            JasperReport rpt = JasperCompileManager.compileReport("src\\Report\\rptPhieuNhap.jrxml");
+            map.put("sMaPhieu", txtFind.getText());
+            Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLCuaHangSach;user=sa;password=1;" + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2;");
+            JasperPrint p = JasperFillManager.fillReport(rpt, map, con);
+            JasperViewer.viewReport(p,false);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnChiTietPhieuActionPerformed
 
     private void tblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhieuNhapMouseClicked
         // TODO add your handling code here:
         int Selected_Row = tblPhieuNhap.getSelectedRow();
         txtFind.setText(Integer.toString((int) tblPhieuNhap.getValueAt(Selected_Row, 0)));
     }//GEN-LAST:event_tblPhieuNhapMouseClicked
+
+    private void btnNgayLapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgayLapActionPerformed
+        // TODO add your handling code here:
+        if(jDateFrom.getDate() == null || jDateTo.getDate()==null){
+            JOptionPane.showMessageDialog(rootPane, "Không để trống lựa chọn");
+            return;
+        }
+        Date From = jDateFrom.getDate();
+        Date To = jDateTo.getDate();
+        String From_str = ChuyenNgaySQL.format(From);
+        String To_str = ChuyenNgaySQL.format(To);
+        model.setRowCount(0);
+        ArrayList<PhieuNhap> list_find = new PhieuNhap_BUS().getListTimKiem("NgayNhap",From_str,To_str);
+        for(PhieuNhap s : list_find){
+            model.addRow(new Object[]{
+                s.getMaPhieu(),ChuyenNgayShow.format(s.getNgayNhap()),currencyVN.format(s.getTongTien()),s.getNhaCungCap(),s.getNhanVien()
+            });
+        }
+    }//GEN-LAST:event_btnNgayLapActionPerformed
+
+    private void btnTongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTongTienActionPerformed
+        // TODO add your handling code here:
+        String From = txtFrom.getText();
+        String To = txtTo.getText();
+        if(From.isEmpty() || To.isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Không để trống thông tin");
+        }
+        try{
+            int From_int = Integer.parseInt(From);
+            int To_int = Integer.parseInt(To);
+            if(From_int < 0 || To_int < 0){
+                JOptionPane.showMessageDialog(rootPane, "Giá tiền phải lớn hơn 0");
+                return;
+            }
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(rootPane, "Chỉ nhập số");
+            return;
+        }
+        model.setRowCount(0);
+        ArrayList<PhieuNhap> list_find = new PhieuNhap_BUS().getListTimKiem("TongTien",From,To);
+        for(PhieuNhap s : list_find){
+            model.addRow(new Object[]{
+               s.getMaPhieu(),ChuyenNgayShow.format(s.getNgayNhap()),currencyVN.format(s.getTongTien()),s.getNhaCungCap(),s.getNhanVien()
+            });
+        }
+    }//GEN-LAST:event_btnTongTienActionPerformed
 
     /**
      * @param args the command line arguments
@@ -657,8 +826,8 @@ public class PhieuNhapHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnChiTietPhieu;
     private javax.swing.JButton btnExcel;
-    private javax.swing.JButton btnExcel1;
     private javax.swing.JButton btnNgayLap;
     private javax.swing.JButton btnTongTien;
     private javax.swing.JComboBox<String> cbxDieuKienLoc;

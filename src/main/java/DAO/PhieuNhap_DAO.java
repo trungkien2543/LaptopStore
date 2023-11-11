@@ -74,4 +74,22 @@ public class PhieuNhap_DAO {
         }
         return 0;
     }
+    public ArrayList<PhieuNhap> TimKiem(String Loai,String From,String To){
+        ArrayList<PhieuNhap> list_find = new ArrayList<>();
+        try{
+            String sql = "select * from PhieuNhap where "+Loai+" between ? and ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, From);
+            ps.setString(2, To);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                PhieuNhap s = new PhieuNhap(rs.getInt(1),rs.getDate(2), rs.getInt(3),rs.getString(4),rs.getString(5) );
+                list_find.add(s);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return list_find;
+    }
 }

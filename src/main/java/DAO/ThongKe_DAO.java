@@ -48,4 +48,33 @@ public class ThongKe_DAO {
     }
     
     
+    public ArrayList<ThongKeTinhHinh> getListTop5(String from, String to){
+        ArrayList<ThongKeTinhHinh> list = new ArrayList<>();
+        String sql = "SELECT TOP 5 Laptop.id, COUNT(ChiTietLaptop.idRieng) AS SoLuong " +
+             "FROM ChiTietLaptop, ChiTietHoaDon, Laptop, HoaDon " +
+             "WHERE ChiTietLaptop.idRieng = ChiTietHoaDon.idRieng " +
+             "AND Laptop.id = ChiTietLaptop.MauLaptop " +
+             "AND HoaDon.MaHoaDon = ChiTietHoaDon.MaHoaDon " +
+             "AND NgayLap BETWEEN '" + from + "' AND '" + to + "' " +
+             "GROUP BY Laptop.id " +
+             "ORDER BY SoLuong DESC;";
+
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                ThongKeTinhHinh s = new ThongKeTinhHinh(rs.getString(1), rs.getInt(2));
+                list.add(s);
+            }    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+        
+    }
+    
+    
+    
+    
 }

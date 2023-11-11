@@ -25,8 +25,13 @@ public class ThongKe_BUS {
     public ArrayList<ThongKeTinhHinh> getListTinhHinh(Date from, Date to){
         String From_str = ChuyenNgaySQL.format(from);
         String To_str = ChuyenNgaySQL.format(to)+" 23:59:59";
-        System.out.println(From_str + "                           "+To_str);
         return new ThongKe_DAO().getListTinhHinh(From_str, To_str);
     }
     
+    
+    public ArrayList<ThongKeTinhHinh> getListTop5(Date from, Date to){
+        String From_str = ChuyenNgaySQL.format(from);
+        String To_str = ChuyenNgaySQL.format(to)+" 23:59:59";
+        return new ThongKe_DAO().getListTop5(From_str, To_str);
+    }
 }

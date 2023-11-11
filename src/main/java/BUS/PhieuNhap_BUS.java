@@ -36,9 +36,9 @@ public class PhieuNhap_BUS {
 //        }
 //    }
 //    
-//    public ArrayList<DTOPhieuNhap> getListTimKiem(String Loai, String From, String To){
-//        return pnDAO.TimKiem(Loai, From, To);
-//    }
+    public ArrayList<PhieuNhap> getListTimKiem(String Loai, String From, String To){
+        return pnDAO.TimKiem(Loai, From, To);
+    }
 //    
 //     public ArrayList<DTOThongKeSoTien> getListThongKe(){
 //        return pnDAO.getListThongKe();

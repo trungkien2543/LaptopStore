@@ -5,6 +5,7 @@
 package BUS;
 
 import DAO.ThongKe_DAO;
+import DTO.ThongKeDoanhThu;
 import DTO.ThongKeTinhHinh;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,5 +34,9 @@ public class ThongKe_BUS {
         String From_str = ChuyenNgaySQL.format(from);
         String To_str = ChuyenNgaySQL.format(to)+" 23:59:59";
         return new ThongKe_DAO().getListTop5(From_str, To_str);
+    }
+    
+    public ArrayList<ThongKeDoanhThu> getListDoanhThu(int nam){
+        return new ThongKe_DAO().getListDoanThu(nam);
     }
 }

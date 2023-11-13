@@ -29,7 +29,7 @@ public class TaiKhoan_DAO {
         String selectSQL = "SELECT * FROM TaiKhoan";
 		PreparedStatement ps;
 		try {
-			ps = new SQLConnection().getCon().prepareStatement(selectSQL);
+			ps = con.prepareStatement(selectSQL);
 			ResultSet rs = ps.executeQuery();
 	        
 	        // Lặp qua các hàng kết quả và thêm vào danh sách
@@ -45,5 +45,71 @@ public class TaiKhoan_DAO {
 			e.printStackTrace();
 		}
         return taiKhoanList;
+	}
+    public NhanVien getNhanVienByTenDangNhap(String tenDangNhap) {
+        NhanVien nhanVien = null;
+        String sql = "SELECT nv.* FROM NhanVien nv INNER JOIN TaiKhoan tk ON nv.idNhanVien = tk.idNhanVien WHERE tk.TenDangNhap = ?";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+            preparedStatement.setString(1, tenDangNhap);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Lấy thông tin từ ResultSet và tạo đối tượng NhanVien
+                    nhanVien = new NhanVien(
+                            resultSet.getString("idNhanVien"),
+                            resultSet.getString("TenNhanVien"),
+                            resultSet.getString("SDT"),
+                            resultSet.getString("DiaChi"),
+                            resultSet.getString("NgaySinh"),
+                            resultSet.getString("CCCD"),
+                            resultSet.getString("Email"),
+                            resultSet.getString("Img_url"),
+                            resultSet.getString("TrangThai"),
+                            resultSet.getBoolean("GioiTinh")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nhanVien;
+    }
+
+    public NhanVien getNhanVienByEmail(String email) {
+        NhanVien nhanVien = null;
+        String sql = "SELECT * FROM NhanVien WHERE Email = ?";
+
+        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+        	
+            preparedStatement.setString(1, email);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Lấy thông tin từ ResultSet và tạo đối tượng NhanVien
+                    nhanVien = new NhanVien(
+                            resultSet.getString("idNhanVien"),
+                            resultSet.getString("TenNhanVien"),
+                            resultSet.getString("SDT"),
+                            resultSet.getString("DiaChi"),
+                            resultSet.getString("NgaySinh"),
+                            resultSet.getString("CCCD"),
+                            resultSet.getString("Email"),
+                            resultSet.getString("Img_url"),
+                            resultSet.getString("TrangThai"),
+                            resultSet.getBoolean("GioiTinh")
+                    );
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return nhanVien;
+    }
+    public static void main(String[] args) {
+		System.out.println(new TaiKhoan_DAO().getNhanVienByEmail("trankhanhduy12a12@gmail.com"));
 	}
 }

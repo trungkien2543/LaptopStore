@@ -1,11 +1,14 @@
 package BUS;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.TaiKhoan_DAO;
+import DTO.NhanVien;
 import DTO.TaiKhoan;
 
 public class TaiKhoan_BUS {
@@ -47,6 +50,12 @@ public class TaiKhoan_BUS {
 //            }
 //        }
 //	}
+	public NhanVien getNhanVienByTenDangNhap(String tenDangNhap) {
+		return hdDAO.getNhanVienByTenDangNhap(tenDangNhap);
+	}
+	public NhanVien getNhanVienByEmail(String email) {
+        return hdDAO.getNhanVienByEmail(email);
+    }
 	public TaiKhoan get(String Ma)
     {
         for(TaiKhoan tk : danhSachTK )

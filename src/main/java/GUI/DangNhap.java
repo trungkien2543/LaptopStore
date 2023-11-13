@@ -94,7 +94,9 @@ public class DangNhap extends javax.swing.JFrame {
         		else {
         			if (taikhoanBus.get(jTextField1.getText().toString()) != null) {
         				if (jTextField2.getText().toString().equals(taikhoanBus.get(jTextField1.getText().toString()).getMatKhau())){
-        					new PhieuNhapHang().setVisible(true);
+        					PhieuNhapHang phieuNhapHang = new PhieuNhapHang(taikhoanBus.getNhanVienByTenDangNhap(jTextField1.getText().toString()));
+        					phieuNhapHang.setVisible(true);
+        					
             				dispose();
         				} else {
         					JOptionPane.showMessageDialog(null, "Sai Pass: " + jTextField1.getText().toString());
@@ -302,7 +304,7 @@ public class DangNhap extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

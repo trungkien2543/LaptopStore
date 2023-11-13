@@ -20,11 +20,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class QuenMatKhau extends javax.swing.JFrame {
-    String sms = "";
-    
-    
-	
-
+	String sms = "";
 
     private int charIndex = 0;
     boolean goFowar = true;
@@ -46,8 +42,11 @@ public class QuenMatKhau extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton1.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if (sms.equals("") || sms.equals("-1")) {
+        		if (!jTextField1.getText().toString().isEmpty() && new TaiKhoan_BUS().getNhanVienByEmail(jTextField1.getText().toString()) == null) {
+        			JOptionPane.showMessageDialog(null, "Email không chính xác!");
+        		} else if (sms.equals("") || sms.equals("-1")) {
         			sms = SendMail.send(jTextField1.getText().toString());
+        			
         			if (!sms.equals("-1")) {
         				jTextField1.setEnabled(false);
         				jTextField2.setEnabled(true);
@@ -57,7 +56,8 @@ public class QuenMatKhau extends javax.swing.JFrame {
         			}
         		} else {
         			if (jTextField2.getText().toString().equals(sms)) {
-        				new PhieuNhapHang().setVisible(true);
+        				PhieuNhapHang phieuNhapHang = new PhieuNhapHang(new TaiKhoan_BUS().getNhanVienByEmail(jTextField1.getText().toString()));
+    					phieuNhapHang.setVisible(true);
         				dispose();
         			}
         		}

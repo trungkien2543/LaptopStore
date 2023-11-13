@@ -4,16 +4,24 @@
  */
 package GUI;
 
+import DTO.NhanVien;
+
 /**
  *
  * @author ASUS
  */
 public class QuanLyNhanVien extends javax.swing.JFrame {
+    
+    public static NhanVien NV;
+
 
     /**
      * Creates new form NhaCungCap
      */
-    public QuanLyNhanVien() {
+    public QuanLyNhanVien(NhanVien NV) {
+        
+        this.NV = NV;
+        
         initComponents();
     }
 
@@ -74,6 +82,11 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Profile.png"))); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Logout.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpThanhTieuDeLayout = new javax.swing.GroupLayout(jpThanhTieuDe);
         jpThanhTieuDe.setLayout(jpThanhTieuDeLayout);
@@ -390,6 +403,13 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        DangNhap dn = new DangNhap();
+        dn.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -435,7 +455,7 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyNhanVien().setVisible(true);
+                new QuanLyNhanVien(NV).setVisible(true);
             }
         });
     }

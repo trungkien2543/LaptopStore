@@ -150,6 +150,9 @@
                   <Image iconType="3" name="/ICON/Logout.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

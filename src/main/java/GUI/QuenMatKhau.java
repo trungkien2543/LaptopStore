@@ -20,7 +20,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class QuenMatKhau extends javax.swing.JFrame {
-	String sms = "";
+    String sms = "";
+    
+    
 	
 
 

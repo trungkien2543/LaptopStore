@@ -4,16 +4,23 @@
  */
 package GUI;
 
+import DTO.NhanVien;
+
 /**
  *
  * @author ASUS
  */
 public class QuanLyTaiKhoan extends javax.swing.JFrame {
+    
+    public static NhanVien NV;
 
     /**
      * Creates new form NhaCungCap
      */
-    public QuanLyTaiKhoan() {
+    public QuanLyTaiKhoan(NhanVien NV) {
+        
+        this.NV = NV;
+        
         initComponents();
     }
 
@@ -72,6 +79,11 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Profile.png"))); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Logout.png"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpThanhTieuDeLayout = new javax.swing.GroupLayout(jpThanhTieuDe);
         jpThanhTieuDe.setLayout(jpThanhTieuDeLayout);
@@ -220,7 +232,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jTextField1.setText("Nhập thông tin tìm kiếm");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -358,6 +370,13 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+        DangNhap dn = new DangNhap();
+        dn.setVisible(true);
+    }//GEN-LAST:event_jLabel5MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -403,7 +422,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyTaiKhoan().setVisible(true);
+                new QuanLyTaiKhoan(NV).setVisible(true);
             }
         });
     }

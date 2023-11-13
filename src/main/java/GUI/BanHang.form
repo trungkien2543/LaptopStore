@@ -152,6 +152,9 @@
                   <Image iconType="3" name="/ICON/Logout.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -278,6 +281,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Kho h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKhoHangMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNhapHang">
               <Properties>
@@ -289,6 +295,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nh&#x1ead;p h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNhapHangMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang">
               <Properties>
@@ -306,6 +315,9 @@
                   <Connection code="true&#xd;&#xa;" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHangMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang1">
               <Properties>
@@ -317,6 +329,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang1MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang2">
               <Properties>
@@ -328,6 +343,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang2MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang3">
               <Properties>
@@ -345,6 +363,9 @@
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang3MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang4">
               <Properties>
@@ -356,6 +377,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u nh&#x1ead;p h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang4MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang5">
               <Properties>
@@ -367,6 +391,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="H&#xf3;a &#x111;&#x1a1;n b&#xe1;n h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang5MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang6">
               <Properties>
@@ -378,6 +405,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea; doanh thu"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang6MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -48,7 +48,7 @@ public class TaiKhoan_DAO {
 	}
     public NhanVien getNhanVienByTenDangNhap(String tenDangNhap) {
         NhanVien nhanVien = null;
-        String sql = "SELECT nv.* FROM NhanVien nv INNER JOIN TaiKhoan tk ON nv.idNhanVien = tk.idNhanVien WHERE tk.TenDangNhap = ?";
+        String sql = "SELECT nv.* FROM NhanVien nv INNER JOIN TaiKhoan tk ON nv.idNhanVien = tk.TenDangNhap WHERE tk.TenDangNhap = ?";
 
         try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
 

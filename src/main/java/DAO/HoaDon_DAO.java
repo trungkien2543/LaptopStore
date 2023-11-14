@@ -25,7 +25,28 @@ public class HoaDon_DAO {
     public HoaDon_DAO() {
         con = new SQLConnection().getCon();    
     }
-    
+    public ArrayList<HoaDon> getListHoaDon(){
+        ArrayList<HoaDon> list = new ArrayList<>();
+        String sql = "Select * from HoaDon";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                HoaDon hd = new HoaDon();
+                hd.setMaHD(rs.getInt(1));
+                hd.setNgayLap(rs.getTimestamp(2).toLocalDateTime());
+                hd.setTongTien(rs.getInt(3));
+                hd.setSoLuong(rs.getInt(4));
+                hd.setNhanVien(rs.getString(5));
+                hd.setKhachHang(rs.getString(6));
+                list.add(hd);
+            }    
+        }
+        catch(Exception e){
+            e.printStackTrace();   
+        }
+        return list;
+    }
     public int LayMaHoaDon(){
         String sql = "select max(MaHoaDon) from HoaDon";
         int MaHD = 0;

@@ -30,11 +30,11 @@ public class ChiTietPhieu_DAO {
             ps.setInt(1, MaPhieu);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                ChiTietPhieu pn = new ChiTietPhieu();
-                pn.setIDRieng(rs.getString(1));
-                pn.setMaPhieu(rs.getInt(2));
-                pn.setGia(rs.getInt(3));
-                list.add(pn);
+                ChiTietPhieu ctpn = new ChiTietPhieu();
+                ctpn.setIDRieng(rs.getString(1));
+                ctpn.setMaPhieu(rs.getInt(2));
+                ctpn.setGia(rs.getInt(3));
+                list.add(ctpn);
             }
         }
         catch(Exception e){

@@ -6,14 +6,19 @@ package BUS;
 
 import DAO.ChiTietHoaDon_DAO;
 import DTO.ChiTietHoaDon;
+import DTO.HoaDon;
+import java.util.ArrayList;
 
 /**
  *
  * @author DELL
  */
 public class ChiTietHoaDon_BUS {
-
-    public ChiTietHoaDon_BUS() {
+    ChiTietHoaDon_DAO cthd_DAO = new ChiTietHoaDon_DAO();
+    ArrayList<ChiTietHoaDon> list = new ArrayList<>();
+    int a;
+    public ArrayList<ChiTietHoaDon> getALLChiTietHoaDon(int a){
+        return cthd_DAO.getListChiTietHoaDon(a);
     }
     
     public boolean ThemChiTietHoaDon(ChiTietHoaDon ct){

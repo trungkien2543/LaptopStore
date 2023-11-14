@@ -17,7 +17,7 @@ public class ChiTietPhieuNhap_BUS {
     ChiTietPhieu_DAO ctpn_DAO = new ChiTietPhieu_DAO();
     ArrayList<ChiTietPhieu> list = new ArrayList<>();
     int a;
-    public ArrayList<ChiTietPhieu> getALLChiTietPhieuNhap(){
+    public ArrayList<ChiTietPhieu> getALLChiTietPhieuNhap(int a){
         return ctpn_DAO.getListChiTietPhieuNhap(a);
     }
     

@@ -10,18 +10,18 @@ import java.util.Date;
  *
  * @author DELL
  */
-public class ChiTietLaptop_DTO {
+public class ChiTietLaptop {
     private String IDRieng, TrangThai, MauLapTop;
     private Date NgayNhap;
 
-    public ChiTietLaptop_DTO(String IDRieng, String TrangThai, String MauLapTop, Date NgayNhap) {
+    public ChiTietLaptop(String IDRieng, String TrangThai, String MauLapTop, Date NgayNhap) {
         this.IDRieng = IDRieng;
         this.TrangThai = TrangThai;
         this.MauLapTop = MauLapTop;
         this.NgayNhap = NgayNhap;
     }
 
-    public ChiTietLaptop_DTO() {
+    public ChiTietLaptop() {
     }
 
     

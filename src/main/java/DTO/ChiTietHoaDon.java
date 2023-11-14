@@ -13,6 +13,9 @@ public class ChiTietHoaDon {
     private int MaHD, Gia;
 
     public ChiTietHoaDon() {
+        this.IDRieng=null;
+        this.MaHD=0;
+        this.Gia=0;
     }
     
     

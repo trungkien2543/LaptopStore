@@ -411,6 +411,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblKhoHang1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblKhoHang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/KhoHang.png"))); // NOI18N
         lblKhoHang1.setText("Kho hàng");
+        lblKhoHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblKhoHang1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblKhoHang1MouseClicked(evt);
@@ -420,6 +421,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblNhapHang1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNhapHang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhapHang.png"))); // NOI18N
         lblNhapHang1.setText("Nhập hàng");
+        lblNhapHang1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNhapHang1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblNhapHang1MouseClicked(evt);
@@ -430,6 +432,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblBanHang7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBanHang7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/BanHang.png"))); // NOI18N
         lblBanHang7.setText("Bán hàng");
+        lblBanHang7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBanHang7MouseClicked(evt);
@@ -439,6 +442,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblBanHang8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBanHang8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhanVien.png"))); // NOI18N
         lblBanHang8.setText("Nhân viên");
+        lblBanHang8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBanHang8MouseClicked(evt);
@@ -448,6 +452,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblBanHang9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBanHang9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/KhachHang.png"))); // NOI18N
         lblBanHang9.setText("Khách hàng");
+        lblBanHang9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBanHang9MouseClicked(evt);
@@ -469,6 +474,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblBanHang11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBanHang11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/PhieuNhapHang_1.png"))); // NOI18N
         lblBanHang11.setText("Phiếu nhập hàng");
+        lblBanHang11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang11.setOpaque(true
         );
         lblBanHang11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -481,6 +487,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblBanHang12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBanHang12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Bill.png"))); // NOI18N
         lblBanHang12.setText("Hóa đơn bán hàng");
+        lblBanHang12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBanHang12MouseClicked(evt);
@@ -490,6 +497,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         lblBanHang13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblBanHang13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Thống kê.png"))); // NOI18N
         lblBanHang13.setText("Thống kê doanh thu");
+        lblBanHang13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBanHang13MouseClicked(evt);
@@ -715,7 +723,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
                 }
                 break;
             }
-  
+            
             default :{
                 for (PhieuNhap s : list){
                     if(Integer.toString(s.getMaPhieu()).contains(find)  || ChuyenNgayShow.format(s.getNgayNhap()).contains(find) || Integer.toString(s.getTongTien()).contains(find) || s.getNhaCungCap().contains(find) || s.getNhanVien().contains(find)){

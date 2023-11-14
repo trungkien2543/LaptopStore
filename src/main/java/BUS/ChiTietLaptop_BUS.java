@@ -6,7 +6,7 @@ package BUS;
 
 import DAO.ChiTietLaptop_DAO;
 import DAO.Laptop_DAO;
-import DTO.ChiTietLaptop_DTO;
+import DTO.ChiTietLaptop;
 import DTO.Laptop;
 import java.util.ArrayList;
 
@@ -15,14 +15,14 @@ import java.util.ArrayList;
  * @author DELL
  */
 public class ChiTietLaptop_BUS {
-     ArrayList<ChiTietLaptop_DTO> list;
+     ArrayList<ChiTietLaptop> list;
     
     public ChiTietLaptop_BUS(){
         
     }
     
-    public ArrayList<ChiTietLaptop_DTO> getListChiTietLaptop(){
-        ArrayList<ChiTietLaptop_DTO> list = new ChiTietLaptop_DAO().getListChiTietLaptop();
+    public ArrayList<ChiTietLaptop> getListChiTietLaptop(){
+        ArrayList<ChiTietLaptop> list = new ChiTietLaptop_DAO().getListChiTietLaptop();
         
         return list;
     }

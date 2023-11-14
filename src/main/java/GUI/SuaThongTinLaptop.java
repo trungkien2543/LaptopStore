@@ -63,7 +63,7 @@ public class SuaThongTinLaptop extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtGia = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("THÔNG TIN LAPTOP");

@@ -9,6 +9,8 @@ import DTO.HoaDon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +23,26 @@ public class ChiTietHoaDon_DAO {
     public ChiTietHoaDon_DAO() {
         con = new SQLConnection().getCon();
     }
-    
+    public ArrayList<ChiTietHoaDon> getListChiTietHoaDon(int MaHD){
+        ArrayList<ChiTietHoaDon> list = new ArrayList<>();
+        String sql ="Select * from HoaDon where MaHoaDon=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MaHD);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                cthd.setIDRieng(rs.getString(1));
+                cthd.setMaHD(rs.getInt(2));
+                cthd.setGia(rs.getInt(3));
+                list.add(cthd);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
     public boolean ThemChiTietHoaDon(ChiTietHoaDon ct){
         String sql = "insert into ChiTietHoaDon (idRieng,MaHoaDon,Gia) values (?,?,?)";
         try{

@@ -36,7 +36,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         this.NgayNhap=ngaynhap;
         this.NCC=ncc;
         this.NV=nv;
-        list = new ChiTietPhieu_DAO().getListChiTietPhieuNhap(MaPhieu);
+        list = new ChiTietPhieuNhap_BUS().getALLChiTietPhieuNhap(MaPhieu);
         txtMaPN.setText(Integer.toString(MaPhieu));
         txtMaPN.setEditable(false);
         txtNgayNhap.setText(ngaynhap);
@@ -78,7 +78,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         tblCTPN = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -99,13 +99,13 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
 
         tblCTPN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Mã phiếu", "Số lượng", "Giá"
+                "ID", "Mã phiếu", "Giá"
             }
         ));
         jScrollPane1.setViewportView(tblCTPN);

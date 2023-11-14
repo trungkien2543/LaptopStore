@@ -10,7 +10,7 @@ import BUS.KhachHang_BUS;
 import BUS.Laptop_BUS;
 import DAO.ChiTietHoaDon_DAO;
 import DTO.ChiTietHoaDon;
-import DTO.ChiTietLaptop_DTO;
+import DTO.ChiTietLaptop;
 import DTO.HoaDon;
 import DTO.KhachHang;
 import DTO.Laptop;
@@ -41,7 +41,7 @@ public class BanHang extends javax.swing.JFrame {
 
     ArrayList<Laptop> list_mh;
     
-    ArrayList<ChiTietLaptop_DTO> list_ct;
+    ArrayList<ChiTietLaptop> list_ct;
     
     ArrayList<KhachHang> list_kh;
     
@@ -943,7 +943,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFindActionPerformed
 
     public void ChuyenTrangThai(String idRieng, String trangThai){
-        for (ChiTietLaptop_DTO l : list_ct){
+        for (ChiTietLaptop l : list_ct){
             if (l.getIDRieng().equals(idRieng)){
                 l.setTrangThai(trangThai);
             }
@@ -951,7 +951,7 @@ public class BanHang extends javax.swing.JFrame {
     }
     
     public String TimIDRieng(String ID){
-        for (ChiTietLaptop_DTO ct : list_ct){
+        for (ChiTietLaptop ct : list_ct){
             if (ct.getTrangThai().equals("1") && ct.getMauLapTop().equals(ID)){
                 return ct.getIDRieng();
             }
@@ -1201,7 +1201,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFindKeyReleased
     
     public String MaLaptop(String idRieng){
-        for (ChiTietLaptop_DTO laptop : list_ct){
+        for (ChiTietLaptop laptop : list_ct){
             if (idRieng.equals(laptop.getIDRieng())){
                 return laptop.getMauLapTop();
             }

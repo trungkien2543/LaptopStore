@@ -27,13 +27,13 @@ public class ChiTietPhieu_DAO {
         String sql ="Select * from ChiTietPhieu where MaPhieu=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, MaPhieu);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 ChiTietPhieu pn = new ChiTietPhieu();
                 pn.setIDRieng(rs.getString(1));
                 pn.setMaPhieu(rs.getInt(2));
-                pn.setSoLuong(rs.getInt(3));
-                pn.setGia(rs.getInt(4));
+                pn.setGia(rs.getInt(3));
                 list.add(pn);
             }
         }
@@ -44,14 +44,13 @@ public class ChiTietPhieu_DAO {
     }
     
     public boolean addChiTietPhieuNhap(ChiTietPhieu s){
-        String sql = "insert into ChiTietPhieu(id,MaPhieu,SoLuong,Gia) values (?,?,?,?) ";
+        String sql = "insert into ChiTietPhieu(id,MaPhieu,Gia) values (?,?,?,?) ";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, s.getIDRieng());
             ps.setInt(2,s.getMaPhieu());
-            ps.setInt(3, s.getSoLuong());
-            ps.setInt(4, s.getGia());
+            ps.setInt(3, s.getGia());
             return ps.executeUpdate() > 0;    
         }
         catch(Exception e){

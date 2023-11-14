@@ -19,7 +19,7 @@ public class HoaDon_BUS {
     }
     
     public int LayMaHoaDon(){
-        return new HoaDon_DAO().LayMaHoaDon();
+        return new HoaDon_DAO().LayMaHoaDon() + 1;
     }
     
     public boolean ThemHoaDon(HoaDon hd){

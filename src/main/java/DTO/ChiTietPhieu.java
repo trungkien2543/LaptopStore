@@ -10,19 +10,17 @@ package DTO;
  */
 public class ChiTietPhieu {
     private String IDRieng;
-    private int Gia, MaPhieu,SoLuong;
+    private int Gia, MaPhieu;
     public ChiTietPhieu(){
         this.IDRieng=null;
         this.Gia=0;
         this.MaPhieu=0;
-        this.SoLuong=0;
     }
 
-    public ChiTietPhieu(String IDRieng, int Gia, int MaPhieu,int SoLuong) {
+    public ChiTietPhieu(String IDRieng, int Gia, int MaPhieu) {
         this.IDRieng = IDRieng;
         this.Gia = Gia;
         this.MaPhieu = MaPhieu;
-        this.SoLuong=SoLuong;
     }
 
     public String getIDRieng() {
@@ -48,13 +46,4 @@ public class ChiTietPhieu {
     public void setMaPhieu(int MaPhieu) {
         this.MaPhieu = MaPhieu;
     }
-    
-    public int getSoLuong(){
-        return SoLuong;
-    }
-    
-    public void setSoLuong(int SoLuong){
-        this.SoLuong=SoLuong;
-    }
-    
 }

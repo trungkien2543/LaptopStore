@@ -16,9 +16,9 @@ import java.util.ArrayList;
 public class ChiTietPhieuNhap_BUS {
     ChiTietPhieu_DAO ctpn_DAO = new ChiTietPhieu_DAO();
     ArrayList<ChiTietPhieu> list = new ArrayList<>();
-    
+    int a;
     public ArrayList<ChiTietPhieu> getALLChiTietPhieuNhap(){
-        return ctpn_DAO.getListChiTietPhieuNhap();
+        return ctpn_DAO.getListChiTietPhieuNhap(a);
     }
     
     public ArrayList<ChiTietPhieu> getTheoMaPhieuNhap(PhieuNhap pn){

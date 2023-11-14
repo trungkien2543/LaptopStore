@@ -8,6 +8,8 @@ import BUS.PhieuNhap_BUS;
 import DAO.Laptop_DAO;
 import DTO.NhanVien;
 import DTO.PhieuNhap;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -762,22 +764,20 @@ public class PhieuNhapHang extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxDieuKienLocActionPerformed
 
     private void btnChiTietPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietPhieuActionPerformed
-        // TODO add your handling code here:
-            int Selected_Row = tblPhieuNhap.getSelectedRow();
-        if(Selected_Row==-1){
-            JOptionPane.showMessageDialog(rootPane, "Hay chon 1 hoa don roi xem chi tiet");
+       String str=txtFind.getText();
+       String ngaynhap,ncc,nv;
+       int row = tblPhieuNhap.getSelectedRow();
+       if(row==-1){
+           JOptionPane.showMessageDialog(rootPane, "Hãy chọn 1 dòng rồi nhấn nút xem chi tiết!");
             return;
-        }
-        try{
-            Hashtable map = new Hashtable();
-            JasperReport rpt = JasperCompileManager.compileReport("src\\Report\\rptPhieuNhap.jrxml");
-            map.put("sMaPhieu", txtFind.getText());
-            Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLCuaHangSach;user=sa;password=1;" + "encrypt=true;trustServerCertificate=true;sslProtocol=TLSv1.2;");
-            JasperPrint p = JasperFillManager.fillReport(rpt, map, con);
-            JasperViewer.viewReport(p,false);
-        }
-        catch(Exception e){
-            e.printStackTrace();
+       }
+       else{
+            ngaynhap=(String) tblPhieuNhap.getValueAt(row, 1);
+            ncc =(String) tblPhieuNhap.getValueAt(row, 3);
+            nv = (String) tblPhieuNhap.getValueAt(row, 4);
+            ChiTietPhieuNhap a = new ChiTietPhieuNhap(Integer.parseInt(str),ngaynhap,ncc,nv);
+            a.setVisible(true);
+            a.setLocationRelativeTo(null);
         }
     }//GEN-LAST:event_btnChiTietPhieuActionPerformed
 

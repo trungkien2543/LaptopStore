@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,7 +35,6 @@ public class HoaDon_DAO {
             while (rs.next()){
                 MaHD = rs.getInt(1)+1;
             }
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -58,6 +59,41 @@ public class HoaDon_DAO {
         }
         return false;
     }
-
+    public boolean deleteHoaDon(int mahoadon){
+        String sql = "delete from HoaDon where MaHoaDon = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, mahoadon);
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public ArrayList<HoaDon> TimKiem(String Loai,String From,String To){
+        ArrayList<HoaDon> list_find = new ArrayList<>();
+        try{
+            String sql = "select * from HoaDon where "+Loai+" between ? and ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, From);
+            ps.setString(2, To);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                HoaDon s = new HoaDon(rs.getInt(1), rs.getInt(4), rs.getInt(3),rs.getTimestamp(2).toLocalDateTime(), rs.getString(5), rs.getString(6));
+                list_find.add(s);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return list_find;
+    }
+    
+    public static void main(String[] args) {
+        ArrayList<HoaDon> list =  new HoaDon_DAO().TimKiem("SoLuong", "0" , "10");
+        DateTimeFormatter NgayGio = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(NgayGio.format(list.get(0).getNgayLap()));
+    }
 
 }

@@ -22,9 +22,9 @@ public class ChiTietPhieu_DAO {
     public ChiTietPhieu_DAO() {
         con = new SQLConnection().getCon(); 
     }
-    public ArrayList<ChiTietPhieu> getListChiTietPhieuNhap(){
+    public ArrayList<ChiTietPhieu> getListChiTietPhieuNhap(int MaPhieu){
         ArrayList<ChiTietPhieu> list = new ArrayList<>();
-        String sql ="Select * from ChiTietPhieu";
+        String sql ="Select * from ChiTietPhieu where MaPhieu=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

@@ -19,6 +19,12 @@ public class HoaDon {
     private String KhachHang, NhanVien;
 
     public HoaDon() {
+        this.MaHD=0;
+        this.NgayLap=null;
+        this.TongTien=0;
+        this.SoLuong=0;
+        this.KhachHang=null;
+        this.NhanVien=null;
     }
     
     

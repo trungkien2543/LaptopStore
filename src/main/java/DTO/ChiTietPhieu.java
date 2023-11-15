@@ -9,26 +9,28 @@ package DTO;
  * @author DELL
  */
 public class ChiTietPhieu {
-    private String IDRieng;
-    private int Gia, MaPhieu;
+    private String ID;
+    private int Gia, MaPhieu,SoLuong;
     public ChiTietPhieu(){
-        this.IDRieng=null;
+        this.ID=null;
         this.Gia=0;
         this.MaPhieu=0;
+        this.SoLuong=0;
     }
 
-    public ChiTietPhieu(String IDRieng, int Gia, int MaPhieu) {
-        this.IDRieng = IDRieng;
+    public ChiTietPhieu(String ID, int Gia, int MaPhieu,int SoLuong) {
+        this.ID = ID;
         this.Gia = Gia;
         this.MaPhieu = MaPhieu;
+        this.SoLuong=SoLuong;
     }
 
-    public String getIDRieng() {
-        return IDRieng;
+    public String getID() {
+        return ID;
     }
 
-    public void setIDRieng(String IDRieng) {
-        this.IDRieng = IDRieng;
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
     public int getGia() {
@@ -46,4 +48,13 @@ public class ChiTietPhieu {
     public void setMaPhieu(int MaPhieu) {
         this.MaPhieu = MaPhieu;
     }
+    
+    public int getSoLuong(){
+        return SoLuong;
+    }
+    
+    public void setSoLuong(int SoLuong){
+        this.SoLuong=SoLuong;
+    }
+    
 }

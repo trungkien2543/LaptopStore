@@ -51,7 +51,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         model.setRowCount(0);
         for (ChiTietPhieu s : list){
             model.addRow(new Object[]{
-                s.getIDRieng(),s.getMaPhieu(),currencyVN.format(s.getGia())
+                s.getID(),s.getMaPhieu(),currencyVN.format(s.getGia())
             });
         }
     }

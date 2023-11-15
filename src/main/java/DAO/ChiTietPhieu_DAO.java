@@ -31,9 +31,10 @@ public class ChiTietPhieu_DAO {
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 ChiTietPhieu ctpn = new ChiTietPhieu();
-                ctpn.setIDRieng(rs.getString(1));
+                ctpn.setID(rs.getString(1));
                 ctpn.setMaPhieu(rs.getInt(2));
-                ctpn.setGia(rs.getInt(3));
+                ctpn.setSoLuong(rs.getInt(3));
+                ctpn.setGia(rs.getInt(4));
                 list.add(ctpn);
             }
         }
@@ -44,13 +45,14 @@ public class ChiTietPhieu_DAO {
     }
     
     public boolean addChiTietPhieuNhap(ChiTietPhieu s){
-        String sql = "insert into ChiTietPhieu(id,MaPhieu,Gia) values (?,?,?,?) ";
+        String sql = "insert into ChiTietPhieu(id, MaPhieu, SoLuong, Gia) values (?,?,?,?) ";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, s.getIDRieng());
+            ps.setString(1, s.getID());
             ps.setInt(2,s.getMaPhieu());
-            ps.setInt(3, s.getGia());
+            ps.setInt(3, s.getSoLuong());
+            ps.setInt(4, s.getGia());
             return ps.executeUpdate() > 0;    
         }
         catch(Exception e){

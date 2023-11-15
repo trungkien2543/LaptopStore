@@ -24,6 +24,10 @@ public class NhanVien {
         this.GioiTinh = GioiTinh;
     }
 
+    public NhanVien() {
+        
+    }
+
     public String getMaNV() {
         return MaNV;
     }

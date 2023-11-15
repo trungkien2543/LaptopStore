@@ -3,24 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
+import BUS.NhanVien_BUS;
+import BUS.TaiKhoan_BUS;
 import DTO.NhanVien;
+import DTO.TaiKhoan;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 /**
  *
  * @author ASUS
  */
 public class QuanLyTaiKhoan extends javax.swing.JFrame {
-    
-    public static NhanVien NV;
 
     /**
      * Creates new form NhaCungCap
      */
-    public QuanLyTaiKhoan(NhanVien NV) {
-        
-        this.NV = NV;
-        
+    public QuanLyTaiKhoan() {
         initComponents();
     }
 
@@ -79,11 +92,6 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Profile.png"))); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Logout.png"))); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jpThanhTieuDeLayout = new javax.swing.GroupLayout(jpThanhTieuDe);
         jpThanhTieuDe.setLayout(jpThanhTieuDeLayout);
@@ -232,11 +240,32 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jTextField1.setText("Nhập thông tin tìm kiếm");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
+        });
+        
+        jTextField1.addKeyListener(new java.awt.event.KeyListener(){
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stu
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent evt) {
+				// TODO Auto-generated method stub
+				jTextField1KeyListener(evt);
+			}
+        	
         });
 
         lbTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/TimKiem.png"))); // NOI18N
@@ -266,53 +295,190 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            update(),
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Tên đăng nhập","Mật khẩu","Phân quyền"
             }
         ));
+        
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTable1.rowAtPoint(evt.getPoint());
+                if (row >= 0 ) {
+                    ArrayList<TaiKhoan> list = new TaiKhoan_BUS().getListTaiKhoan();
+                	String tenDN = list.get(row).getTenDN();
+                	String matkhau = list.get(row).getMatKhau();
+                	String phanquyen = list.get(row).getPhanQuyen();
+                	
+                	textField.setText(tenDN);
+                	textField_1.setText(matkhau);
+
+                	if( phanquyen.equals("Quanly") )
+                		comboBox.setSelectedIndex(0);
+                	else
+                		comboBox.setSelectedIndex(1);
+                }
+            }
+        });
+        
+        
+        
         jScrollPane1.setViewportView(jTable1);
+        
+        JLabel lblNewLabel = new JLabel("Tên đăng nhập:");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        JLabel lblNewLabel_1 = new JLabel("Mật khẩu:");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        JLabel lblNewLabel_2 = new JLabel("Phân quyền:");
+        lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        textField = new JTextField();
+        textField.setEnabled(false);
+        textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        textField.setColumns(10);
+        
+        textField_1 = new JTextField();
+        textField_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        textField_1.setColumns(10);
+        
+        String p[] = {"Quản lý","Nhân viên"};
+        comboBox = new JComboBox(p);
+        comboBox.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        
+        String search[] = {"Tên đăng nhập","Phân quyền"};
+        comboBox_1 = new JComboBox(search);
+        comboBox_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+        
+        lblNewLabel_3 = new JLabel("Chọn tài khoản:");
+        lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        lblNewLabel_4 = new JLabel("Mật khẩu:");
+        lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        lblNewLabel_5 = new JLabel("Chọn quyền:");
+        lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 20));
+        
+        String[] list_addTK = new NhanVien_BUS().getListNhanVien_maNV_noTK();
+        model = new DefaultComboBoxModel<>(list_addTK);
+        comboBox_2 = new JComboBox<>(model);
+        comboBox_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        
+        textField_2 = new JTextField();
+        textField_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        textField_2.setColumns(10);
+        
+        comboBox_3 = new JComboBox(p);
+        comboBox_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
         javax.swing.GroupLayout jpKhoLayout = new javax.swing.GroupLayout(jpKho);
-        jpKho.setLayout(jpKhoLayout);
         jpKhoLayout.setHorizontalGroup(
-            jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpKhoLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTimKiem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 428, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addGap(183, 183, 183))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpKhoLayout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+        	jpKhoLayout.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(Alignment.LEADING, jpKhoLayout.createSequentialGroup()
+        			.addGap(52)
+        			.addGroup(jpKhoLayout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(jpKhoLayout.createSequentialGroup()
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jpKhoLayout.createSequentialGroup()
+        							.addComponent(lblNewLabel_5)
+        							.addPreferredGap(ComponentPlacement.RELATED))
+        						.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(jpKhoLayout.createParallelGroup(Alignment.TRAILING, false)
+        								.addComponent(lblNewLabel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        								.addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        								.addComponent(lblNewLabel_1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(lblNewLabel_3, Alignment.LEADING))
+        							.addGroup(jpKhoLayout.createSequentialGroup()
+        								.addGap(68)
+        								.addComponent(jButton1, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE))
+        							.addGroup(jpKhoLayout.createSequentialGroup()
+        								.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+        								.addPreferredGap(ComponentPlacement.RELATED))))
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(jpKhoLayout.createSequentialGroup()
+        							.addGap(7)
+        							.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        								.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING, false)
+        									.addComponent(textField)
+        									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE))
+        								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)))
+        						.addGroup(jpKhoLayout.createSequentialGroup()
+        							.addGap(95)
+        							.addComponent(jButton3, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(jpKhoLayout.createSequentialGroup()
+        							.addGap(18)
+        							.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+        								.addGroup(jpKhoLayout.createSequentialGroup()
+        									.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        										.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+        										.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
+        									.addGap(49)
+        									.addComponent(jButton2, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)))))
+        					.addGap(50)
+        					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 649, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED))
+        				.addGroup(jpKhoLayout.createSequentialGroup()
+        					.addPreferredGap(ComponentPlacement.RELATED, 580, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)
+        					.addGap(30)
+        					.addComponent(lbTimKiem)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
+        					.addGap(72)))
+        			.addGap(52))
         );
         jpKhoLayout.setVerticalGroup(
-            jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpKhoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
-                    .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
-                .addContainerGap())
+        	jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(jpKhoLayout.createSequentialGroup()
+        			.addGap(42)
+        			.addGroup(jpKhoLayout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        					.addGroup(jpKhoLayout.createSequentialGroup()
+        						.addGap(16)
+        						.addComponent(jTextField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(lbTimKiem, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE))
+        			.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(jpKhoLayout.createSequentialGroup()
+        					.addGap(19)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING, false)
+        						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblNewLabel_3))
+        					.addGap(24)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblNewLabel_4)
+        						.addComponent(jButton2))
+        					.addGap(20)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblNewLabel_5))
+        					.addGap(82)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+        					.addGap(27)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblNewLabel_1)
+        						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
+        					.addGap(65)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblNewLabel_2)
+        						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+        					.addGap(48)
+        					.addGroup(jpKhoLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(jButton1)
+        						.addComponent(jButton3, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+        					.addGap(113))
+        				.addGroup(jpKhoLayout.createSequentialGroup()
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 545, GroupLayout.PREFERRED_SIZE)
+        					.addContainerGap())))
         );
+        jpKho.setLayout(jpKhoLayout);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -360,26 +526,144 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    	String tenDN = String.valueOf(comboBox_2.getItemAt(comboBox.getSelectedIndex()));
+    	String mk = textField_2.getText();
+    	String pq = String.valueOf(comboBox_3.getItemAt(comboBox.getSelectedIndex()));
+    	String phanquyen;
+    	if( pq.equals("Quản lý"))
+    		phanquyen = "Quanly";
+    	else
+    		phanquyen = "Nhanvien";
+    	if( !mk.equals("") && !tenDN.equals("")) {
+    		TaiKhoan tk = new TaiKhoan(tenDN,mk,phanquyen);
+			JOptionPane.showMessageDialog(jPanel2, new TaiKhoan_BUS().themTK(tk));
+			jTable1.setModel(new javax.swing.table.DefaultTableModel(
+	            update(),
+	            new String [] {
+	            		"Tên đăng nhập","Mật khẩu","Phân quyền"
+	            }
+	        ));
+			model.removeElement(tenDN);
+    	}
+    	else if(tenDN.equals(""))
+    		JOptionPane.showMessageDialog(jPanel2, "Chọn 1 tài khoản để thêm !","Error",0);
+    	else 
+    		JOptionPane.showMessageDialog(jPanel2, "Không được để trống mật khẩu !","Error",0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+    	String tenDN = textField.getText();
+    	String mk = textField_1.getText();
+    	String pq = String.valueOf(comboBox.getItemAt(comboBox.getSelectedIndex()));
+    	String phanquyen;
+    	if( pq.equals("Quản lý"))
+    		phanquyen = "Quanly";
+    	else
+    		phanquyen = "Nhanvien";
+    	if( !tenDN.equals("") ) {
+    		TaiKhoan tk = new TaiKhoan(tenDN,mk,phanquyen);
+			JOptionPane.showMessageDialog(jPanel2, new TaiKhoan_BUS().suaTK(tk));
+			jTable1.setModel(new javax.swing.table.DefaultTableModel(
+	            update(),
+	            new String [] {
+	            		"Tên đăng nhập","Mật khẩu","Phân quyền"
+	            }
+	        ));
+    	}
+    	else
+    		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để sửa !","Error",0);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    	String tenDN = textField.getText();
+    	String mk = textField_1.getText();
+    	String pq = String.valueOf(comboBox.getItemAt(comboBox.getSelectedIndex()));
+    	String phanquyen;
+    	if( pq.equals("Quản lý"))
+    		phanquyen = "Quanly";
+    	else
+    		phanquyen = "Nhanvien";
+    	if( !tenDN.equals("") ) {
+    		TaiKhoan tk = new TaiKhoan(tenDN,mk,phanquyen);
+    		int choose = JOptionPane.showConfirmDialog(jPanel2, "Bạn có chắc muốn xóa tài khoản "+tenDN+" ?");
+    		if( choose == JOptionPane.YES_OPTION ) {
+				JOptionPane.showMessageDialog(jPanel2, new TaiKhoan_BUS().xoaTK(tk));
+				jTable1.setModel(new javax.swing.table.DefaultTableModel(
+		            update(),
+		            new String [] {
+		            		"Tên đăng nhập","Mật khẩu","Phân quyền"
+		            }
+		        ));
+		        model.addElement(tenDN);
+    		}
+    	}
+    	else
+    		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để sửa !","Error",0);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-        DangNhap dn = new DangNhap();
-        dn.setVisible(true);
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
      */
+    
+    private void jTextField1KeyListener(java.awt.event.KeyEvent evt ){
+    	String search = String.valueOf(comboBox_1.getItemAt(comboBox_1.getSelectedIndex()));
+    	String s = jTextField1.getText();
+    	if( search.equals("Tên đăng nhập") ) {
+    		ArrayList<TaiKhoan> list = new TaiKhoan_BUS().timTK_TenDN(s);
+    		Object data[][] = new Object [list.size()][3];
+    		for( int i=0 ; i<list.size() ; i++ ) {
+    			data[i][0] = list.get(i).getTenDN();
+            	data[i][1] = list.get(i).getMatKhau();
+            	if( list.get(i).getPhanQuyen().equals("Quanly") )
+            		data[i][2] = "Quản lý";
+            	else
+            		data[i][2] = "Nhân viên";
+    		}
+    		jTable1.setModel(new javax.swing.table.DefaultTableModel(
+	            data,
+	            new String [] {
+	            		"Tên đăng nhập","Mật khẩu","Phân quyền"
+	            }
+	        ));
+    	}
+    	else {
+    		ArrayList<TaiKhoan> list = new TaiKhoan_BUS().timTK_PhanQuyen(s);
+    		Object data[][] = new Object [list.size()][3];
+    		for( int i=0 ; i<list.size() ; i++ ) {
+    			data[i][0] = list.get(i).getTenDN();
+            	data[i][1] = list.get(i).getMatKhau();
+            	if( list.get(i).getPhanQuyen().equals("Quanly") )
+            		data[i][2] = "Quản lý";
+            	else
+            		data[i][2] = "Nhân viên";
+    		}
+    		jTable1.setModel(new javax.swing.table.DefaultTableModel(
+	            data,
+	            new String [] {
+	            	"Tên đăng nhập","Mật khẩu","Phân quyền"
+	            }
+	        ));
+    		
+    	}
+    }
+    
+    public Object[][] update() {
+    	int n = new TaiKhoan_BUS().getListTaiKhoan().size();
+    	ArrayList<TaiKhoan> list = new TaiKhoan_BUS().getListTaiKhoan();
+    	Object[][] data = new Object[n][3];
+        for( int i=0 ; i<n ; i++ ) {
+        	data[i][0] = list.get(i).getTenDN();
+        	data[i][1] = list.get(i).getMatKhau();
+        	if( list.get(i).getPhanQuyen().equals("Quanly") )
+        		data[i][2] = "Quản lý";
+        	else
+        		data[i][2] = "Nhân viên";
+        }
+        return data;
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -422,7 +706,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyTaiKhoan(NV).setVisible(true);
+                new QuanLyTaiKhoan().setVisible(true);
             }
         });
     }
@@ -456,5 +740,15 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
     private javax.swing.JLabel lblKhoHang;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNhapHang;
-    // End of variables declaration//GEN-END:variables
+    private JTextField textField;
+    private JTextField textField_1;
+    private JComboBox comboBox;
+    private JComboBox comboBox_1;
+    private JLabel lblNewLabel_3;
+    private JLabel lblNewLabel_4;
+    private JLabel lblNewLabel_5;
+    private JComboBox comboBox_2;
+    private JTextField textField_2;
+    private JComboBox comboBox_3;
+    private DefaultComboBoxModel<String> model;
 }

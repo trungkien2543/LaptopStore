@@ -17,7 +17,11 @@ public class TaiKhoan {
         this.MatKhau = MatKhau;
         this.PhanQuyen = PhanQuyen;
     }
-
+    
+    public TaiKhoan(){
+           
+    }
+       
     public String getTenDN() {
         return TenDN;
     }

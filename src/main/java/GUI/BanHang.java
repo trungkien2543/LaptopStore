@@ -1043,9 +1043,20 @@ public class BanHang extends javax.swing.JFrame {
    
         }
     }//GEN-LAST:event_btnThemActionPerformed
-
+    
+    public String TimMaKH(String SDT){
+        for (KhachHang kh : list_kh){
+            if (kh.getSDT().equals(SDT)){
+                return kh.getMaKH();
+            }
+        }    
+        return "";
+    }
+    
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
+        
+        
         
         //Thực hiện thêm thông tin hóa đơn mới
         HoaDon hd = new HoaDon();
@@ -1055,8 +1066,8 @@ public class BanHang extends javax.swing.JFrame {
         // Lấy ngày giờ hiện tại
         LocalDateTime ngayGioHienTai = LocalDateTime.now();
         hd.setNgayLap(ngayGioHienTai);
-        hd.setKhachHang(txtSDT.getText());
-        hd.setNhanVien(NV.getMaNV());
+        hd.setKhachHang(TimMaKH(txtSDT.getText()));
+        hd.setNhanVien("NV002");
         hd.setTongTien((int) TongTien_int);
         if (new HoaDon_BUS().ThemHoaDon(hd)){
             // Thêm các chi tiết hóa đơn
@@ -1092,7 +1103,7 @@ public class BanHang extends javax.swing.JFrame {
             }
             
             // Cập nhật tích điểm cho khách
-            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), txtSDT.getText())){
+            if (!new KhachHang_BUS().TichDiem(Integer.parseInt(txtTichDiem.getText()), Integer.parseInt(txtDiemTichThem.getText()), TimMaKH(txtSDT.getText()))){
                 JOptionPane.showMessageDialog(rootPane, "Cập nhật tích điểm bị lỗi");
                 return;
             }
@@ -1327,9 +1338,11 @@ public class BanHang extends javax.swing.JFrame {
         if (evt.getKeyCode() != KeyEvent.VK_ENTER){
             String text = txtSDT.getText();
             for(KhachHang s : list_kh){
-                if (s.getMaKH().equals(text)){
+                if (s.getSDT().equals(text)){
                     txtTen.setText(s.getTen());
                     txtDiaChi.setText(s.getDiaChi());
+                    
+                    
                     txtTichDiem.setText(Integer.toString(s.getTichDiem()));
                     btnThanhToan.setEnabled(true);
                     return;

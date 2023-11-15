@@ -4,7 +4,18 @@
  */
 package GUI;
 
+import BUS.KhachHang_BUS;
+import DTO.KhachHang;
 import DTO.NhanVien;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -13,16 +24,24 @@ import DTO.NhanVien;
 public class QuanLyKhachHang extends javax.swing.JFrame {
     
     public static NhanVien NV;
+     private int largestID;
+    
+
+
+
 
 
     /**
      * Creates new form NhaCungCap
+     * @param NV
      */
     public QuanLyKhachHang(NhanVien NV) {
         
-        this.NV = NV;
+        QuanLyKhachHang.NV = NV;
         
         initComponents();
+        loadData();
+        
     }
 
     /**
@@ -421,15 +440,74 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+                // TODO add your handling code here:
+        ModifyUser m = new ModifyUser(this);
+        m.setVisible(true);  
+            loadData();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // Get the selected row index
+        int selectedRowIndex = jTable1.getSelectedRow();
+
+        // Check if a row is selected
+        if (selectedRowIndex == -1) {
+            // No row selected, show a message
+            JOptionPane.showMessageDialog(this, "Please select a row to modify.", "No Row Selected", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // A row is selected, get the data from the selected row
+            String maKH = jTable1.getValueAt(selectedRowIndex, 0).toString();
+            String tenKH = jTable1.getValueAt(selectedRowIndex, 1).toString();
+            String sdt = jTable1.getValueAt(selectedRowIndex, 2).toString();
+            String diachi = jTable1.getValueAt(selectedRowIndex, 3).toString();
+            String trangThai = jTable1.getValueAt(selectedRowIndex, 4).toString();
+            String tienthuong = jTable1.getValueAt(selectedRowIndex, 5).toString(); 
+
+
+
+            // Open the ModifyUser form and pass the data
+            ModifyUser modifyUser = new ModifyUser(this, true, maKH, tenKH, sdt,diachi,trangThai, tienthuong);
+            modifyUser.setVisible(true);
+
+            // After ModifyUser form is closed, you can refresh the data in your JTable if needed
+            loadData();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+            // Create a new workbook and sheet
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Sheet 1");
+
+        // Get the column headers from the JTable
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        int colCount = model.getColumnCount();
+        Row headerRow = sheet.createRow(0);
+        for (int col = 0; col < colCount; col++) {
+            Cell cell = headerRow.createCell(col);
+            cell.setCellValue(model.getColumnName(col));
+        }
+
+        // Get the data from the JTable
+        int rowCount = model.getRowCount();
+        for (int row = 0; row < rowCount; row++) {
+            Row excelRow = sheet.createRow(row + 1);
+            for (int col = 0; col < colCount; col++) {
+                Cell cell = excelRow.createCell(col);
+                cell.setCellValue(String.valueOf(model.getValueAt(row, col)));
+            }
+        }
+
+        // Save the workbook to a file
+        try (FileOutputStream fileOut = new FileOutputStream("output.xlsx")) {
+            workbook.write(fileOut);
+            fileOut.close();
+            workbook.close();
+            System.out.println("Excel file has been created successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -488,6 +566,46 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         new ThongKe(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang13MouseClicked
+    public javax.swing.JTable getJTable1() {
+        return jTable1;
+    }
+    
+    public void reloadData() {
+    // Call your loadData method or any method you use to load data into jTable1
+    loadData();
+}
+   public String getLargestIDFromTable() {
+    String largestID = "0";  // Assuming the IDs are strings, initialize with "0"
+
+    for (int i = 0; i < jTable1.getRowCount(); i++) {
+        String currentID = jTable1.getValueAt(i, 0).toString();  // Assuming the ID is in the first column
+        if (currentID.compareTo(largestID) > 0) {
+            largestID = currentID ;
+        }
+    }
+
+    return largestID;
+}
+
+    
+    public void loadData() {
+        String[] columnNames = {"MaKH", "TenKH", "SDT", "DiaChi", "TrangThai", "DiemThuong"};
+        ArrayList<KhachHang> khachHangList = khBUS.getListKhachHang();
+
+        // Convert ArrayList to a two-dimensional array
+        Object[][] data = new Object[khachHangList.size()][6];
+        
+        for (int i = 0; i < khachHangList.size(); i++) {
+            KhachHang kh = khachHangList.get(i);
+            data[i] = new Object[]{kh.getMaKH(), kh.getTen(), kh.getSDT(), kh.getDiaChi(), kh.getTrangThai(), kh.getTichDiem(),};
+        }
+
+        // Create the DefaultTableModel with the converted data
+        model = new DefaultTableModel(data, columnNames);
+
+        // Set the model to your JTable (assuming jTable1 is the name of your JTable)
+        jTable1.setModel(model);
+    }
 
     /**
      * @param args the command line arguments
@@ -527,10 +645,13 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new QuanLyKhachHang(NV).setVisible(true);
+                
             }
         });
     }
-
+    private  KhachHang_BUS khBUS = new KhachHang_BUS();
+    private  DefaultTableModel model;
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

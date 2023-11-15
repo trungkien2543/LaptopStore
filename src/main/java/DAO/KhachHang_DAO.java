@@ -67,7 +67,26 @@ public class KhachHang_DAO {
         
         return false;
     }
+    
+    
+    public boolean updateUser(KhachHang kh){
+        String sql = "update KhachHang set Ten=?, SDT=?, TichDiem=?, DiaChi=?, TrangThai=? where idKhachHang=?";
+        try{
+            PreparedStatement ps = con.prepareCall(sql);
+            ps.setString(1, kh.getTen());
+            ps.setString(2, kh.getSDT());
+            ps.setInt(3, kh.getTichDiem());
+            ps.setString(4, kh.getDiaChi());
+            ps.setString(5, kh.getTrangThai());
+            ps.setString(6, kh.getMaKH()); // Use idKhachHang for updating
 
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
     
     public boolean TichDiem(int Diem, String MaKH){
         String sql = "update  KhachHang set TichDiem = ? where idKhachHang = ?";
@@ -81,6 +100,22 @@ public class KhachHang_DAO {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public int LayMaKH(){
+        String sql = "select max(idKhachHang) from KhachHang";
+        int MaKH = 0;
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                MaKH= rs.getInt(1)+1;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return (MaKH);
     }
 
 }

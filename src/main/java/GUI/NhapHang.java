@@ -10,6 +10,7 @@ import DTO.ChiTietPhieu;
 import DTO.Laptop;
 import DTO.NhanVien;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -74,14 +77,70 @@ public class NhapHang extends javax.swing.JFrame {
         lblChucVu = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         lblKhoHang = new javax.swing.JLabel();
+        lblKhoHang.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new KhoHang(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblNhapHang = new javax.swing.JLabel();
         lblBanHang = new javax.swing.JLabel();
+        lblBanHang.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new BanHang(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblBanHang1 = new javax.swing.JLabel();
+        lblBanHang1.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new QuanLyNhanVien(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblBanHang2 = new javax.swing.JLabel();
+        lblBanHang2.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new QuanLyKhachHang(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblBanHang3 = new javax.swing.JLabel();
+        lblBanHang3.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new NhaCungCap(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblBanHang4 = new javax.swing.JLabel();
+        lblBanHang4.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new PhieuNhapHang(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblBanHang5 = new javax.swing.JLabel();
+        lblBanHang5.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new HoaDonBanHang(NV).setVisible(true);
+                dispose();
+        	}
+        });
         lblBanHang6 = new javax.swing.JLabel();
+        lblBanHang6.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		new ThongKe(NV).setVisible(true);
+                dispose();
+        	}
+        });
         jpKho = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         lbTimKiem = new javax.swing.JLabel();
@@ -181,6 +240,39 @@ public class NhapHang extends javax.swing.JFrame {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		int row = jTable2.getSelectedRow();
+        		
+        		JPanel panel_1 = new JPanel();
+        		panel_1.setBounds(0, 0, 341, 259);
+        		panel_1.setLayout(new BorderLayout(0, 0));
+        		
+        		JPanel panel_2 = new JPanel();
+        		panel_1.add(panel_2, BorderLayout.NORTH);
+        		
+        		JButton btnNewButton = new JButton("add");
+        		panel_2.add(btnNewButton);
+        		
+        		JScrollPane scrollPane = new JScrollPane();
+        		panel_1.add(scrollPane, BorderLayout.CENTER);
+        		
+        		JTable table = new JTable();
+        		table.setModel(new javax.swing.table.DefaultTableModel(
+        	            new Object [][] {
+        	            },
+        	            new String [] {
+        	            	"STT", "Serial"
+        	            }
+        	        ));
+        		scrollPane.setViewportView(table);
+        		int sola = 3;
+        		DefaultTableModel model = (DefaultTableModel) table.getModel();
+        		for (int i = 0;i < sola;i++)
+        			model.addRow(new Object[] {i+1, null});
+        		
+        		JDialog dialog = new JDialog(thisFr(), "Nhập mã máy", true);
+        		dialog.setSize(300,300);
+        		dialog.getContentPane().add(panel_1);
+        		
+        		dialog.setVisible(true);
         		
         	}
         });

@@ -23,12 +23,12 @@ public class PhieuNhap_BUS {
         int NewCode = pnDAO.getMaxMaPhieuNhap()+1;
         return Integer.toString(NewCode);
     }
-//    public String addPhieuNhap(DTOPhieuNhap pn){
-//        if(pnDAO.insertPhieuNhap(pn)){
-//            return "Thêm phiếu nhập thành công";
-//        }
-//        return "Thêm phiếu nhập thất bại";
-//    }
+    public String addPhieuNhap(PhieuNhap pn){
+        if(pnDAO.insertPhieuNhap(pn)){
+            return "Thêm phiếu nhập thành công";
+        }
+        return "Thêm phiếu nhập thất bại";
+    }
 //    
 //    public void deletePhieuNhap(DTOPhieuNhap pn){
 //        if(pnDAO.deletePhieuNhap(pn.getMaPhieu())){

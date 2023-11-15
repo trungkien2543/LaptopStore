@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -60,6 +61,20 @@ public class ChiTietLaptop_DAO {
         }
         return false;
     }
-    
+    public boolean addChiTietLaptop(ChiTietLaptop ct) {
+    	String sql = "insert into ChiTietLapTop (idRieng, NgayNhap, TrangThai, MauLaptop) values (?,?,?,?)";
+        try{
+            PreparedStatement ps = con.prepareCall(sql);
+            ps.setString(1, ct.getIDRieng());
+            ps.setDate(2, new java.sql.Date(new Date().getTime()));
+            ps.setString(3, ct.getTrangThai());
+            ps.setString(4, ct.getMauLapTop());
+            return ps.executeUpdate() > 0;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+	}
     
 }

@@ -31,6 +31,8 @@ public class ChiTietLaptop_BUS {
         return new ChiTietLaptop_DAO().CapNhatTrangThai(trangthai, idRieng);
     }
     
-    
+    public boolean addChiTietLaptop(DTO.ChiTietLaptop ct) {
+    	return new ChiTietLaptop_DAO().addChiTietLaptop(ct);
+	}
     
 }

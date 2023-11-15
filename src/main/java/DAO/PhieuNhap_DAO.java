@@ -6,10 +6,10 @@ package DAO;
 
 import DTO.PhieuNhap;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +49,7 @@ public class PhieuNhap_DAO {
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, s.getMaPhieu());
-            ps.setDate(2, new Date(s.getNgayNhap().getTime()));
+            ps.setTimestamp(2,new java.sql.Timestamp(s.getNgayNhap().getTime()));
             ps.setInt(3,s.getTongTien());
             ps.setString(4, s.getNhaCungCap());
             ps.setString(5, s.getNhanVien());

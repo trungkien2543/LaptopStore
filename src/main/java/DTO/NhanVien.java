@@ -9,10 +9,10 @@ package DTO;
  * @author DELL
  */
 public class NhanVien {
-    private String MaNV, TenNV, SDT, DiaChi, NgaySinh, CCCD, Email, Img_url, TrangThai;
+    private String MaNV, TenNV, SDT, DiaChi, NgaySinh, CCCD, Email, TrangThai;
     private boolean GioiTinh;
 
-    public NhanVien(String MaNV, String TenNV, String SDT, String DiaChi, String NgaySinh, String CCCD, String Email, String Img_url, String TrangThai, boolean GioiTinh) {
+    public NhanVien(String MaNV, String TenNV, String SDT, String DiaChi, String NgaySinh, String CCCD, String Email, String TrangThai, boolean GioiTinh) {
         this.MaNV = MaNV;
         this.TenNV = TenNV;
         this.SDT = SDT;
@@ -20,7 +20,6 @@ public class NhanVien {
         this.NgaySinh = NgaySinh;
         this.CCCD = CCCD;
         this.Email = Email;
-        this.Img_url = Img_url;
         this.TrangThai = TrangThai;
         this.GioiTinh = GioiTinh;
     }
@@ -79,14 +78,6 @@ public class NhanVien {
 
     public void setEmail(String Email) {
         this.Email = Email;
-    }
-
-    public String getImg_url() {
-        return Img_url;
-    }
-
-    public void setImg_url(String Img_url) {
-        this.Img_url = Img_url;
     }
 
     public String getTrangThai() {

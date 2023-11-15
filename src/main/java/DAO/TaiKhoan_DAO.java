@@ -65,7 +65,6 @@ public class TaiKhoan_DAO {
                             resultSet.getString("NgaySinh"),
                             resultSet.getString("CCCD"),
                             resultSet.getString("Email"),
-                            resultSet.getString("Img_url"),
                             resultSet.getString("TrangThai"),
                             resultSet.getBoolean("GioiTinh")
                     );
@@ -96,7 +95,6 @@ public class TaiKhoan_DAO {
                             resultSet.getString("NgaySinh"),
                             resultSet.getString("CCCD"),
                             resultSet.getString("Email"),
-                            resultSet.getString("Img_url"),
                             resultSet.getString("TrangThai"),
                             resultSet.getBoolean("GioiTinh")
                     );

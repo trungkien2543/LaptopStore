@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -306,7 +307,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = jTable1.rowAtPoint(evt.getPoint());
                 if (row >= 0 ) {
-                    ArrayList<TaiKhoan> list = new TaiKhoan_BUS().getListTaiKhoan();
+                    List<TaiKhoan> list = new TaiKhoan_BUS().getListTaiKhoan2();
                 	String tenDN = list.get(row).getTenDN();
                 	String matkhau = list.get(row).getMatKhau();
                 	String phanquyen = list.get(row).getPhanQuyen();
@@ -651,7 +652,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
     
     public Object[][] update() {
     	int n = new TaiKhoan_BUS().getListTaiKhoan().size();
-    	ArrayList<TaiKhoan> list = new TaiKhoan_BUS().getListTaiKhoan();
+    	List<TaiKhoan> list = new TaiKhoan_BUS().getListTaiKhoan2();
     	Object[][] data = new Object[n][3];
         for( int i=0 ; i<n ; i++ ) {
         	data[i][0] = list.get(i).getTenDN();

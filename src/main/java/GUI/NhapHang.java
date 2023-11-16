@@ -38,12 +38,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
 
 /**
  *
@@ -164,7 +168,19 @@ public class NhapHang extends javax.swing.JFrame {
         });
         jpKho = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
+        jTextField1.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		jTextField1.setText("");
+        	}
+        });
         lbTimKiem = new javax.swing.JLabel();
+        lbTimKiem.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		Search_String(jTable1, jTextField1.getText().toString()); // tìm kiếm 
+        	}
+        });
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -175,6 +191,7 @@ public class NhapHang extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        
         jTable1.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -927,8 +944,21 @@ public class NhapHang extends javax.swing.JFrame {
 		dialog.setVisible(true);
 		
 	}
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public TableRowSorter Search_table(JTable table) {	
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		TableRowSorter sorter = new TableRowSorter<>(model);
+		table.setRowSorter(sorter);
+		sorter.setRowFilter(null);
+		return sorter;
+	}
+	@SuppressWarnings("unchecked")
+	public void Search_String(JTable table,String name) {		
+		RowFilter<DefaultTableModel, Object> filter = RowFilter.regexFilter("(?i)" + name);
+		this.Search_table(table).setRowFilter(name == "" ? null : filter);
+	}
 	private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+		Search_String(jTable1, jTextField1.getText().toString()); // tìm kiếm 
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -829,8 +829,8 @@ public class HoaDonBanHang extends javax.swing.JFrame {
 
     private void btnChiTietHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietHoaDonActionPerformed
         String str=txtFind.getText();
-        String ngaylap,nv,kh;
-        int sl,tongtien;
+        String ngaylap,nv,kh,tongtien;
+        int sl;
         int row = tblHoaDon.getSelectedRow();
         if(row==-1){
             JOptionPane.showMessageDialog(rootPane, "Hãy chọn 1 dòng rồi nhấn nút xem chi tiết!");
@@ -838,11 +838,11 @@ public class HoaDonBanHang extends javax.swing.JFrame {
         }
         else{
             ngaylap=(String) tblHoaDon.getValueAt(row, 1);
-            tongtien = (int) tblHoaDon.getValueAt(row, 2);
+            tongtien = (String) tblHoaDon.getValueAt(row, 2);
             sl = (int) tblHoaDon.getValueAt(row, 3);
             nv = (String) tblHoaDon.getValueAt(row, 4);
             kh = (String) tblHoaDon.getValueAt(row, 5);
-            ChiTietHoaDon a = new ChiTietHoaDon(Integer.parseInt(str),ngaylap,tongtien,sl,nv,kh);
+            ChiTietHoaDon_View a = new ChiTietHoaDon_View(Integer.parseInt(str),ngaylap,tongtien,sl,nv,kh);
             a.setVisible(true);
             a.setLocationRelativeTo(null);
         }

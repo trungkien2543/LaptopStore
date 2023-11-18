@@ -7,6 +7,7 @@ package GUI;
 
 import DAO.ChiTietHoaDon_DAO;
 import BUS.ChiTietHoaDon_BUS;
+import DTO.ChiTietHoaDon;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -16,17 +17,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ASUS
  */
-public class ChiTietHoaDon extends javax.swing.JFrame {
-    private static int MaHoaDon,TongTien,SL;
-    private static String NgayLap,KH,NV;
+public class ChiTietHoaDon_View extends javax.swing.JFrame {
+    private static int MaHoaDon,SL;
+    private static String NgayLap,KH,NV,TongTien;
     DefaultTableModel model;
-    ArrayList<ChiTietHoaDon> list;
+    ArrayList<DTO.ChiTietHoaDon> list;
     Locale localeVN = new Locale("vi", "VN");
     NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
     /**
      * Creates new form ChiTietHoaDon
      */
-    public ChiTietHoaDon(int MaHoaDon,String ngaylap, int tongtien, int SL, String KH, String NV) {
+    public ChiTietHoaDon_View(int MaHoaDon,String ngaylap, String tongtien, int SL, String KH, String NV) {
         initComponents();
         setLocationRelativeTo(null);
         model = (DefaultTableModel) tblCTHD.getModel();
@@ -38,7 +39,8 @@ public class ChiTietHoaDon extends javax.swing.JFrame {
         this.NV = NV;
         this.KH = KH;
         
-//        list = new ChiTietHoaDon_DAO().getListChiTietHoaDon(MaHoaDon);
+        
+       list = new ChiTietHoaDon_BUS().getALLChiTietHoaDon(MaHoaDon);
         
         txtMaHD.setText(Integer.toString(MaHoaDon));
         txtMaHD.setEditable(false);
@@ -50,15 +52,15 @@ public class ChiTietHoaDon extends javax.swing.JFrame {
         txtKhachHang.setEditable(false);
         txtSoLuong.setText(Integer.toString(SL));
         txtSoLuong.setEditable(false);
-        txtTongTien.setText(Integer.toString(tongtien));
+        txtTongTien.setText(tongtien);
         txtTongTien.setEditable(false);
+        
+        ShowTable();
     }
     private void ShowTable(){
         model.setRowCount(0);
-        for (ChiTietHoaDon s : list){
-            model.addRow(new Object[]{
-               
-            });
+        for (DTO.ChiTietHoaDon s : list){
+            model.addRow(new Object[]{s.getIDRieng(),s.getMaHD(),currencyVN.format(s.getGia())});
         }
     }
     /**
@@ -261,20 +263,23 @@ public class ChiTietHoaDon extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DTO.ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DTO.ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DTO.ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DTO.ChiTietHoaDon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietHoaDon(MaHoaDon,NgayLap,TongTien,SL,NV,KH).setVisible(true);
+                new ChiTietHoaDon_View(MaHoaDon,NgayLap,TongTien,SL,NV,KH).setVisible(true);
             }
         });
     }

@@ -25,7 +25,7 @@ public class ChiTietHoaDon_DAO {
     }
     public ArrayList<ChiTietHoaDon> getListChiTietHoaDon(int MaHD){
         ArrayList<ChiTietHoaDon> list = new ArrayList<>();
-        String sql ="Select * from HoaDon where MaHoaDon=?";
+        String sql ="Select * from ChiTietHoaDon where MaHoaDon=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, MaHD);

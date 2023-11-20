@@ -39,6 +39,7 @@ public class ThongKe extends javax.swing.JFrame {
     public ThongKe(NhanVien NV) {
         
         this.NV = NV;
+       
         
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
@@ -358,6 +359,12 @@ public class ThongKe extends javax.swing.JFrame {
         btnXacNhan3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXacNhan3ActionPerformed(evt);
+            }
+        });
+
+        jYear.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jYearKeyReleased(evt);
             }
         });
 
@@ -698,12 +705,14 @@ public class ThongKe extends javax.swing.JFrame {
         // TODO add your handling code here:
         int nam = 0;
         try{
-            nam = jYear.getYear();
+            nam = Integer.parseInt(jYear.toString());
         }
         catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(rootPane, "Nhập số");
+            jYear.setYear(2023);
             return;
         }
+        System.out.print(nam);
         ArrayList<ThongKeDoanhThu> list_dt = new ThongKe_BUS().getListDoanhThu(nam);
         
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -780,6 +789,13 @@ public class ThongKe extends javax.swing.JFrame {
         new ThongKe(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang13MouseClicked
+
+    private void jYearKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jYearKeyReleased
+        // TODO add your handling code here:
+        
+        String nam = jYear.toString();
+       
+    }//GEN-LAST:event_jYearKeyReleased
 
     /**
      * @param args the command line arguments

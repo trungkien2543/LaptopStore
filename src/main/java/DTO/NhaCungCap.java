@@ -19,9 +19,11 @@ public class NhaCungCap {
         this.Email = Email;
         this.TrangThai = TrangThai;
     }
+
     public NhaCungCap() {
-		
-	}
+    }
+    
+    
 
     public String getMaNCC() {
         return MaNCC;

@@ -4,14 +4,14 @@
  */
 package DAO;
 
+import DTO.NhaCungCap;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-
-import DTO.PhieuNhap;
-import GUI.NhaCungCap;
+import java.util.List;
 
 /**
  *
@@ -22,31 +22,64 @@ public class NhaCungCap_DAO {
     Connection con;
 
     public NhaCungCap_DAO() {
-        con = new SQLConnection().getCon();  
+        con = new SQLConnection().getCon(); 
     }
-    
-    public ArrayList<DTO.NhaCungCap> getListNhaCungCap() {
-    	ArrayList<DTO.NhaCungCap> list = new ArrayList<>();
-    	
-    	String sql = "Select * from NhaCungCap";
-        try{
+    public ArrayList<NhaCungCap> getListNhaCungCap() {
+        ArrayList<NhaCungCap> list = new ArrayList<>();
+        String sql = "SELECT * FROM NhaCungCap";
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-            	DTO.NhaCungCap pn = new DTO.NhaCungCap();
-                pn.setMaNCC(rs.getString(1));
-                pn.setTenNCC(rs.getString(2));
-                pn.setDiaChi(rs.getString(3));
-                pn.setSDT(rs.getString(4));
-                pn.setEmail(rs.getString(5));
-                pn.setTrangThai(rs.getString(6));
-                list.add(pn);
-            }    
+            while (rs.next()) {
+                NhaCungCap ncc = new NhaCungCap();
+                ncc.setMaNCC(rs.getString("IdNCC"));
+                ncc.setTenNCC(rs.getString("TenNCC"));
+                ncc.setSDT(rs.getString("SDT"));
+                ncc.setDiaChi(rs.getString("DiaChi"));
+                ncc.setEmail(rs.getString("Email"));
+                ncc.setTrangThai(rs.getString("TrangThai"));
+                list.add(ncc);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        catch(Exception e){
-            e.printStackTrace();   
-        }
-    	return list;
+        return list;
+    }
 
-	}
+    public boolean addNhaCungCap(NhaCungCap ncc) {
+        String sql = "INSERT INTO NhaCungCap (IdNCC, TenNCC, SDT, DiaChi, Email, TrangThai) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ncc.getMaNCC());
+            ps.setString(2, ncc.getTenNCC());
+            ps.setString(3, ncc.getSDT());
+            ps.setString(4, ncc.getDiaChi());
+            ps.setString(5, ncc.getEmail());
+            ps.setString(6, ncc.getTrangThai());
+            return ps.executeUpdate() > 0;
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateCungCap(NhaCungCap ncc) {
+        String sql = "UPDATE NhaCungCap SET TenNCCp=?, SDT=?, DiaChi=?, Email=?, TrangThai=? WHERE IdNCC=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ncc.getTenNCC());
+            ps.setString(2, ncc.getSDT());
+            ps.setString(3, ncc.getDiaChi());
+            ps.setString(4, ncc.getEmail());
+            ps.setString(5, ncc.getTrangThai());
+            ps.setString(6, ncc.getMaNCC());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+
+

@@ -62,7 +62,7 @@ public class NhaCungCap extends javax.swing.JFrame {
         lblBanHang11 = new javax.swing.JLabel();
         lblBanHang12 = new javax.swing.JLabel();
         lblBanHang13 = new javax.swing.JLabel();
-        lblBanHang16 = new javax.swing.JLabel();
+        lblBanHang14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,7 +204,7 @@ public class NhaCungCap extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -308,12 +308,12 @@ public class NhaCungCap extends javax.swing.JFrame {
             }
         });
 
-        lblBanHang16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
-        lblBanHang16.setText("Tài khoản");
-        lblBanHang16.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblBanHang14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblBanHang14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
+        lblBanHang14.setText("Tài khoản");
+        lblBanHang14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang16MouseClicked(evt);
+                lblBanHang14MouseClicked(evt);
             }
         });
 
@@ -349,7 +349,7 @@ public class NhaCungCap extends javax.swing.JFrame {
                 .addGap(76, 76, 76))
             .addGroup(jpMenu2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblBanHang16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblBanHang14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpMenu2Layout.setVerticalGroup(
@@ -382,8 +382,8 @@ public class NhaCungCap extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang16)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(lblBanHang14)
+                .addGap(0, 46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -419,7 +419,7 @@ public class NhaCungCap extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -495,11 +495,11 @@ public class NhaCungCap extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblBanHang13MouseClicked
 
-    private void lblBanHang16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang16MouseClicked
+    private void lblBanHang14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang14MouseClicked
         // TODO add your handling code here:
         new QuanLyTaiKhoan(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblBanHang16MouseClicked
+    }//GEN-LAST:event_lblBanHang14MouseClicked
 
     /**
      * @param args the command line arguments
@@ -566,7 +566,7 @@ public class NhaCungCap extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang11;
     private javax.swing.JLabel lblBanHang12;
     private javax.swing.JLabel lblBanHang13;
-    private javax.swing.JLabel lblBanHang16;
+    private javax.swing.JLabel lblBanHang14;
     private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;

@@ -232,7 +232,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
             }
         });
 
-        btnChiTietPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
+        btnChiTietPhieu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/TimKiem.png"))); // NOI18N
         btnChiTietPhieu.setText("Xem chi tiết");
         btnChiTietPhieu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,8 +350,8 @@ public class PhieuNhapHang extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(jpKhoLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -369,26 +369,28 @@ public class PhieuNhapHang extends javax.swing.JFrame {
         jpKhoLayout.setVerticalGroup(
             jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpKhoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpKhoLayout.createSequentialGroup()
-                        .addComponent(btnExcel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChiTietPhieu))
-                    .addGroup(jpKhoLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpKhoLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
+                        .addContainerGap()
                         .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpNgayLap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpKhoLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(btnExcel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxDieuKienLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jpTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnChiTietPhieu))
+                            .addGroup(jpKhoLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jpNgayLap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jpKhoLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbxDieuKienLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jpTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jpKhoLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE))
         );
 
         jpMenu1.setBackground(new java.awt.Color(255, 255, 255));
@@ -784,7 +786,7 @@ public class PhieuNhapHang extends javax.swing.JFrame {
 
     private void btnChiTietPhieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChiTietPhieuActionPerformed
        String str=txtFind.getText();
-       String ngaynhap,ncc,nv;
+       String ngaynhap,ncc,nv,tongtien;
        int row = tblPhieuNhap.getSelectedRow();
        if(row==-1){
            JOptionPane.showMessageDialog(rootPane, "Hãy chọn 1 dòng rồi nhấn nút xem chi tiết!");
@@ -792,9 +794,10 @@ public class PhieuNhapHang extends javax.swing.JFrame {
        }
        else{
             ngaynhap=(String) tblPhieuNhap.getValueAt(row, 1);
+            tongtien = (String)tblPhieuNhap.getValueAt(row, 2);
             ncc =(String) tblPhieuNhap.getValueAt(row, 3);
             nv = (String) tblPhieuNhap.getValueAt(row, 4);
-            ChiTietPhieuNhap a = new ChiTietPhieuNhap(Integer.parseInt(str),ngaynhap,ncc,nv);
+            ChiTietPhieuNhap a = new ChiTietPhieuNhap(Integer.parseInt(str),tongtien,ngaynhap,ncc,nv);
             a.setVisible(true);
             a.setLocationRelativeTo(null);
         }

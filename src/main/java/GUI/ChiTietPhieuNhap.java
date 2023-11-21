@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ChiTietPhieuNhap extends javax.swing.JFrame {
     private static int MaPhieu;
-    private static String NgayNhap,NCC,NV;
+    private static String NgayNhap,NCC,NV,tongtien;
     DefaultTableModel model;
     ArrayList<ChiTietPhieu> list;
     Locale localeVN = new Locale("vi", "VN");
@@ -27,7 +27,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietPhieuNhap
      */
-    public ChiTietPhieuNhap(int MaPhieu,String ngaynhap,String ncc,String nv) {
+    public ChiTietPhieuNhap(int MaPhieu,String tongtien,String ngaynhap,String ncc,String nv) {
         initComponents();
         setLocationRelativeTo(null);
         model = (DefaultTableModel) tblCTPN.getModel();
@@ -45,6 +45,8 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         txtMaNCC.setEditable(false);
         txtMaNV.setText(nv);
         txtMaNV.setEditable(false);
+        txtTongTien.setText(tongtien);
+        txtTongTien.setEditable(false);
         ShowTable();
     }
     private void ShowTable(){
@@ -77,6 +79,8 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCTPN = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtTongTien = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -118,6 +122,9 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Tổng tiền:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -131,11 +138,13 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtMaPN, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                    .addComponent(txtMaNCC))
+                    .addComponent(txtMaPN, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                    .addComponent(txtMaNCC)
+                    .addComponent(txtTongTien, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(155, 155, 155)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -146,7 +155,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtMaNV)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -170,7 +179,11 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
                     .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -227,7 +240,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietPhieuNhap(MaPhieu,NgayNhap,NCC,NV).setVisible(true);
+                new ChiTietPhieuNhap(MaPhieu,tongtien,NgayNhap,NCC,NV).setVisible(true);
             }
         });
     }
@@ -239,6 +252,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCTPN;
@@ -246,5 +260,6 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
     private javax.swing.JTextField txtMaNV;
     private javax.swing.JTextField txtMaPN;
     private javax.swing.JTextField txtNgayNhap;
+    private javax.swing.JTextField txtTongTien;
     // End of variables declaration//GEN-END:variables
 }

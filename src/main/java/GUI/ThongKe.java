@@ -78,7 +78,7 @@ public class ThongKe extends javax.swing.JFrame {
         jDateFrom1 = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jDateTo1 = new com.toedter.calendar.JDateChooser();
-        jPanel6 = new javax.swing.JPanel();
+        PanelSL = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         btnXacNhan2 = new javax.swing.JButton();
@@ -86,13 +86,13 @@ public class ThongKe extends javax.swing.JFrame {
         jDateFrom2 = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         jDateTo2 = new com.toedter.calendar.JDateChooser();
-        jpnItem2 = new javax.swing.JPanel();
+        PanelBC = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         btnXacNhan3 = new javax.swing.JButton();
         jYear = new com.toedter.calendar.JYearChooser();
         jLabel9 = new javax.swing.JLabel();
-        jpanelDT = new javax.swing.JPanel();
+        PanelDT = new javax.swing.JPanel();
         jpMenu1 = new javax.swing.JPanel();
         lblAvatar1 = new javax.swing.JLabel();
         lblName1 = new javax.swing.JLabel();
@@ -235,16 +235,16 @@ public class ThongKe extends javax.swing.JFrame {
                 .addComponent(jDateFrom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        PanelSL.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelSLLayout = new javax.swing.GroupLayout(PanelSL);
+        PanelSL.setLayout(PanelSLLayout);
+        PanelSLLayout.setHorizontalGroup(
+            PanelSLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelSLLayout.setVerticalGroup(
+            PanelSLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 612, Short.MAX_VALUE)
         );
 
@@ -253,14 +253,14 @@ public class ThongKe extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelSL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelSL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -320,16 +320,16 @@ public class ThongKe extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jpnItem2.setBackground(new java.awt.Color(255, 255, 255));
+        PanelBC.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jpnItem2Layout = new javax.swing.GroupLayout(jpnItem2);
-        jpnItem2.setLayout(jpnItem2Layout);
-        jpnItem2Layout.setHorizontalGroup(
-            jpnItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelBCLayout = new javax.swing.GroupLayout(PanelBC);
+        PanelBC.setLayout(PanelBCLayout);
+        PanelBCLayout.setHorizontalGroup(
+            PanelBCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jpnItem2Layout.setVerticalGroup(
-            jpnItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelBCLayout.setVerticalGroup(
+            PanelBCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 598, Short.MAX_VALUE)
         );
 
@@ -338,14 +338,14 @@ public class ThongKe extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpnItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelBC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpnItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelBC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -396,16 +396,16 @@ public class ThongKe extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jpanelDT.setBackground(new java.awt.Color(255, 255, 255));
+        PanelDT.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jpanelDTLayout = new javax.swing.GroupLayout(jpanelDT);
-        jpanelDT.setLayout(jpanelDTLayout);
-        jpanelDTLayout.setHorizontalGroup(
-            jpanelDTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelDTLayout = new javax.swing.GroupLayout(PanelDT);
+        PanelDT.setLayout(PanelDTLayout);
+        PanelDTLayout.setHorizontalGroup(
+            PanelDTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jpanelDTLayout.setVerticalGroup(
-            jpanelDTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelDTLayout.setVerticalGroup(
+            PanelDTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 596, Short.MAX_VALUE)
         );
 
@@ -414,14 +414,14 @@ public class ThongKe extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jpanelDT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelDT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpanelDT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelDT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -677,9 +677,9 @@ public class ThongKe extends javax.swing.JFrame {
             
             ChartPanel chartPanel = new ChartPanel(barChart);
             
-            jPanel6.removeAll();
-            jPanel6.setLayout(new BorderLayout());
-            jPanel6.add(chartPanel);
+            PanelSL.removeAll();
+            PanelSL.setLayout(new BorderLayout());
+            PanelSL.add(chartPanel);
         
         }
     }//GEN-LAST:event_btnXacNhanActionPerformed
@@ -711,9 +711,9 @@ public class ThongKe extends javax.swing.JFrame {
         */
 
         ChartPanel chartPanel = new ChartPanel(pieChart);
-        jpnItem2.removeAll();
-        jpnItem2.setLayout(new BorderLayout());
-        jpnItem2.add(chartPanel);
+        PanelBC.removeAll();
+        PanelBC.setLayout(new BorderLayout());
+        PanelBC.add(chartPanel);
 
     }//GEN-LAST:event_btnXacNhan2ActionPerformed
 
@@ -721,7 +721,7 @@ public class ThongKe extends javax.swing.JFrame {
         // TODO add your handling code here:
         int nam = 0;
         try{
-            nam = Integer.parseInt(jYear.toString());
+            nam = jYear.getYear();
         }
         catch (NumberFormatException ex){
             JOptionPane.showMessageDialog(rootPane, "Nhập số");
@@ -744,9 +744,9 @@ public class ThongKe extends javax.swing.JFrame {
             
             ChartPanel chartPanel = new ChartPanel(barChart);
             
-            jpanelDT.removeAll();
-            jpanelDT.setLayout(new BorderLayout());
-            jpanelDT.add(chartPanel);
+            PanelDT.removeAll();
+            PanelDT.setLayout(new BorderLayout());
+            PanelDT.add(chartPanel);
     }//GEN-LAST:event_btnXacNhan3ActionPerformed
 
     private void cbxSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSanPhamActionPerformed
@@ -855,6 +855,9 @@ public class ThongKe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelBC;
+    private javax.swing.JPanel PanelDT;
+    private javax.swing.JPanel PanelSL;
     private javax.swing.JButton btnXacNhan;
     private javax.swing.JButton btnXacNhan2;
     private javax.swing.JButton btnXacNhan3;
@@ -880,15 +883,12 @@ public class ThongKe extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.toedter.calendar.JYearChooser jYear;
     private javax.swing.JPanel jpMenu1;
     private javax.swing.JPanel jpThanhTieuDe;
-    private javax.swing.JPanel jpanelDT;
-    private javax.swing.JPanel jpnItem2;
     private javax.swing.JLabel lblAvatar1;
     private javax.swing.JLabel lblBanHang10;
     private javax.swing.JLabel lblBanHang11;

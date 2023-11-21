@@ -123,6 +123,7 @@ public class KhoHang extends javax.swing.JFrame {
         lblBanHang11 = new javax.swing.JLabel();
         lblBanHang12 = new javax.swing.JLabel();
         lblBanHang13 = new javax.swing.JLabel();
+        lblBanHang16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,7 +155,7 @@ public class KhoHang extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1117, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1125, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
@@ -273,12 +274,12 @@ public class KhoHang extends javax.swing.JFrame {
                         .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbTimKiem)
-                        .addGap(421, 421, 421))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE))
+                        .addGap(407, 407, 407))
+                    .addComponent(jScrollPane1))
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpKhoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
                     .addGroup(jpKhoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem)
@@ -304,7 +305,7 @@ public class KhoHang extends javax.swing.JFrame {
                         .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                     .addComponent(jScrollPane2)))
         );
 
@@ -415,6 +416,15 @@ public class KhoHang extends javax.swing.JFrame {
             }
         });
 
+        lblBanHang16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblBanHang16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
+        lblBanHang16.setText("Tài khoản");
+        lblBanHang16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBanHang16MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpMenu1Layout = new javax.swing.GroupLayout(jpMenu1);
         jpMenu1.setLayout(jpMenu1Layout);
         jpMenu1Layout.setHorizontalGroup(
@@ -445,6 +455,10 @@ public class KhoHang extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblChucVu1)
                 .addGap(76, 76, 76))
+            .addGroup(jpMenu1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBanHang16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpMenu1Layout.setVerticalGroup(
             jpMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,7 +489,9 @@ public class KhoHang extends javax.swing.JFrame {
                 .addComponent(lblBanHang12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang13)
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblBanHang16)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -485,7 +501,7 @@ public class KhoHang extends javax.swing.JFrame {
             .addComponent(jpThanhTieuDe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jpMenu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -751,7 +767,7 @@ public class KhoHang extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBanHang7MouseClicked
 
     private void lblBanHang8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang8MouseClicked
-        new QuanLyNhanVienVaTaiKhoan(NV).setVisible(true);
+        new QuanLyNhanVien(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang8MouseClicked
 
@@ -779,6 +795,12 @@ public class KhoHang extends javax.swing.JFrame {
         new ThongKe(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang13MouseClicked
+
+    private void lblBanHang16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang16MouseClicked
+        // TODO add your handling code here:
+        new QuanLyTaiKhoan(NV).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblBanHang16MouseClicked
 
     /**
      * @param args the command line arguments
@@ -837,6 +859,7 @@ public class KhoHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang11;
     private javax.swing.JLabel lblBanHang12;
     private javax.swing.JLabel lblBanHang13;
+    private javax.swing.JLabel lblBanHang16;
     private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;

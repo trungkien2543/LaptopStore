@@ -31,12 +31,15 @@ import javax.swing.JTable;
  * @author ASUS
  */
 public class QuanLyNhanVien extends javax.swing.JFrame {
+    
+     public static NhanVien NV;
 
     /**
      * Creates new form NhaCungCap
      */
-    public QuanLyNhanVien() {
+    public QuanLyNhanVien(NhanVien NV) {
         initComponents();
+        this.NV = NV;
     }
 
     /**
@@ -877,12 +880,12 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyNhanVien().setVisible(true);
+                new QuanLyNhanVien(NV).setVisible(true);
             }
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

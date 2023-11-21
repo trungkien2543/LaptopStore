@@ -82,6 +82,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         lblBanHang11 = new javax.swing.JLabel();
         lblBanHang12 = new javax.swing.JLabel();
         lblBanHang13 = new javax.swing.JLabel();
+        lblBanHang16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -227,7 +228,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -331,6 +332,15 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
             }
         });
 
+        lblBanHang16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblBanHang16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
+        lblBanHang16.setText("Tài khoản");
+        lblBanHang16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBanHang16MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpMenu2Layout = new javax.swing.GroupLayout(jpMenu2);
         jpMenu2.setLayout(jpMenu2Layout);
         jpMenu2Layout.setHorizontalGroup(
@@ -361,6 +371,10 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblChucVu2)
                 .addGap(76, 76, 76))
+            .addGroup(jpMenu2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBanHang16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpMenu2Layout.setVerticalGroup(
             jpMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +405,9 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                 .addComponent(lblBanHang12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang13)
-                .addGap(0, 85, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblBanHang16)
+                .addGap(0, 46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -428,7 +444,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -538,7 +554,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBanHang7MouseClicked
 
     private void lblBanHang8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang8MouseClicked
-        new QuanLyNhanVienVaTaiKhoan(NV).setVisible(true);
+        new QuanLyNhanVien(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang8MouseClicked
 
@@ -566,6 +582,12 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         new ThongKe(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang13MouseClicked
+
+    private void lblBanHang16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang16MouseClicked
+        // TODO add your handling code here:
+        new QuanLyTaiKhoan(NV).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lblBanHang16MouseClicked
     public javax.swing.JTable getJTable1() {
         return jTable1;
     }
@@ -675,6 +697,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang11;
     private javax.swing.JLabel lblBanHang12;
     private javax.swing.JLabel lblBanHang13;
+    private javax.swing.JLabel lblBanHang16;
     private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;

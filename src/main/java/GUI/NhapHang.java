@@ -142,7 +142,7 @@ public class NhapHang extends javax.swing.JFrame {
         lblBanHang3.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		new NhaCungCap(NV).setVisible(true);
+        		new QuanLyNhaCungCap(NV).setVisible(true);
                 dispose();
         	}
         });

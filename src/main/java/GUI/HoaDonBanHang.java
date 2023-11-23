@@ -676,7 +676,7 @@ public class HoaDonBanHang extends javax.swing.JFrame {
             cell = row.createCell(1, CellType.STRING);
             cell.setCellValue(tblHoaDon.getValueAt(i, 1).toString());
             cell = row.createCell(2, CellType.NUMERIC);
-            cell.setCellValue((int) tblHoaDon.getValueAt(i, 2));
+            cell.setCellValue( tblHoaDon.getValueAt(i, 2).toString());
             cell = row.createCell(3, CellType.NUMERIC);
             cell.setCellValue((int) tblHoaDon.getValueAt(i, 3));
             cell = row.createCell(4, CellType.STRING);
@@ -737,7 +737,7 @@ public class HoaDonBanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBanHang9MouseClicked
 
     private void lblBanHang10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang10MouseClicked
-        new NhaCungCap(NV).setVisible(true);
+        new QuanLyNhaCungCap(NV).setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_lblBanHang10MouseClicked

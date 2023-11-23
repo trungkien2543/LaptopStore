@@ -1462,7 +1462,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBanHang2MouseClicked
 
     private void lblBanHang3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang3MouseClicked
-        new NhaCungCap(NV).setVisible(true);
+        new QuanLyNhaCungCap(NV).setVisible(true);
         this.dispose();
        
     }//GEN-LAST:event_lblBanHang3MouseClicked

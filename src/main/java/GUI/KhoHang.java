@@ -774,7 +774,7 @@ public class KhoHang extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBanHang9MouseClicked
 
     private void lblBanHang10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang10MouseClicked
-        new NhaCungCap(NV).setVisible(true);
+        new QuanLyNhaCungCap(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang10MouseClicked
 

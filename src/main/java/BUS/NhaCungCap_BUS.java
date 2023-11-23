@@ -35,10 +35,12 @@ public class NhaCungCap_BUS {
         if (ncc.getTenNCC().isEmpty() || ncc.getSDT().isEmpty() || ncc.getDiaChi().isEmpty() || ncc.getEmail().isEmpty()) {
             return "Không được để trống thông tin";
         }
-
+        
+        Long sdt;
+      
         // Kiểm tra số điện thoại có chứa chữ không
         try {
-            Long.parseLong(ncc.getSDT());
+            sdt = Long.parseLong(ncc.getSDT());
         } catch (NumberFormatException e) {
             return "Số điện thoại chỉ chứa số";
         }

@@ -31,10 +31,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel2" pref="747" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-          </Group>
+          <Component id="jPanel2" pref="728" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -52,7 +49,7 @@
               <Component id="jpThanhTieuDe" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jpMenu2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jpMenu1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jpKho" max="32767" attributes="0"/>
               </Group>
@@ -62,12 +59,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="jpThanhTieuDe" min="-2" pref="58" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jpKho" max="32767" attributes="0"/>
-                      <Component id="jpMenu2" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jpKho" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <Component id="jpMenu1" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -203,7 +205,6 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -296,7 +297,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jpMenu2">
+        <Container class="javax.swing.JPanel" name="jpMenu1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -314,7 +315,7 @@
                                   <Component id="lblBanHang9" alignment="1" max="32767" attributes="0"/>
                                   <Component id="lblBanHang7" alignment="1" max="32767" attributes="0"/>
                                   <Component id="lblNhapHang1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblKhoHang2" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="lblKhoHang1" alignment="1" max="32767" attributes="0"/>
                                   <Component id="lblBanHang8" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lblBanHang10" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lblBanHang11" alignment="0" max="32767" attributes="0"/>
@@ -325,9 +326,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblName2" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
-                                  <Component id="lblAvatar2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="lblName1" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="lblAvatar1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -336,12 +337,12 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="lblChucVu2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblChucVu1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang14" max="32767" attributes="0"/>
+                      <Component id="lblBanHang16" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -349,16 +350,16 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="lblAvatar2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <Component id="lblAvatar1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblName2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblName1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblChucVu2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblChucVu1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel7" min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" pref="21" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblKhoHang2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblKhoHang1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblNhapHang1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -376,21 +377,20 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblBanHang13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
+                      <Component id="lblBanHang16" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblAvatar2">
+            <Component class="javax.swing.JLabel" name="lblAvatar1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ICON/Avatar.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblName2">
+            <Component class="javax.swing.JLabel" name="lblName1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -398,7 +398,7 @@
                 <Property name="text" type="java.lang.String" value="L&#xea; Ho&#xe0;i Nam"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblChucVu2">
+            <Component class="javax.swing.JLabel" name="lblChucVu1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="2"/>
@@ -406,17 +406,17 @@
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ICON/Line.png"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblKhoHang2">
+            <Component class="javax.swing.JLabel" name="lblKhoHang1">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                  <Color blue="ff" green="cc" red="66" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -427,7 +427,7 @@
                 <Property name="text" type="java.lang.String" value="Kho h&#xe0;ng"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKhoHang2MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKhoHang1MouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNhapHang1">
@@ -439,6 +439,9 @@
                   <Image iconType="3" name="/ICON/NhapHang.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nh&#x1ead;p h&#xe0;ng"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNhapHang1MouseClicked"/>
@@ -456,6 +459,9 @@
                   <Image iconType="3" name="/ICON/BanHang.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="B&#xe1;n h&#xe0;ng"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang7MouseClicked"/>
@@ -470,6 +476,9 @@
                   <Image iconType="3" name="/ICON/NhanVien.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang8MouseClicked"/>
@@ -484,6 +493,9 @@
                   <Image iconType="3" name="/ICON/KhachHang.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang9MouseClicked"/>
@@ -505,7 +517,7 @@
                   <Color id="Hand Cursor"/>
                 </Property>
                 <Property name="opaque" type="boolean" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="true&#xd;&#xa;" type="code"/>
+                  <Connection code="true" type="code"/>
                 </Property>
               </Properties>
               <Events>
@@ -521,6 +533,9 @@
                   <Image iconType="3" name="/ICON/PhieuNhapHang_1.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u nh&#x1ead;p h&#xe0;ng"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang11MouseClicked"/>
@@ -538,6 +553,9 @@
                   <Image iconType="3" name="/ICON/Bill.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="H&#xf3;a &#x111;&#x1a1;n b&#xe1;n h&#xe0;ng"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang12MouseClicked"/>
@@ -552,12 +570,15 @@
                   <Image iconType="3" name="/ICON/Th&#x1ed1;ng k&#xea;.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea; doanh thu"/>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Hand Cursor"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang13MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBanHang14">
+            <Component class="javax.swing.JLabel" name="lblBanHang16">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -568,7 +589,7 @@
                 <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang14MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang16MouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

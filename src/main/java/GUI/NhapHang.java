@@ -126,8 +126,8 @@ public class NhapHang extends javax.swing.JFrame {
         lblBanHang1.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		//new QuanLyNhanVien(NV).setVisible(true);
-               // dispose();
+        		new QuanLyNhanVien(NV).setVisible(true);
+                dispose();
         	}
         });
         lblBanHang2 = new javax.swing.JLabel();
@@ -170,6 +170,8 @@ public class NhapHang extends javax.swing.JFrame {
                 dispose();
         	}
         });
+
+
         jpKho = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jTextField1.addMouseListener(new MouseAdapter() {

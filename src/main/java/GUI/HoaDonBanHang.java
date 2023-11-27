@@ -5,9 +5,11 @@
 package GUI;
 
 import BUS.HoaDon_BUS;
+import BUS.TaiKhoan_BUS;
 import DAO.Laptop_DAO;
 import DTO.HoaDon;
 import DTO.NhanVien;
+import DTO.TaiKhoan;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -16,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +49,7 @@ public class HoaDonBanHang extends javax.swing.JFrame {
     DateFormat ChuyenNgaySQL1 = new SimpleDateFormat("MM/dd/yyyy");
     DateFormat ChuyenNgayShow1 = new SimpleDateFormat("dd/MM/yyyy");
     public static NhanVien NV;
-
+    public TaiKhoan TK;
     /**
      * Creates new form NhaCungCap
      */
@@ -61,7 +64,24 @@ public class HoaDonBanHang extends javax.swing.JFrame {
         
         jpNgayLap.setVisible(false);
         jpTongTien.setVisible(false);
+        
+        // Tìm thông tin nhân viên vừa đăng nhập
+        TimTaiKhoan(NV);
     }
+    
+    public void TimTaiKhoan(NhanVien NV){
+        List<TaiKhoan> list_TaiKhoan = new TaiKhoan_BUS().getListTaiKhoan();
+        for(TaiKhoan tk : list_TaiKhoan){
+            if (tk.getTenDN().equals(NV.getMaNV())){
+                TK = tk;
+                lblName.setText(NV.getTenNV());
+                lblChucVu.setText(TK.getPhanQuyen());
+                return;
+            }
+        }
+    }
+    
+    
     private void ShowTable(){
         model.setRowCount(0);
         for (HoaDon s : list){
@@ -107,8 +127,8 @@ public class HoaDonBanHang extends javax.swing.JFrame {
         btnChiTietHoaDon = new javax.swing.JButton();
         jpMenu1 = new javax.swing.JPanel();
         lblAvatar1 = new javax.swing.JLabel();
-        lblName1 = new javax.swing.JLabel();
-        lblChucVu1 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblChucVu = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblKhoHang1 = new javax.swing.JLabel();
         lblNhapHang1 = new javax.swing.JLabel();
@@ -392,11 +412,11 @@ public class HoaDonBanHang extends javax.swing.JFrame {
 
         lblAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Avatar.png"))); // NOI18N
 
-        lblName1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblName1.setText("Lê Hoài Nam");
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblName.setText("Lê Hoài Nam");
 
-        lblChucVu1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        lblChucVu1.setText("Quản lý");
+        lblChucVu.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblChucVu.setText("Quản lý");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Line.png"))); // NOI18N
 
@@ -526,14 +546,14 @@ public class HoaDonBanHang extends javax.swing.JFrame {
                     .addGroup(jpMenu1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(jpMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvatar1)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenu1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblChucVu1)
+                .addComponent(lblChucVu)
                 .addGap(76, 76, 76))
             .addGroup(jpMenu1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -546,9 +566,9 @@ public class HoaDonBanHang extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(lblAvatar1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblName1)
+                .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblChucVu1)
+                .addComponent(lblChucVu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -859,7 +879,7 @@ public class HoaDonBanHang extends javax.swing.JFrame {
             sl = (int) tblHoaDon.getValueAt(row, 3);
             nv = (String) tblHoaDon.getValueAt(row, 4);
             kh = (String) tblHoaDon.getValueAt(row, 5);
-            ChiTietHoaDon_View a = new ChiTietHoaDon_View(Integer.parseInt(str),ngaylap,tongtien,sl,nv,kh);
+            ChiTietHoaDon_View a = new ChiTietHoaDon_View(Integer.parseInt(str),ngaylap,tongtien,sl,kh,nv);
             a.setVisible(true);
             a.setLocationRelativeTo(null);
         }
@@ -1027,9 +1047,9 @@ public class HoaDonBanHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;
-    private javax.swing.JLabel lblChucVu1;
+    private javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblKhoHang1;
-    private javax.swing.JLabel lblName1;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNhapHang1;
     private javax.swing.JTable tblHoaDon;
     private javax.swing.JTextField txtFind;

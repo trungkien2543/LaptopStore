@@ -34,6 +34,7 @@ import javax.swing.JComboBox;
 public class QuanLyTaiKhoan extends javax.swing.JFrame {
     
     public static NhanVien NV;
+    public TaiKhoan TK;
 
     /**
      * Creates new form NhaCungCap
@@ -41,6 +42,23 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
     public QuanLyTaiKhoan(NhanVien NV) {
         initComponents();
         this.NV = NV;
+        setExtendedState(MAXIMIZED_BOTH);
+        
+        // Tìm thông tin nhân viên vừa đăng nhập
+        TimTaiKhoan(NV);
+
+    }
+    
+    public void TimTaiKhoan(NhanVien NV){
+        List<TaiKhoan> list_TaiKhoan = new TaiKhoan_BUS().getListTaiKhoan();
+        for(TaiKhoan tk : list_TaiKhoan){
+            if (tk.getTenDN().equals(NV.getMaNV())){
+                TK = tk;
+                lblName.setText(NV.getTenNV());
+                lblChucVu.setText(TK.getPhanQuyen());
+                return;
+            }
+        }
     }
 
     /**

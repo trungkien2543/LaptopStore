@@ -5,10 +5,13 @@
 package GUI;
 
 import BUS.KhachHang_BUS;
+import BUS.TaiKhoan_BUS;
 import DTO.KhachHang;
 import DTO.NhanVien;
+import DTO.TaiKhoan;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
@@ -24,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class QuanLyKhachHang extends javax.swing.JFrame {
     
     public static NhanVien NV;
+    public TaiKhoan TK;
      private int largestID;
     
 
@@ -40,8 +44,25 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         QuanLyKhachHang.NV = NV;
         
         initComponents();
+        setExtendedState(MAXIMIZED_BOTH);
+
         loadData();
         
+        // Tìm thông tin nhân viên vừa đăng nhập
+        TimTaiKhoan(NV);
+        
+    }
+    
+    public void TimTaiKhoan(NhanVien NV){
+        List<TaiKhoan> list_TaiKhoan = new TaiKhoan_BUS().getListTaiKhoan();
+        for(TaiKhoan tk : list_TaiKhoan){
+            if (tk.getTenDN().equals(NV.getMaNV())){
+                TK = tk;
+                lblName.setText(NV.getTenNV());
+                lblChucVu.setText(TK.getPhanQuyen());
+                return;
+            }
+        }
     }
 
     /**
@@ -69,8 +90,8 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jpMenu2 = new javax.swing.JPanel();
         lblAvatar2 = new javax.swing.JLabel();
-        lblName2 = new javax.swing.JLabel();
-        lblChucVu2 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblChucVu = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblKhoHang2 = new javax.swing.JLabel();
         lblNhapHang1 = new javax.swing.JLabel();
@@ -224,11 +245,11 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
 
         lblAvatar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Avatar.png"))); // NOI18N
 
-        lblName2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblName2.setText("Lê Hoài Nam");
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblName.setText("Lê Hoài Nam");
 
-        lblChucVu2.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        lblChucVu2.setText("Quản lý");
+        lblChucVu.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblChucVu.setText("Quản lý");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Line.png"))); // NOI18N
 
@@ -350,14 +371,14 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                     .addGroup(jpMenu2Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(jpMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvatar2)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenu2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblChucVu2)
+                .addComponent(lblChucVu)
                 .addGap(76, 76, 76))
             .addGroup(jpMenu2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -370,9 +391,9 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(lblAvatar2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblName2)
+                .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblChucVu2)
+                .addComponent(lblChucVu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -684,9 +705,9 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;
-    private javax.swing.JLabel lblChucVu2;
+    private javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblKhoHang2;
-    private javax.swing.JLabel lblName2;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNhapHang1;
     // End of variables declaration//GEN-END:variables
 }

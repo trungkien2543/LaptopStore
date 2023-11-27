@@ -547,7 +547,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblName1" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="lblName" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
                                   <Component id="lblAvatar1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
                               </Group>
@@ -558,7 +558,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="lblChucVu1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblChucVu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -574,9 +574,9 @@
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="lblAvatar1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblName1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblChucVu1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblChucVu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="21" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -612,7 +612,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblName1">
+            <Component class="javax.swing.JLabel" name="lblName">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -620,7 +620,7 @@
                 <Property name="text" type="java.lang.String" value="L&#xea; Ho&#xe0;i Nam"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblChucVu1">
+            <Component class="javax.swing.JLabel" name="lblChucVu">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="2"/>

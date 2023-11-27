@@ -8,6 +8,7 @@ import BUS.ChiTietLaptop_BUS;
 import BUS.HoaDon_BUS;
 import BUS.KhachHang_BUS;
 import BUS.Laptop_BUS;
+import BUS.TaiKhoan_BUS;
 import DAO.ChiTietHoaDon_DAO;
 import DTO.ChiTietHoaDon;
 import DTO.ChiTietLaptop;
@@ -15,11 +16,13 @@ import DTO.HoaDon;
 import DTO.KhachHang;
 import DTO.Laptop;
 import DTO.NhanVien;
+import DTO.TaiKhoan;
 import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
@@ -36,6 +39,8 @@ import java.util.TimerTask;
 public class BanHang extends javax.swing.JFrame {
     
     public static NhanVien NV;
+    
+    public TaiKhoan TK;
     
     DefaultTableModel model, model_gh, model_cthd;
 
@@ -100,8 +105,41 @@ public class BanHang extends javax.swing.JFrame {
         
         
 
-        Reset();        
+        Reset(); 
+        
+        // Tìm thông tin nhân viên vừa đăng nhập
+        TimTaiKhoan(NV);
+        
+        // phân quyên
+        PhanQuyen(TK);
     }  
+    
+    
+    public void TimTaiKhoan(NhanVien NV){
+        List<TaiKhoan> list_TaiKhoan = new TaiKhoan_BUS().getListTaiKhoan();
+        for(TaiKhoan tk : list_TaiKhoan){
+            if (tk.getTenDN().equals(NV.getMaNV())){
+                TK = tk;
+                lblName.setText(NV.getTenNV());
+                lblChucVu.setText(TK.getPhanQuyen());
+                return;
+            }
+        }
+    }
+    
+    public void PhanQuyen(TaiKhoan TK){
+        if (TK.getPhanQuyen().equals("Nhanvien")){
+            lblHoaDon.setVisible(false);
+            lblKhachHang.setVisible(false);
+            lblNCC.setVisible(false);
+            lblNhanVien.setVisible(false);
+            lblNhapHang.setVisible(false);
+            lblTaiKhoan.setVisible(false);
+            lblThongKe.setVisible(false);
+            lblKhoHang.setVisible(false);
+            lblPhieuNhap.setVisible(false);
+        }
+    }
     
     
     
@@ -194,13 +232,13 @@ public class BanHang extends javax.swing.JFrame {
         lblKhoHang = new javax.swing.JLabel();
         lblNhapHang = new javax.swing.JLabel();
         lblBanHang = new javax.swing.JLabel();
-        lblBanHang1 = new javax.swing.JLabel();
-        lblBanHang2 = new javax.swing.JLabel();
-        lblBanHang3 = new javax.swing.JLabel();
-        lblBanHang4 = new javax.swing.JLabel();
-        lblBanHang5 = new javax.swing.JLabel();
-        lblBanHang6 = new javax.swing.JLabel();
-        lblBanHang7 = new javax.swing.JLabel();
+        lblNhanVien = new javax.swing.JLabel();
+        lblKhachHang = new javax.swing.JLabel();
+        lblNCC = new javax.swing.JLabel();
+        lblPhieuNhap = new javax.swing.JLabel();
+        lblHoaDon = new javax.swing.JLabel();
+        lblThongKe = new javax.swing.JLabel();
+        lblTaiKhoan = new javax.swing.JLabel();
         jtab = new javax.swing.JTabbedPane();
         jpKho = new javax.swing.JPanel();
         txtFind = new javax.swing.JTextField();
@@ -337,68 +375,68 @@ public class BanHang extends javax.swing.JFrame {
             }
         });
 
-        lblBanHang1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhanVien.png"))); // NOI18N
-        lblBanHang1.setText("Nhân viên");
-        lblBanHang1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhanVien.png"))); // NOI18N
+        lblNhanVien.setText("Nhân viên");
+        lblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang1MouseClicked(evt);
+                lblNhanVienMouseClicked(evt);
             }
         });
 
-        lblBanHang2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/KhachHang.png"))); // NOI18N
-        lblBanHang2.setText("Khách hàng");
-        lblBanHang2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/KhachHang.png"))); // NOI18N
+        lblKhachHang.setText("Khách hàng");
+        lblKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang2MouseClicked(evt);
+                lblKhachHangMouseClicked(evt);
             }
         });
 
-        lblBanHang3.setBackground(new java.awt.Color(102, 204, 255));
-        lblBanHang3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhaCungCap.png"))); // NOI18N
-        lblBanHang3.setText("Nhà cung cấp");
-        lblBanHang3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblBanHang3.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNCC.setBackground(new java.awt.Color(102, 204, 255));
+        lblNCC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhaCungCap.png"))); // NOI18N
+        lblNCC.setText("Nhà cung cấp");
+        lblNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNCC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang3MouseClicked(evt);
+                lblNCCMouseClicked(evt);
             }
         });
 
-        lblBanHang4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/PhieuNhapHang_1.png"))); // NOI18N
-        lblBanHang4.setText("Phiếu nhập hàng");
-        lblBanHang4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblPhieuNhap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/PhieuNhapHang_1.png"))); // NOI18N
+        lblPhieuNhap.setText("Phiếu nhập hàng");
+        lblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang4MouseClicked(evt);
+                lblPhieuNhapMouseClicked(evt);
             }
         });
 
-        lblBanHang5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Bill.png"))); // NOI18N
-        lblBanHang5.setText("Hóa đơn bán hàng");
-        lblBanHang5.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Bill.png"))); // NOI18N
+        lblHoaDon.setText("Hóa đơn bán hàng");
+        lblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang5MouseClicked(evt);
+                lblHoaDonMouseClicked(evt);
             }
         });
 
-        lblBanHang6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Thống kê.png"))); // NOI18N
-        lblBanHang6.setText("Thống kê doanh thu");
-        lblBanHang6.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblThongKe.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Thống kê.png"))); // NOI18N
+        lblThongKe.setText("Thống kê doanh thu");
+        lblThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang6MouseClicked(evt);
+                lblThongKeMouseClicked(evt);
             }
         });
 
-        lblBanHang7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
-        lblBanHang7.setText("Tài khoản");
-        lblBanHang7.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
+        lblTaiKhoan.setText("Tài khoản");
+        lblTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang7MouseClicked(evt);
+                lblTaiKhoanMouseClicked(evt);
             }
         });
 
@@ -411,15 +449,15 @@ public class BanHang extends javax.swing.JFrame {
                     .addGroup(jpMenuLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBanHang2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblBanHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNhapHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblKhoHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lblNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNCC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPhieuNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpMenuLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(jpMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,7 +472,7 @@ public class BanHang extends javax.swing.JFrame {
                 .addGap(76, 76, 76))
             .addGroup(jpMenuLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblBanHang7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTaiKhoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpMenuLayout.setVerticalGroup(
@@ -455,19 +493,19 @@ public class BanHang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang1)
+                .addComponent(lblNhanVien)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang2)
+                .addComponent(lblKhachHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang3)
+                .addComponent(lblNCC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang4)
+                .addComponent(lblPhieuNhap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang5)
+                .addComponent(lblHoaDon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang6)
+                .addComponent(lblThongKe)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang7)
+                .addComponent(lblTaiKhoan)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -649,9 +687,7 @@ public class BanHang extends javax.swing.JFrame {
 
         jpHoaDon.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi tiết hóa đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
 
-        jButton4.setBackground(new java.awt.Color(0, 102, 153));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Hủy bỏ");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -659,9 +695,7 @@ public class BanHang extends javax.swing.JFrame {
             }
         });
 
-        btnThanhToan.setBackground(new java.awt.Color(0, 102, 153));
         btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToan.setText("Xác nhận thanh toán");
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -739,9 +773,7 @@ public class BanHang extends javax.swing.JFrame {
             }
         });
 
-        btnAddKH.setBackground(new java.awt.Color(0, 102, 153));
         btnAddKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnAddKH.setForeground(new java.awt.Color(255, 255, 255));
         btnAddKH.setText("Thêm khách hàng");
         btnAddKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -923,7 +955,7 @@ public class BanHang extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jpMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtab))
             .addComponent(jpThanhTieuDe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1083,7 +1115,7 @@ public class BanHang extends javax.swing.JFrame {
         LocalDateTime ngayGioHienTai = LocalDateTime.now();
         hd.setNgayLap(ngayGioHienTai);
         hd.setKhachHang(TimMaKH(txtSDT.getText()));
-        hd.setNhanVien("NV002");
+        hd.setNhanVien(NV.getMaNV());
         hd.setTongTien((int) TongTien_int);
         if (new HoaDon_BUS().ThemHoaDon(hd)){
             // Thêm các chi tiết hóa đơn
@@ -1449,41 +1481,41 @@ public class BanHang extends javax.swing.JFrame {
         
     }//GEN-LAST:event_lblNhapHangMouseClicked
 
-    private void lblBanHang1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang1MouseClicked
+    private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
         new QuanLyNhanVien(NV).setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_lblBanHang1MouseClicked
+    }//GEN-LAST:event_lblNhanVienMouseClicked
 
-    private void lblBanHang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang2MouseClicked
+    private void lblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhachHangMouseClicked
         new QuanLyKhachHang(NV).setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_lblBanHang2MouseClicked
+    }//GEN-LAST:event_lblKhachHangMouseClicked
 
-    private void lblBanHang3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang3MouseClicked
+    private void lblNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNCCMouseClicked
         new QuanLyNhaCungCap(NV).setVisible(true);
         this.dispose();
        
-    }//GEN-LAST:event_lblBanHang3MouseClicked
+    }//GEN-LAST:event_lblNCCMouseClicked
 
-    private void lblBanHang4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang4MouseClicked
+    private void lblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhieuNhapMouseClicked
         new PhieuNhapHang(NV).setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_lblBanHang4MouseClicked
+    }//GEN-LAST:event_lblPhieuNhapMouseClicked
 
-    private void lblBanHang5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang5MouseClicked
+    private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoaDonMouseClicked
         new HoaDonBanHang(NV).setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_lblBanHang5MouseClicked
+    }//GEN-LAST:event_lblHoaDonMouseClicked
 
-    private void lblBanHang6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang6MouseClicked
+    private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
         new ThongKe(NV).setVisible(true);
         this.dispose();
         
-    }//GEN-LAST:event_lblBanHang6MouseClicked
+    }//GEN-LAST:event_lblThongKeMouseClicked
 
     private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked
         // TODO add your handling code here:
@@ -1491,11 +1523,11 @@ public class BanHang extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblBanHangMouseClicked
 
-    private void lblBanHang7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang7MouseClicked
+    private void lblTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTaiKhoanMouseClicked
         // TODO add your handling code here:
         new QuanLyTaiKhoan(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblBanHang7MouseClicked
+    }//GEN-LAST:event_lblTaiKhoanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1570,17 +1602,17 @@ public class BanHang extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jtab;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBanHang;
-    private javax.swing.JLabel lblBanHang1;
-    private javax.swing.JLabel lblBanHang2;
-    private javax.swing.JLabel lblBanHang3;
-    private javax.swing.JLabel lblBanHang4;
-    private javax.swing.JLabel lblBanHang5;
-    private javax.swing.JLabel lblBanHang6;
-    private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblChucVu;
+    private javax.swing.JLabel lblHoaDon;
+    private javax.swing.JLabel lblKhachHang;
     private javax.swing.JLabel lblKhoHang;
+    private javax.swing.JLabel lblNCC;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNhanVien;
     private javax.swing.JLabel lblNhapHang;
+    private javax.swing.JLabel lblPhieuNhap;
+    private javax.swing.JLabel lblTaiKhoan;
+    private javax.swing.JLabel lblThongKe;
     private javax.swing.JTable tblChiTietHoaDon;
     private javax.swing.JTable tblGioHang;
     private javax.swing.JTable tblMatHang;

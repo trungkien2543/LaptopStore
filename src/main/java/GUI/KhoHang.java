@@ -6,15 +6,18 @@ package GUI;
 
 import BUS.ChiTietLaptop_BUS;
 import BUS.Laptop_BUS;
+import BUS.TaiKhoan_BUS;
 import DAO.Laptop_DAO;
 import DTO.ChiTietLaptop;
 import DTO.Laptop;
 import DTO.NhanVien;
+import DTO.TaiKhoan;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -36,6 +39,7 @@ public class KhoHang extends javax.swing.JFrame {
     ArrayList<ChiTietLaptop> list2;
     
     public static NhanVien NV;
+    public TaiKhoan TK;
     /**
      * Creates new form KhoHang
      */
@@ -56,7 +60,22 @@ public class KhoHang extends javax.swing.JFrame {
         ShowTable1();
         ShowTable2();
         
+        // Tìm thông tin nhân viên vừa đăng nhập
+        TimTaiKhoan(NV);
+        
     }
+    public void TimTaiKhoan(NhanVien NV){
+        List<TaiKhoan> list_TaiKhoan = new TaiKhoan_BUS().getListTaiKhoan();
+        for(TaiKhoan tk : list_TaiKhoan){
+            if (tk.getTenDN().equals(NV.getMaNV())){
+                TK = tk;
+                lblName.setText(NV.getTenNV());
+                lblChucVu.setText(TK.getPhanQuyen());
+                return;
+            }
+        }
+    }
+    
     
     public void ShowTable1(){
         model1.setRowCount(0);
@@ -111,8 +130,8 @@ public class KhoHang extends javax.swing.JFrame {
         tblCTLaptop = new javax.swing.JTable();
         jpMenu1 = new javax.swing.JPanel();
         lblAvatar1 = new javax.swing.JLabel();
-        lblName1 = new javax.swing.JLabel();
-        lblChucVu1 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblChucVu = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblKhoHang1 = new javax.swing.JLabel();
         lblNhapHang1 = new javax.swing.JLabel();
@@ -155,7 +174,7 @@ public class KhoHang extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 915, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
@@ -274,10 +293,10 @@ public class KhoHang extends javax.swing.JFrame {
                         .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbTimKiem))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addGroup(jpKhoLayout.createSequentialGroup()
                         .addComponent(btnThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -310,11 +329,11 @@ public class KhoHang extends javax.swing.JFrame {
 
         lblAvatar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Avatar.png"))); // NOI18N
 
-        lblName1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblName1.setText("Lê Hoài Nam");
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblName.setText("Lê Hoài Nam");
 
-        lblChucVu1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        lblChucVu1.setText("Quản lý");
+        lblChucVu.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblChucVu.setText("Quản lý");
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Line.png"))); // NOI18N
 
@@ -443,14 +462,14 @@ public class KhoHang extends javax.swing.JFrame {
                     .addGroup(jpMenu1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(jpMenu1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAvatar1)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMenu1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblChucVu1)
+                .addComponent(lblChucVu)
                 .addGap(76, 76, 76))
             .addGroup(jpMenu1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -463,9 +482,9 @@ public class KhoHang extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(lblAvatar1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblName1)
+                .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblChucVu1)
+                .addComponent(lblChucVu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -500,8 +519,7 @@ public class KhoHang extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jpMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpKho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -860,9 +878,9 @@ public class KhoHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblBanHang7;
     private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;
-    private javax.swing.JLabel lblChucVu1;
+    private javax.swing.JLabel lblChucVu;
     private javax.swing.JLabel lblKhoHang1;
-    private javax.swing.JLabel lblName1;
+    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNhapHang1;
     private javax.swing.JTable tblCTLaptop;
     private javax.swing.JTable tblLaptop;

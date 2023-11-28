@@ -1195,7 +1195,7 @@ public class BanHang extends javax.swing.JFrame {
             case 1:
                 for(Laptop s : list_mh){
                     if (s.getID().contains(text)){
-                        if (s.getTrangThai().equals("1")){
+                        if (s.getTrangThai().equals("1") && s.getSoLuongTonKho() > 0){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
@@ -1205,7 +1205,7 @@ public class BanHang extends javax.swing.JFrame {
             case 2:
                 for(Laptop s : list_mh){
                     if (s.getTen().contains(text)){
-                        if (s.getTrangThai().equals("1")){
+                        if (s.getTrangThai().equals("1")&& s.getSoLuongTonKho() > 0){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
@@ -1215,7 +1215,7 @@ public class BanHang extends javax.swing.JFrame {
             case 3:
                 for(Laptop s : list_mh){
                     if (s.getCPU().contains(text)){
-                        if (s.getTrangThai().equals("1")){
+                        if (s.getTrangThai().equals("1")&& s.getSoLuongTonKho() > 0){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
@@ -1225,7 +1225,7 @@ public class BanHang extends javax.swing.JFrame {
             case 4:
                 for(Laptop s : list_mh){
                     if (Integer.toString(s.getRAM()).contains(text)){
-                        if (s.getTrangThai().equals("1")){
+                        if (s.getTrangThai().equals("1")&& s.getSoLuongTonKho() > 0){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
@@ -1235,7 +1235,7 @@ public class BanHang extends javax.swing.JFrame {
             case 5:
                 for(Laptop s : list_mh){
                     if (s.getGPU().contains(text)){
-                        if (s.getTrangThai().equals("1")){
+                        if (s.getTrangThai().equals("1")&& s.getSoLuongTonKho() > 0){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }
@@ -1245,7 +1245,7 @@ public class BanHang extends javax.swing.JFrame {
             case 6:
                 for(Laptop s : list_mh){
                     if (Integer.toString(s.getGia()).contains(text)){
-                        if (s.getTrangThai().equals("1")){
+                        if (s.getTrangThai().equals("1")&& s.getSoLuongTonKho() > 0){
                             model.addRow(new Object[]{s.getID(),s.getTen(),s.getCPU(),s.getRAM(),s.getGPU(),currencyVN.format(s.getGia()),s.getSoLuongTonKho()});
                         }
                     }

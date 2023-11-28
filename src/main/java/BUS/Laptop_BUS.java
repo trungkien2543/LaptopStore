@@ -50,9 +50,9 @@ public class Laptop_BUS {
         }
         
         if(laptopDAO.editLaptop(laptop)){
-            return "Thêm thành công";
+            return "Sửa thành công";
         }
-        return "Thêm thất bại";
+        return "Sửa thất bại";
     }
     public boolean TruSoLuongTonKho(int sl,String id){
         return new Laptop_DAO().TruSoLuongTonKho(sl, id);

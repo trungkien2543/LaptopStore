@@ -704,7 +704,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
     		}
     	}
     	else
-    		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để sửa !","Error",0);
+    		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để xóa !","Error",0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

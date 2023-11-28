@@ -16,12 +16,10 @@ public class KhachHang_BUS {
     ArrayList<KhachHang> list;
     
     public KhachHang_BUS(){
-        
+        list = new KhachHang_DAO().getListKhachHang();
     }
     
     public ArrayList<KhachHang> getListKhachHang(){
-        list = new KhachHang_DAO().getListKhachHang();
-        
         return list;
     }
     
@@ -42,7 +40,7 @@ public class KhachHang_BUS {
         }
         
         // Thêm 1 số thông tin cơ bản để khởi tạo
-        kh.setMaKH(Integer.toString(new KhachHang_DAO().LayMaKH() + 1));
+        kh.setMaKH(Integer.toString(TimMaKhachMoi() + 1));
         kh.setTrangThai("1");
         kh.setTichDiem(0);
         // Thực hiện thêm vào database
@@ -50,6 +48,14 @@ public class KhachHang_BUS {
             return "Thêm khách hàng thành công";
         }
         return "Thêm Khách hàng thất bại";
+    }
+    
+    public int TimMaKhachMoi(){
+        int max = 0;
+        for (KhachHang kh: list){
+            max = max > Integer.parseInt(kh.getMaKH()) ? max : Integer.parseInt(kh.getMaKH());
+        }
+        return max;
     }
     
     public boolean TichDiem(int DiemHT, int DiemThem, String MaKH){

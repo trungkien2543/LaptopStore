@@ -194,14 +194,15 @@ public class SuaThongTinLaptop extends javax.swing.JFrame {
             int Gia = Integer.parseInt(txtGia.getText());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "RAM và giá nhập vào phải là số nguyên!");
+            return;
         }
         
         lt.setID(MaLaptop);
         lt.setTen(txtTenLaptop.getText());
         lt.setGia(Integer.parseInt(txtGia.getText()));
-        lt.setCPU(txtGia.getText());
+        lt.setCPU(txtCPU.getText());
         lt.setRAM(Integer.parseInt(txtRAM.getText()));
-        lt.setGPU(txtRAM.getText());
+        lt.setGPU(txtGPU.getText());
 
         String kq = "";
         kq = new Laptop_BUS().editLaptop(lt);

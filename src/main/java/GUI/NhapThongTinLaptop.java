@@ -191,6 +191,7 @@ public class NhapThongTinLaptop extends javax.swing.JFrame {
             int Gia = Integer.parseInt(txtGia.getText());
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "RAM và giá nhập vào phải là số nguyên!");
+            return;
         }
         lt.setID(MaLaptop);
         lt.setTen(txtTenLaptop.getText());

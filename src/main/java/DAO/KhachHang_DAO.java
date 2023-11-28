@@ -101,21 +101,5 @@ public class KhachHang_DAO {
         }
         return false;
     }
-    
-    public int LayMaKH(){
-        String sql = "select max(idKhachHang) from KhachHang";
-        int MaKH = 0;
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                MaKH= rs.getInt(1)+1;
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return (MaKH);
-    }
 
 }

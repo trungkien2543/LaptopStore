@@ -749,10 +749,13 @@ public class KhoHang extends javax.swing.JFrame {
             if(s.getTen()==null){
                 continue;
             }
+            if(s.getTrangThai().equals("0")){
+                continue;
+            }
             if(s.getID().contains(find) || s.getTen().contains(find) || String.valueOf(s.getSoLuongTonKho()).contains(find) || s.getCPU().contains(find)
                 || String.valueOf(s.getRAM()).contains(find) || s.getGPU().contains(find) || s.getTrangThai().contains(find)){
                 model1.addRow(new Object[]{
-                    s.getID(), s.getTen(), s.getSoLuongTonKho(), s.getCPU(), s.getRAM(), s.getGPU(), s.getTrangThai()
+                    s.getID(), s.getTen(), s.getSoLuongTonKho(), s.getGia(), s.getCPU(), s.getRAM(), s.getGPU(),
                 });
             }
         }

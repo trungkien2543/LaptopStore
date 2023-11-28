@@ -87,7 +87,7 @@ public class Laptop_DAO {
     
     
     public boolean editLaptop(Laptop s){
-        String sql = "update  Laptop set Ten = ?,Gia=?, CPU=?, RAM=?, GPU=?, TrangThai=? where id=?";
+        String sql = "update  Laptop set Ten = ?,Gia=?, CPU=?, RAM=?, GPU=? where id=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, s.getTen());
@@ -95,8 +95,7 @@ public class Laptop_DAO {
             ps.setString(3, s.getCPU());
             ps.setInt(4, s.getRAM());
             ps.setString(5, s.getGPU());
-            ps.setString(6, s.getTrangThai());
-            ps.setString(7, s.getID());
+            ps.setString(6, s.getID());
             return ps.executeUpdate() > 0;
         }
         catch(Exception e){

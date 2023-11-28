@@ -118,7 +118,7 @@ public class TaiKhoan_BUS {
         ArrayList<TaiKhoan> searchTK = new ArrayList<TaiKhoan>();
         for( int i=0 ; i<listTK.size() ; i++ ) {
         	String tenDN = String.valueOf(listTK.get(i).getTenDN() );
-        	if( tenDN.contains(tendn) )
+        	if( tenDN.toLowerCase().contains(tendn.toLowerCase()) )
         		searchTK.add(listTK.get(i) );
         }
         return searchTK;
@@ -129,7 +129,11 @@ public class TaiKhoan_BUS {
         ArrayList<TaiKhoan> searchTK = new ArrayList<TaiKhoan>();
         for( int i=0 ; i<listTK.size() ; i++ ) {
         	String phanquyen = String.valueOf(listTK.get(i).getPhanQuyen() );
-        	if( phanquyen.contains(pq) )
+        	if( phanquyen.equals("Quanly") )
+        		phanquyen = "quản lý";
+        	else
+        		phanquyen = "nhân viên";
+        	if( phanquyen.contains(pq.toLowerCase()) )
         		searchTK.add(listTK.get(i) );
         }
         return searchTK;

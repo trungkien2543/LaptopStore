@@ -52,6 +52,17 @@ public class NhanVien_BUS {
         }
         return "Thêm thất bại";
     }
+    public String themNV_excel(NhanVien nv){
+    	String[] date = nv.getNgaySinh().split("-");
+        String day = date[1];
+        String month = date[1];
+        String year = date[0];
+        nv.setNgaySinh(month+"/"+day+"/"+year);
+        if( new NhanVien_DAO().addNhanVien(nv) ){
+            return "Thêm thành công !";
+        }
+        return "Thêm thất bại";
+    }
     
     public String xoaNV(NhanVien nv){
         if( new NhanVien_DAO().delNhanVien(nv) ){
@@ -77,7 +88,7 @@ public class NhanVien_BUS {
         ArrayList<NhanVien> searchNV = new ArrayList<NhanVien>();
         for( int i=0 ; i<listNV.size() ; i++ ) {
         	String maNV = String.valueOf(listNV.get(i).getMaNV() );
-        	if( maNV.contains(id) )
+        	if( maNV.toLowerCase().contains(id.toLowerCase()) )
         		searchNV.add(listNV.get(i) );
         }
         return searchNV;
@@ -88,7 +99,7 @@ public class NhanVien_BUS {
         ArrayList<NhanVien> searchNV = new ArrayList<NhanVien>();
         for( int i=0 ; i<listNV.size() ; i++ ) {
         	String tenNV = String.valueOf(listNV.get(i).getTenNV() );
-        	if( tenNV.contains(id) )
+        	if( tenNV.toLowerCase().contains(id.toLowerCase()) )
         		searchNV.add(listNV.get(i) );
         }
         return searchNV;
@@ -150,7 +161,6 @@ public class NhanVien_BUS {
         }
         else
         {
-        	System.out.println("A");
             return false;
         }
         return true;
@@ -175,72 +185,87 @@ public class NhanVien_BUS {
     public static final int COLUMN_INDEX_CCCD = 6;
     public static final int COLUMN_INDEX_Email = 7;
     public String import_excel( String excelFilePath ) throws IOException{
-
-    	// Get file
-        InputStream inputStream = new FileInputStream(new File(excelFilePath));
-        Workbook workbook = getWorkbook(inputStream, excelFilePath);
-        Sheet sheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = sheet.iterator();
-        while (iterator.hasNext()) {
-            Row nextRow = iterator.next();
-            if (nextRow.getRowNum() == 0) {
-                // Ignore header
-                continue;
-            }
- 
-            // Get all cells
-            Iterator<Cell> cellIterator = nextRow.cellIterator();
-            NhanVien nv = new NhanVien();
-            while (cellIterator.hasNext()) {
-                //Read cell
-                Cell cell = cellIterator.next();
-                Object cellValue = getCellValue(cell);
-                if (cellValue == null || cellValue.toString().isEmpty()) {
-                    continue;
-                }
-                // Set value for NhanVien object
-                int columnIndex = cell.getColumnIndex();
-                switch (columnIndex) {
-                case COLUMN_INDEX_MaNV:
-                	nv.setMaNV((String) getCellValue(cell));
-                    break;
-                case COLUMN_INDEX_TenNV:
-                	nv.setTenNV((String) getCellValue(cell));
-                    break;
-                case COLUMN_INDEX_GioiTinh:
-                	String gioitinh = (String) getCellValue(cell);
-                	if( gioitinh.equals("Nam") )
-                		nv.setGioiTinh(true);
-                	else
-                		nv.setGioiTinh(false);
-                    break;
-                case COLUMN_INDEX_SDT:
-                	nv.setSDT((String) getCellValue(cell));
-                    break;
-                case COLUMN_INDEX_DiaChi:
-                	nv.setDiaChi((String) getCellValue(cell));
-                    break;
-                case COLUMN_INDEX_NgaySinh:
-                	nv.setNgaySinh((String) getCellValue(cell));
-                    break;
-                case COLUMN_INDEX_CCCD:
-                	nv.setCCCD((String) getCellValue(cell));
-                    break;
-                case COLUMN_INDEX_Email:
-                	nv.setEmail((String) getCellValue(cell));
-                    break;
-                default:
-                    break;
-                }
-                nv.setTrangThai("1");
-            }
-            TaiKhoan tk = new TaiKhoan(nv.getMaNV(),"123456","Nhanvien");
-            themNV(nv);
-            new TaiKhoan_BUS().themTK(tk);
-        }
-        workbook.close();
-        inputStream.close();
-    	return "Import thành công ! ";
+    	try {
+	    	// Get file
+	        InputStream inputStream = new FileInputStream(new File(excelFilePath));
+	        Workbook workbook = getWorkbook(inputStream, excelFilePath);
+	        Sheet sheet = workbook.getSheetAt(0);
+	        Iterator<Row> iterator = sheet.iterator();
+	        while (iterator.hasNext()) {
+	            Row nextRow = iterator.next();
+	            if (nextRow.getRowNum() == 0) {
+	                // Ignore header
+	                continue;
+	            }
+	 
+	            // Get all cells
+	            Iterator<Cell> cellIterator = nextRow.cellIterator();
+	            NhanVien nv = new NhanVien();
+	            while (cellIterator.hasNext()) {
+	                //Read cell
+	                Cell cell = cellIterator.next();
+	                Object cellValue = getCellValue(cell);
+	                if (cellValue == null || cellValue.toString().isEmpty()) {
+	                    continue;
+	                }
+	                // Set value for NhanVien object
+	                int columnIndex = cell.getColumnIndex();
+	                switch (columnIndex) {
+	                case COLUMN_INDEX_MaNV:
+	                	nv.setMaNV((String) getCellValue(cell));
+	                    break;
+	                case COLUMN_INDEX_TenNV:
+	                	nv.setTenNV((String) getCellValue(cell));
+	                    break;
+	                case COLUMN_INDEX_GioiTinh:
+	                	String gioitinh = (String) getCellValue(cell);
+	                	if( gioitinh.equals("Nam") )
+	                		nv.setGioiTinh(true);
+	                	else
+	                		nv.setGioiTinh(false);
+	                    break;
+	                case COLUMN_INDEX_SDT:
+	                	nv.setSDT((String) getCellValue(cell));
+	                    break;
+	                case COLUMN_INDEX_DiaChi:
+	                	nv.setDiaChi((String) getCellValue(cell));
+	                    break;
+	                case COLUMN_INDEX_NgaySinh:
+	                	nv.setNgaySinh((String) getCellValue(cell));
+	                    break;
+	                case COLUMN_INDEX_CCCD:
+	                	nv.setCCCD((String) getCellValue(cell));
+	                    break;
+	                case COLUMN_INDEX_Email:
+	                	nv.setEmail((String) getCellValue(cell));
+	                    break;
+	                default:
+	                    break;
+	                }
+	                nv.setTrangThai("1");
+	            }
+	            TaiKhoan tk = new TaiKhoan(nv.getMaNV(),"123456","Nhanvien");
+	            System.out.println("1");
+	            System.out.println(nv.getMaNV());
+	            System.out.println(nv.getTenNV());
+	            System.out.println(nv.isGioiTinh());
+	            System.out.println(nv.getSDT());
+	            System.out.println(nv.getDiaChi());
+	            System.out.println(nv.getNgaySinh());
+	            System.out.println(nv.getCCCD());
+	            System.out.println(nv.getEmail());
+	            themNV_excel(nv);
+	            System.out.println("2");
+	            new TaiKhoan_BUS().themTK(tk);
+	            System.out.println("3");
+	        }
+	        workbook.close();
+	        inputStream.close();
+	    	return "Import thành công ! ";
+    	}
+    	catch( Exception e ) {
+    		return "Import thất bại ! ";
+    	}
     }
     
     private static Workbook getWorkbook(InputStream inputStream, String excelFilePath) throws IOException {
@@ -283,35 +308,40 @@ public class NhanVien_BUS {
     }
     
     
-    public String export_excel( ArrayList<NhanVien> list, String excelFilePath ) throws IOException{
+    public String export_excel( ArrayList<NhanVien> list, String excelFilePath ){
     	// Create Workbook
-        Workbook workbook = getWorkbook(excelFilePath);
- 
-        // Create sheet
-        Sheet sheet = workbook.createSheet("Nhân viên"); // Create sheet with sheet name
- 
-        int rowIndex = 0;
-         
-        // Write header
-        writeHeader(sheet, rowIndex);
- 
-        // Write data
-        rowIndex++;
-        for (NhanVien nv : list) {
-            // Create row
-            Row row = sheet.createRow(rowIndex);
-            // Write data on row
-            writeBook(nv, row);
-            rowIndex++;
-        }
- 
-        // Auto resize column witdth
-        int numberOfColumn = sheet.getRow(0).getPhysicalNumberOfCells();
-        autosizeColumn(sheet, numberOfColumn);
- 
-        // Create file excel
-        createOutputFile(workbook, excelFilePath);
-    	return "Export thành công !";
+    	try {
+	        Workbook workbook = getWorkbook(excelFilePath);
+	 
+	        // Create sheet
+	        Sheet sheet = workbook.createSheet("Nhân viên"); // Create sheet with sheet name
+	 
+	        int rowIndex = 0;
+	         
+	        // Write header
+	        writeHeader(sheet, rowIndex);
+	 
+	        // Write data
+	        rowIndex++;
+	        for (NhanVien nv : list) {
+	            // Create row
+	            Row row = sheet.createRow(rowIndex);
+	            // Write data on row
+	            writeBook(nv, row);
+	            rowIndex++;
+	        }
+	 
+	        // Auto resize column witdth
+	        int numberOfColumn = sheet.getRow(0).getPhysicalNumberOfCells();
+	        autosizeColumn(sheet, numberOfColumn);
+	 
+	        // Create file excel
+	        createOutputFile(workbook, excelFilePath);
+	    	return "Export thành công !";
+    	}
+    	catch( Exception e ) {
+    		return "Export thất bại !";
+    	}
     }
     private static Workbook getWorkbook(String excelFilePath) throws IOException {
         Workbook workbook = null;

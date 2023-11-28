@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.SecureRandom;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -907,7 +908,29 @@ public class NhapHang extends javax.swing.JFrame {
 	private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
 		Search_String(jTable1, jTextField1.getText().toString()); // tìm kiếm 
     }//GEN-LAST:event_jTextField1ActionPerformed
+	
+	public String generateRandomString(int length) {
+        StringBuilder randomString = new StringBuilder(length);
+        SecureRandom secureRandom = new SecureRandom();
+        do {
+	        for (int i = 0; i < length; i++) {
+	            int randomCharIndex = secureRandom.nextInt(ALLOWED_CHARACTERS.length());
+	            char randomChar = ALLOWED_CHARACTERS.charAt(randomCharIndex);
+	            randomString.append(randomChar);
+	        }
+        } while(isStringInList(randomString.toString(), chiTietLaptop_BUS.getListChiTietLaptop()));
 
+        return randomString.toString();
+    }
+
+    public boolean isStringInList(String str, ArrayList<ChiTietLaptop> stringList) {
+        for (ChiTietLaptop s : stringList) {
+            if (s.getIDRieng().equals(str)) {
+                return true;
+            }
+        }
+        return false;
+    }
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int row = jTable2.getSelectedRow();
         if (row == -1) {
@@ -1013,7 +1036,7 @@ public class NhapHang extends javax.swing.JFrame {
 				Calendar calendar = Calendar.getInstance();
 		        Date currentDate = calendar.getTime();
 				for (int i = 0;i < sol;i++) {
-					ChiTietLaptop tietLaptop = new ChiTietLaptop(jTable1.getValueAt(row, 0).toString() + "_" + (i+1)
+					ChiTietLaptop tietLaptop = new ChiTietLaptop(generateRandomString(7)
 							,"1", jTable1.getValueAt(row, 0).toString(), currentDate );
 					ctLaptopList.add(tietLaptop);
 				}
@@ -1120,7 +1143,7 @@ public class NhapHang extends javax.swing.JFrame {
 				Calendar calendar = Calendar.getInstance();
 		        Date currentDate = calendar.getTime();
 				for (int i = 0;i < sol;i++) {
-					ChiTietLaptop tietLaptop = new ChiTietLaptop(jTable1.getValueAt(row, 0).toString() + "_" + (i+1)
+					ChiTietLaptop tietLaptop = new ChiTietLaptop(generateRandomString(7)
 							,"1", jTable1.getValueAt(row, 0).toString(), currentDate );
 					ctLaptopList.add(tietLaptop);
 				}
@@ -1261,4 +1284,5 @@ public class NhapHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblTongHoaDon;
     private JLabel lblNhCungCp;
     private JComboBox<String> comboBox;
+    private final String ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 }

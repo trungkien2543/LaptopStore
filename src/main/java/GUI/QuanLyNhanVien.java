@@ -848,7 +848,7 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     	JFileChooser c = new JFileChooser();
-    	ArrayList<NhanVien> list = new NhanVien_BUS().getListNhanVien();
+    	ArrayList<NhanVien> list = new NhanVien_BUS().getListNhanVien_now();
     	int choose = c.showSaveDialog(null);
     	if( choose == JFileChooser.APPROVE_OPTION ) {
     		String filename = c.getSelectedFile().getName();

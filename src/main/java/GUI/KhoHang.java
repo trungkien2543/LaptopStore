@@ -254,7 +254,15 @@ public class KhoHang extends javax.swing.JFrame {
             new String [] {
                 "ID", "Tên", "Số lượng tồn kho", "Giá", "CPU", "RAM", "GPU"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblLaptop.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLaptopMouseClicked(evt);
@@ -738,6 +746,18 @@ public class KhoHang extends javax.swing.JFrame {
         int selectedrow = tblLaptop.getSelectedRow();
 
         txtFind.setText((String) tblLaptop.getValueAt(selectedrow, 0));
+        
+        model2.setRowCount(0);
+        list2 = new ChiTietLaptop_BUS().getListChiTietLaptop();
+        for (ChiTietLaptop s : list2) {
+            if(s.getTrangThai().equals("0") || !s.getMauLapTop().equals((String) tblLaptop.getValueAt(selectedrow, 0))){
+                continue;
+            }
+            model2.addRow(new Object[]{
+                s.getIDRieng(), s.getNgayNhap(), s.getMauLapTop()
+            });
+        }
+        
     }//GEN-LAST:event_tblLaptopMouseClicked
 
     private void txtFindKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindKeyReleased
@@ -759,6 +779,8 @@ public class KhoHang extends javax.swing.JFrame {
                 });
             }
         }
+        
+        ShowTable2();
     }//GEN-LAST:event_txtFindKeyReleased
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked

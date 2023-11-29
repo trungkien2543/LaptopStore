@@ -693,7 +693,7 @@ public class ThongKe extends javax.swing.JFrame {
             }
       
             
-            JFreeChart barChart = ChartFactory.createBarChart("Thống kê số lượng hàng bán được của 1 sản phẩm hoặc toàn bộ sản phẩm trong 1 khoảng thời gian".toUpperCase(),"Mã laptop", "Số lượng", dataset, PlotOrientation.VERTICAL, false, true, false);
+            JFreeChart barChart = ChartFactory.createBarChart("Thống kê số lượng hàng bán được của 1 sản phẩm hoặc toàn bộ sản phẩm trong 1 khoảng thời gian".toUpperCase(),"Mã laptop", "Số lượng", dataset, PlotOrientation.VERTICAL, true, true, false);
             
             ChartPanel chartPanel = new ChartPanel(barChart);
             
@@ -760,7 +760,7 @@ public class ThongKe extends javax.swing.JFrame {
             }
       
             
-            JFreeChart barChart = ChartFactory.createBarChart("Thống kê doanh thu sản phẩm trong năm "+nam+"".toUpperCase(),"Tháng", "Số tiền", dataset, PlotOrientation.VERTICAL, false, true, false);
+            JFreeChart barChart = ChartFactory.createBarChart("Thống kê doanh thu sản phẩm trong năm "+nam+"".toUpperCase(),"Tháng", "Số tiền", dataset, PlotOrientation.VERTICAL, true, true, false);
             
             ChartPanel chartPanel = new ChartPanel(barChart);
             

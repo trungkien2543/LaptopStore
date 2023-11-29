@@ -674,8 +674,13 @@ public class KhoHang extends javax.swing.JFrame {
 
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet Sheet = wb.createSheet("KhoLaptop");
+        XSSFSheet SheetCT = wb.createSheet("ChiTietLaptop");
         XSSFRow row = null;
         Cell cell = null;
+        XSSFRow rowCT = null;
+        Cell cellCT = null;
+        
+        
         row = Sheet.createRow(0);
         
         cell = row.createCell(0, CellType.STRING);
@@ -692,14 +697,7 @@ public class KhoHang extends javax.swing.JFrame {
         cell.setCellValue("RAM");
         cell = row.createCell(6, CellType.STRING);
         cell.setCellValue("GPU");
-        cell = row.createCell(7, CellType.STRING);
-        cell.setCellValue("  ");
-        cell = row.createCell(8, CellType.STRING);
-        cell.setCellValue("ID riêng");
-        cell = row.createCell(9, CellType.STRING);
-        cell.setCellValue("Ngày lập");
-        cell = row.createCell(10, CellType.STRING);
-        cell.setCellValue("Mẫu laptop");
+
         
         for(int i=0;i<tblLaptop.getRowCount();i++) {
             row = Sheet.createRow(i+1);
@@ -717,15 +715,34 @@ public class KhoHang extends javax.swing.JFrame {
             cell.setCellValue((int) tblLaptop.getValueAt(i, 5));
             cell = row.createCell(6, CellType.STRING);
             cell.setCellValue(tblLaptop.getValueAt(i, 6).toString());
-            cell = row.createCell(7, CellType.STRING);
-            cell.setCellValue(" ");
-            cell = row.createCell(8, CellType.STRING);
-            cell.setCellValue(tblCTLaptop.getValueAt(i, 0).toString());
-            cell = row.createCell(9, CellType.STRING);
-            cell.setCellValue(tblCTLaptop.getValueAt(i, 1).toString());
-            cell = row.createCell(10, CellType.STRING);
-            cell.setCellValue(tblCTLaptop.getValueAt(i, 2).toString());
+
+            
         }
+        
+        
+        rowCT = SheetCT.createRow(0);
+        
+        cellCT = rowCT.createCell(0, CellType.STRING);
+        cellCT.setCellValue("ID Riêng");
+        cellCT = rowCT.createCell(1, CellType.STRING);
+        cellCT.setCellValue("Ngày nhập");
+        cellCT = rowCT.createCell(2, CellType.STRING);
+        cellCT.setCellValue("Mẫu laptop");
+       
+
+        
+        for(int i=0;i<tblCTLaptop.getRowCount();i++) {
+            rowCT = SheetCT.createRow(i+1);
+            cellCT = rowCT.createCell(0, CellType.STRING);
+            cellCT.setCellValue(tblCTLaptop.getValueAt(i, 0).toString());
+            cellCT = rowCT.createCell(1, CellType.STRING);
+            cellCT.setCellValue(tblCTLaptop.getValueAt(i, 1).toString());
+            cellCT = rowCT.createCell(2, CellType.STRING);
+            cellCT.setCellValue(tblCTLaptop.getValueAt(i, 2).toString());       
+        }
+        
+        
+        
         try {
             file = new FileOutputStream(path+".xlsx");
             wb.write(file);

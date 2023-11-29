@@ -630,15 +630,17 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    	String tenDN = String.valueOf(comboBox_2.getItemAt(comboBox.getSelectedIndex()));
+    	String tenDN = String.valueOf(comboBox_2.getSelectedItem());
     	String mk = textField_2.getText();
-    	String pq = String.valueOf(comboBox_3.getItemAt(comboBox.getSelectedIndex()));
+    	String pq = String.valueOf(comboBox_3.getSelectedItem());
     	String phanquyen;
     	if( pq.equals("Quản lý"))
     		phanquyen = "Quanly";
     	else
     		phanquyen = "Nhanvien";
     	if( !mk.equals("") && !tenDN.equals("")) {
+    		System.out.println(tenDN);    
+    		System.out.println(pq);  
     		TaiKhoan tk = new TaiKhoan(tenDN,mk,phanquyen);
 			JOptionPane.showMessageDialog(jPanel2, new TaiKhoan_BUS().themTK(tk));
 			jTable1.setModel(new javax.swing.table.DefaultTableModel(

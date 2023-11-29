@@ -804,6 +804,7 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
 		        ));
     			TaiKhoan tk = new TaiKhoan(nv.getMaNV(),"123456","BanHang");
     			String themtk = new TaiKhoan_BUS().themTK(tk);
+    			reset();
     		}	
     		else
     			JOptionPane.showMessageDialog(jPanel2, new NhanVien_BUS().checkNV(nv));
@@ -837,6 +838,7 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
 		                "Mã nhân viên", "Tên nhân viên", "Giới tính", "Số điện thoại", "Địa chỉ", "Ngày sinh", "CCCD", "Email"
 		            }
 		        ));
+    			reset();
     		}
     		else
     			JOptionPane.showMessageDialog(jPanel2, new NhanVien_BUS().checkNV(nv));
@@ -888,6 +890,7 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
 		        ));
     			TaiKhoan tk = new TaiKhoan_BUS().timTK(maNV);
     			String xoatk = new TaiKhoan_BUS().xoaTK(tk);
+    			reset();
     	}
     	else
     		JOptionPane.showMessageDialog(jPanel2, "Chọn một nhân viên để xóa !","Error",0);
@@ -933,6 +936,15 @@ public class QuanLyNhanVien extends javax.swing.JFrame {
         	data[i][7] = list.get(i).getEmail();
         }
         return data;
+    }
+    public void reset() {
+		textField_MaNV.setText("");
+		textField_TenNV.setText("");
+		textField_SDT.setText("");
+		textField_NgaySinh.setText("");
+		textField_CCCD.setText("");
+		textField_DiaChi.setText("");
+		textField_Email.setText("");
     }
     
     /**

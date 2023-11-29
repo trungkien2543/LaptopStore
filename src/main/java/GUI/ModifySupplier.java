@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.NhaCungCap_BUS;
 import DTO.NhaCungCap;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,15 +14,50 @@ import javax.swing.JOptionPane;
  * @author DELL
  */
 public class ModifySupplier extends javax.swing.JFrame {
+    
+    private String idNCC;
+    private static QuanLyNhaCungCap qlncc;
+    private ArrayList<NhaCungCap> list;
 
     /**
      * Creates new form ModifySuplier
      */
-    public ModifySupplier() {
+            
+            
+    public ModifySupplier(QuanLyNhaCungCap Qlncc) {
         initComponents();
         this.setLocationRelativeTo(null);
         btnEDIT.setEnabled(false);
+        this.qlncc = Qlncc;
+        list = new NhaCungCap_BUS().getAllNhaCungCap();
     }
+
+    public ModifySupplier(String idNCC, QuanLyNhaCungCap Qlncc) {
+        this.idNCC = idNCC;
+        this.qlncc = Qlncc;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        btnADD.setEnabled(false);
+        txtMaNCC.setEditable(false);
+        list = new NhaCungCap_BUS().getAllNhaCungCap();
+        setUP(idNCC);
+    }
+    
+    public void setUP(String idNCC){
+        for (NhaCungCap ncc : list){
+            if (idNCC.equals(ncc.getMaNCC())){
+                txtMaNCC.setText(idNCC);
+                txtTenNCC.setText(ncc.getTenNCC());
+                txtSDT.setText(ncc.getSDT());
+                txtDiaChi.setText(ncc.getDiaChi());
+                txtEmail.setText(ncc.getEmail());
+                return;
+            }
+        }
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,6 +134,11 @@ public class ModifySupplier extends javax.swing.JFrame {
         });
 
         btnEDIT.setText("Sửa nhà cung cấp");
+        btnEDIT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEDITActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,8 +229,31 @@ public class ModifySupplier extends javax.swing.JFrame {
         String DiaChi = txtDiaChi.getText();
         
         NhaCungCap ncc = new NhaCungCap(MaNCC, TenNCC, DiaChi, SDT, Email, "1");
-        JOptionPane.showMessageDialog(rootPane, new NhaCungCap_BUS().addNhaCungCap(ncc));
+        String kq = new NhaCungCap_BUS().addNhaCungCap(ncc);
+        JOptionPane.showMessageDialog(rootPane, kq);
+        if (kq.equals("Thêm nhà cung cấp thành công")){
+            this.dispose();
+            qlncc.loadData();
+        }
+        
     }//GEN-LAST:event_btnADDActionPerformed
+
+    private void btnEDITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEDITActionPerformed
+        // TODO add your handling code here:
+        String MaNCC = txtMaNCC.getText();
+        String TenNCC = txtTenNCC.getText();
+        String SDT = txtSDT.getText();
+        String Email = txtEmail.getText();
+        String DiaChi = txtDiaChi.getText();
+        
+        NhaCungCap ncc = new NhaCungCap(MaNCC, TenNCC, DiaChi, SDT, Email, "1");
+        String kq = new NhaCungCap_BUS().capNhatNhaCungCap(ncc);
+        JOptionPane.showMessageDialog(rootPane, kq);
+        if (kq.equals("Cập nhật thành công")){
+            this.dispose();
+            qlncc.loadData();
+        }
+    }//GEN-LAST:event_btnEDITActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,7 +288,7 @@ public class ModifySupplier extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModifySupplier().setVisible(true);
+                new ModifySupplier(qlncc).setVisible(true);
             }
         });
     }

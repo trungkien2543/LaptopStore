@@ -6,20 +6,28 @@ package GUI;
 
 import BUS.NhaCungCap_BUS;
 import BUS.TaiKhoan_BUS;
+import DAO.Laptop_DAO;
 import DTO.NhanVien;
 import DTO.NhaCungCap;
 import DTO.TaiKhoan;
 import java.awt.event.ActionEvent;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -41,6 +49,9 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
         this.NV = NV;
         
         initComponents();
+        
+        model = (DefaultTableModel) tblNCC.getModel();
+        tblNCC.setModel(model);
         
         setExtendedState(MAXIMIZED_BOTH);
         
@@ -78,14 +89,14 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jpKho = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtFind = new javax.swing.JTextField();
         lbTimKiem = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblNCC = new javax.swing.JTable();
         jpMenu1 = new javax.swing.JPanel();
         lblAvatar1 = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
@@ -156,12 +167,25 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
 
         jpKho.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        jTextField1.setText("Nhập thông tin tìm kiếm");
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtFind.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtFind.setText("Nhập thông tin tìm kiếm");
+        txtFind.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtFind.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtFindFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFindFocusLost(evt);
+            }
+        });
+        txtFind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtFindActionPerformed(evt);
+            }
+        });
+        txtFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFindKeyReleased(evt);
             }
         });
 
@@ -169,6 +193,11 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Xoa.png"))); // NOI18N
         jButton1.setText("Xóa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Them.png"))); // NOI18N
         jButton2.setText("Thêm");
@@ -194,18 +223,23 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblNCC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblNCCMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblNCC);
 
         javax.swing.GroupLayout jpKhoLayout = new javax.swing.GroupLayout(jpKho);
         jpKho.setLayout(jpKhoLayout);
@@ -213,7 +247,7 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
             jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpKhoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTimKiem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -235,7 +269,7 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1)
+                    .addComponent(txtFind)
                     .addGroup(jpKhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -469,60 +503,104 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFindActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtFindActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        ModifySupplier m = new ModifySupplier();
+        ModifySupplier m = new ModifySupplier(this);
         m.setVisible(true);
-        loadData();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        int selectedRowIndex = jTable1.getSelectedRow();
+        int selectedRowIndex = tblNCC.getSelectedRow();
 
         if (selectedRowIndex == -1) {
             JOptionPane.showMessageDialog(this, "Please select a row to modify.", "No Row Selected", JOptionPane.WARNING_MESSAGE);
         } else {
-            loadData();
+            ModifySupplier m = new ModifySupplier(model.getValueAt(selectedRowIndex, 0).toString(),this);
+            m.setVisible(true);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
          // Create a new workbook and sheet
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Sheet 1");
-
-        // Get the column headers from the JTable
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        int colCount = model.getColumnCount();
-        Row headerRow = sheet.createRow(0);
-        for (int col = 0; col < colCount; col++) {
-            Cell cell = headerRow.createCell(col);
-            cell.setCellValue(model.getColumnName(col));
-        }
-
-        // Get the data from the JTable
-        int rowCount = model.getRowCount();
-        for (int row = 0; row < rowCount; row++) {
-            Row excelRow = sheet.createRow(row + 1);
-            for (int col = 0; col < colCount; col++) {
-                Cell cell = excelRow.createCell(col);
-                cell.setCellValue(String.valueOf(model.getValueAt(row, col)));
+        String path=null,tenfile=null;
+        boolean flag;
+        do{
+            flag=false;
+            tenfile = JOptionPane.showInputDialog("Nhập tên file :");
+            if(tenfile == null){
+                return;
+            }
+            if(tenfile.isEmpty()){
+                JOptionPane.showMessageDialog(rootPane, "Bạn chưa nhập tên file");
+                flag=true;
+            }
+            else if (tenfile.contains(" ")){
+                JOptionPane.showMessageDialog(rootPane, "Tên file không có khoảng trắng");
+                flag=true;
+            }
+            else if (tenfile.contains("/") || tenfile.contains("%") || tenfile.contains("#") || tenfile.contains(":") ||tenfile.contains(";") ||tenfile.contains("~") ||tenfile.contains(".") ){
+                JOptionPane.showMessageDialog(rootPane, "Tên file không chứa kí tự đặc biệt");
+                flag=true;
             }
         }
+        while(flag);
+        
+        JFileChooser j = new JFileChooser();
+        j.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int x = j.showSaveDialog(this);
+        if(x == JFileChooser.APPROVE_OPTION){
+            path=j.getSelectedFile().getPath()+"//"+tenfile;
+        }
+        FileOutputStream file;
 
-        // Save the workbook to a file
-        try (FileOutputStream fileOut = new FileOutputStream("output.xlsx")) {
-            workbook.write(fileOut);
-            fileOut.close();
-            workbook.close();
-            System.out.println("Excel file has been created successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet Sheet = wb.createSheet("Nhà cung cấp");
+        XSSFRow row = null;
+        Cell cell = null;
+        row = Sheet.createRow(0);
+        
+        cell = row.createCell(0, CellType.STRING);
+        cell.setCellValue("Mã nhà cung cấp");
+        cell = row.createCell(1, CellType.STRING);
+        cell.setCellValue("Tên nhà cung cấp");
+        cell = row.createCell(2, CellType.STRING);
+        cell.setCellValue("Số điện thoại");
+        cell = row.createCell(3, CellType.STRING);
+        cell.setCellValue("Email");
+        cell = row.createCell(4, CellType.STRING);
+        cell.setCellValue("Địa chỉ");
+        cell = row.createCell(5, CellType.STRING);
+        
+        for(int i=0;i<tblNCC.getRowCount();i++) {
+            row = Sheet.createRow(i+1);
+            cell = row.createCell(0, CellType.STRING);
+            cell.setCellValue(tblNCC.getValueAt(i, 0).toString());
+            cell = row.createCell(1, CellType.STRING);
+            cell.setCellValue(tblNCC.getValueAt(i, 1).toString());
+            cell = row.createCell(2, CellType.STRING);
+            cell.setCellValue(tblNCC.getValueAt(i, 2).toString());
+            cell = row.createCell(3, CellType.STRING);
+            cell.setCellValue(tblNCC.getValueAt(i, 3).toString());
+            cell = row.createCell(4, CellType.STRING);
+            cell.setCellValue(tblNCC.getValueAt(i, 4).toString());
+        }
+        try {
+            file = new FileOutputStream(path+".xlsx");
+            wb.write(file);
+            wb.close();
+            file.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(Laptop_DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(path != null){
+            JOptionPane.showMessageDialog(rootPane, "Xuất file Excel thành công");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -584,40 +662,74 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
         new QuanLyTaiKhoan(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang16MouseClicked
-        public javax.swing.JTable getJTable1() {
-        return jTable1;
-    }
-    
-    public void reloadData() {
-    // Call your loadData method or any method you use to load data into jTable1
-    loadData();
- }
-    public String getLargestIDFromTable() {
-        String largestID = "0";
 
-        for (int i = 0; i < jTable1.getRowCount(); i++) {
-            String currentID = jTable1.getValueAt(i, 0).toString();
-            if (currentID.compareTo(largestID) > 0) {
-                largestID = currentID;
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tblNCC.getSelectedRow();
+
+        if (selectedRowIndex == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a row to modify.", "No Row Selected", JOptionPane.WARNING_MESSAGE);
+        } else {
+            if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(rootPane, "Bạn có muốn xóa không")){
+                JOptionPane.showMessageDialog(rootPane, new NhaCungCap_BUS().xoaNhaCungCap(model.getValueAt(selectedRowIndex, 0).toString()));
+                loadData();
             }
         }
-    
-        return largestID;
-    }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void loadData() {
-        String[] columnNames = {"MaNCC", "TenNCC", "SDT", "DiaChi", "Email"};
+    private void txtFindKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindKeyReleased
+        // TODO add your handling code here:
+        int selectedrow = tblNCC.getSelectedRow();
+
+        String find = txtFind.getText();
+        
+        model.setRowCount(0);
         ArrayList<NhaCungCap> nhaCungCapList = new NhaCungCap_BUS().getListNhaCungCap();
-
-        Object[][] data = new Object[nhaCungCapList.size()][5];
-
-        for (int i = 0; i < nhaCungCapList.size(); i++) {
-            NhaCungCap ncc = nhaCungCapList.get(i);
-            data[i] = new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSDT(), ncc.getDiaChi(), ncc.getEmail()};
+        for (NhaCungCap ncc : nhaCungCapList) {
+            if (ncc.getTrangThai().equals("1")){
+                if (ncc.getMaNCC().contains(find) || ncc.getTenNCC().contains(find) || ncc.getSDT().contains(find) || ncc.getEmail().contains(find) || ncc.getDiaChi().contains(find))
+                model.addRow(new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSDT(), ncc.getDiaChi(), ncc.getEmail()});
+            }
         }
 
-        model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
+        tblNCC.setModel(model);
+    }//GEN-LAST:event_txtFindKeyReleased
+
+    private void tblNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNCCMouseClicked
+        // TODO add your handling code here:
+        int selectedrow = tblNCC.getSelectedRow();
+        txtFind.setText((String) tblNCC.getValueAt(selectedrow, 0));
+    }//GEN-LAST:event_tblNCCMouseClicked
+
+    private void txtFindFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindFocusGained
+        // TODO add your handling code here:
+        if (txtFind.getText().equals("Nhập thông tin tìm kiếm")){
+            txtFind.setText("");
+        }
+        
+    }//GEN-LAST:event_txtFindFocusGained
+
+    private void txtFindFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFindFocusLost
+        // TODO add your handling code here:
+         if (txtFind.getText().isEmpty()){
+            txtFind.setText("Nhập thông tin tìm kiếm");
+        }
+    }//GEN-LAST:event_txtFindFocusLost
+
+
+    public void loadData() {
+        
+        ArrayList<NhaCungCap> nhaCungCapList = new NhaCungCap_BUS().getListNhaCungCap();
+        model.setRowCount(0);
+
+        for (NhaCungCap ncc : nhaCungCapList) {
+            if (ncc.getTrangThai().equals("1")){
+                model.addRow(new Object[]{ncc.getMaNCC(), ncc.getTenNCC(), ncc.getSDT(), ncc.getDiaChi(), ncc.getEmail()});
+            }
+        }
+
+        tblNCC.setModel(model);
     }
 
 
@@ -676,8 +788,6 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel jpKho;
     private javax.swing.JPanel jpMenu1;
     private javax.swing.JPanel jpThanhTieuDe;
@@ -695,5 +805,7 @@ public class QuanLyNhaCungCap extends javax.swing.JFrame {
     private javax.swing.JLabel lblKhoHang1;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNhapHang1;
+    private javax.swing.JTable tblNCC;
+    private javax.swing.JTextField txtFind;
     // End of variables declaration//GEN-END:variables
 }

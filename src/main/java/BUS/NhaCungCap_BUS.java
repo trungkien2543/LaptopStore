@@ -16,6 +16,7 @@ public class NhaCungCap_BUS {
     private ArrayList<NhaCungCap> list;
     
     public NhaCungCap_BUS() {
+        list = new NhaCungCap_DAO().getListNhaCungCap();
     }
     
      public ArrayList<NhaCungCap> getAllNhaCungCap() {
@@ -28,12 +29,25 @@ public class NhaCungCap_BUS {
         return list;
     }
     
+    public boolean KiemTraMa(String MaNCC){
+        for (NhaCungCap ncc: list){
+            if (ncc.getMaNCC().equals(MaNCC)){
+                return true;
+            }
+        }
+        return false;
+    }
     
     
     
     public String addNhaCungCap(NhaCungCap ncc) {
         if (ncc.getTenNCC().isEmpty() || ncc.getSDT().isEmpty() || ncc.getDiaChi().isEmpty() || ncc.getEmail().isEmpty()) {
             return "Không được để trống thông tin";
+        }
+        
+        //Kiểm tra mã ncc
+        if(KiemTraMa(ncc.getMaNCC())){
+            return "Mã nhà cung cấp đã tồn tại";
         }
         
         Long sdt;
@@ -48,6 +62,11 @@ public class NhaCungCap_BUS {
         // Kiểm tra số điện thoại có đủ 10 số không
         if (ncc.getSDT().length() != 10) {
             return "Số điện thoại chỉ gồm 10 số";
+        }
+        
+        //Kiểm tra email
+        if (!ncc.getEmail().contains("@gmail.com")){
+            return "Email nhập sai cú pháp";
         }
 
         // Thực hiện thêm vào cơ sở dữ liệu
@@ -73,11 +92,23 @@ public class NhaCungCap_BUS {
         if (ncc.getSDT().length() != 10) {
             return "Số điện thoại chỉ gồm 10 số";
         }
+        
+        //Kiểm tra email
+        if (!ncc.getEmail().contains("@gmail.com")){
+            return "Email nhập sai cú pháp";
+        }
 
         // Thực hiện cập nhật cơ sở dữ liệu
         if (new NhaCungCap_DAO().updateCungCap(ncc)) {
-            return "Success";
+            return "Cập nhật thành công";
         }
-        return "Fail";
+        return "Cập nhật thất bại";
+    }
+    
+    public String xoaNhaCungCap(String ncc){
+        if (new NhaCungCap_DAO().deleteCungCap(ncc)){
+            return "Xóa thành công";
+        }
+        return "Xóa thất bại";
     }
 }

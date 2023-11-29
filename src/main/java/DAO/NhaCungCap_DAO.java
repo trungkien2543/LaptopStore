@@ -65,7 +65,7 @@ public class NhaCungCap_DAO {
     }
 
     public boolean updateCungCap(NhaCungCap ncc) {
-        String sql = "UPDATE NhaCungCap SET TenNCCp=?, SDT=?, DiaChi=?, Email=?, TrangThai=? WHERE IdNCC=?";
+        String sql = "UPDATE NhaCungCap SET TenNCC=?, SDT=?, DiaChi=?, Email=?, TrangThai=? WHERE IdNCC=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, ncc.getTenNCC());
@@ -74,6 +74,18 @@ public class NhaCungCap_DAO {
             ps.setString(4, ncc.getEmail());
             ps.setString(5, ncc.getTrangThai());
             ps.setString(6, ncc.getMaNCC());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteCungCap(String ncc) {
+        String sql = "UPDATE NhaCungCap SET TrangThai = '0' WHERE IdNCC = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, ncc);
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

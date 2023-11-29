@@ -189,6 +189,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="S&#x1eed;a nh&#xe0; cung c&#x1ea5;p"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEDITActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

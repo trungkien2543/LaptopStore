@@ -648,6 +648,7 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 	            }
 	        ));
 			model.removeElement(tenDN);
+			textField_2.setText("");
     	}
     	else if(tenDN.equals(""))
     		JOptionPane.showMessageDialog(jPanel2, "Chọn 1 tài khoản để thêm !","Error",0);
@@ -674,6 +675,8 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 	            		"Tên đăng nhập","Mật khẩu","Phân quyền"
 	            }
 	        ));
+			textField.setText("");
+			textField_1.setText("");
     	}
     	else
     		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để sửa !","Error",0);
@@ -701,10 +704,12 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
 		            }
 		        ));
 		        model.addElement(tenDN);
+		        textField.setText("");
+		        textField_1.setText("");
     		}
     	}
     	else
-    		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để xóa !","Error",0);
+    		JOptionPane.showMessageDialog(jPanel2, "Chọn một tài khoản để sửa !","Error",0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

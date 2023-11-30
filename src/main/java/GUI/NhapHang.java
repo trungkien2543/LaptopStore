@@ -19,6 +19,8 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.security.SecureRandom;
@@ -1045,6 +1047,27 @@ public class NhapHang extends javax.swing.JFrame {
 		textField.setBounds(99, 11, 168, 23);
 		panel.add(textField);
 		textField.setColumns(10);
+		textField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                	JOptionPane.showMessageDialog(null, "Chỉ nhập số!");
+                    e.consume(); 
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+        });
+		
 		
 		JLabel lblSLng = new JLabel("Số lượng:");
 		lblSLng.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
@@ -1056,6 +1079,26 @@ public class NhapHang extends javax.swing.JFrame {
 		textField_1.setColumns(10);
 		textField_1.setBounds(99, 45, 168, 23);
 		panel.add(textField_1);
+		textField_1.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                	JOptionPane.showMessageDialog(null, "Chỉ nhập số!");
+                    e.consume(); 
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+        });
 		
 		JDialog dialog = new JDialog(thisFr(), "Bổ Sung", true);
 		dialog.setSize(300, 160);
@@ -1128,6 +1171,26 @@ public class NhapHang extends javax.swing.JFrame {
 		panel.add(lblNewLabel);
 		
 		JTextField textField = new JTextField();
+		textField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                	JOptionPane.showMessageDialog(null, "Chỉ nhập số!");
+                    e.consume(); 
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+        });
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBounds(99, 11, 168, 23);
 		panel.add(textField);
@@ -1145,6 +1208,26 @@ public class NhapHang extends javax.swing.JFrame {
 		textField_1.setBounds(99, 45, 168, 23);
 		textField_1.setText(jTable2.getValueAt(row, 3).toString());
 		panel.add(textField_1);
+		textField_1.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                	JOptionPane.showMessageDialog(null, "Chỉ nhập số!");
+                    e.consume(); 
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // Không cần thực hiện gì cả
+            }
+        });
 		
 		JDialog dialog = new JDialog(thisFr(), "Bổ Sung", true);
 		dialog.setSize(300, 160);

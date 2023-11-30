@@ -832,8 +832,27 @@ public class NhapHang extends javax.swing.JFrame {
         PhieuNhap nhap = new PhieuNhap(MaPhieu, currentDateTime, TongTien, nhaCungCap, NV.getMaNV());
         phieuNhap_BUS.addPhieuNhap(nhap);
         
+        
+        for (DTO.ChiTietLaptop ctp : chiTietLaptop_BUS.getListChiTietLaptop()) {
+        	for (DTO.ChiTietLaptop ctd: ctLaptopList) {
+        		if (ctd.getIDRieng().equals(ctp.getIDRieng())) {
+        			JOptionPane.showMessageDialog(null, "ID riêng " + ctd.getIDRieng() + " đã tồn tại!");
+                	return;
+        		}
+        	}
+        }
+        
+        
+        if (phieuNhap_BUS.addPhieuNhap(nhap).equals("Thêm phiếu nhập thất bại")) {
+        	JOptionPane.showMessageDialog(null, "Tạo Không thành công!");
+        	return;
+        }
+        
         for (DTO.ChiTietPhieu ctp : ctPhieuList) {
-        	chiTietPhieuNhap_BUS.addChiTietPhieuNhap(ctp);
+        	if (chiTietPhieuNhap_BUS.addChiTietPhieuNhap(ctp).equals("Xảy ra lỗi")) {
+            	JOptionPane.showMessageDialog(null, "Tạo Không thành công!");
+            	return;
+            }
         	for (DTO.Laptop t : laptop_BUS.getAllLaptop()) {
         		if (ctp.getID().equals(t.getID())) {
         			t.setSoLuongTonKho(t.getSoLuongTonKho() + ctp.getSoLuong());
@@ -845,11 +864,37 @@ public class NhapHang extends javax.swing.JFrame {
         }
         
         for (DTO.ChiTietLaptop ctp : ctLaptopList) {
-        	chiTietLaptop_BUS.addChiTietLaptop(ctp);
+        	if(!chiTietLaptop_BUS.addChiTietLaptop(ctp)) {
+        		JOptionPane.showMessageDialog(null, "Tạo Không thành công!");
+            	return;
+        	}
         }
+        ctPhieuList = new ArrayList<>();
+        ctLaptopList = new ArrayList<>();
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    
+                },
+                new String [] {
+                		"ID", "Tên",  "Giá", "Số lượng Nhập"
+                }
+            ));
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                },
+                new String [] {
+                	"ID", "Tên",  "Giá", "Số lượng Nhập"
+                }
+            ));
+        
+		int sumMoney = 0;
+		
+		jLabel9.setText(sumMoney + "");
+		lblTongHoaDon.setText(jLabel9.getText());
+		
+		lblMaPhieu.setText((MaPhieu + 1) + "");
         
         JOptionPane.showMessageDialog(null, "Tạo thành công!");
-        
 	}
 	protected void callTableCTLaptops(int row) {
     	JPanel panel_1 = new JPanel();
@@ -1036,7 +1081,7 @@ public class NhapHang extends javax.swing.JFrame {
 				Calendar calendar = Calendar.getInstance();
 		        Date currentDate = calendar.getTime();
 				for (int i = 0;i < sol;i++) {
-					ChiTietLaptop tietLaptop = new ChiTietLaptop(generateRandomString(7)
+					ChiTietLaptop tietLaptop = new ChiTietLaptop(generateRandomString(9)
 							,"1", jTable1.getValueAt(row, 0).toString(), currentDate );
 					ctLaptopList.add(tietLaptop);
 				}
@@ -1143,7 +1188,7 @@ public class NhapHang extends javax.swing.JFrame {
 				Calendar calendar = Calendar.getInstance();
 		        Date currentDate = calendar.getTime();
 				for (int i = 0;i < sol;i++) {
-					ChiTietLaptop tietLaptop = new ChiTietLaptop(generateRandomString(7)
+					ChiTietLaptop tietLaptop = new ChiTietLaptop(generateRandomString(9)
 							,"1", jTable1.getValueAt(row, 0).toString(), currentDate );
 					ctLaptopList.add(tietLaptop);
 				}
@@ -1284,5 +1329,5 @@ public class NhapHang extends javax.swing.JFrame {
     private javax.swing.JLabel lblTongHoaDon;
     private JLabel lblNhCungCp;
     private JComboBox<String> comboBox;
-    private final String ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private final String ALLOWED_CHARACTERS = "0123456789";
 }

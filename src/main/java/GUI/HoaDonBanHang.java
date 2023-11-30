@@ -85,12 +85,12 @@ public class HoaDonBanHang extends javax.swing.JFrame {
     
     public void PhanQuyen(TaiKhoan TK){
         if (TK.getPhanQuyen().equals("Nhanvien")){
-            lblKhachHang.setVisible(false);
             lblNCC.setVisible(false);
             lblNhanVien.setVisible(false);
             lblNhapHang.setVisible(false);
             lblTaiKhoan.setVisible(false);
             lblKhoHang.setVisible(false);
+            btnExcel.setVisible(false);
         }
     }
     

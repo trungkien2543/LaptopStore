@@ -177,7 +177,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExcel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -195,7 +195,7 @@
                           <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButton2" alignment="0" pref="39" max="32767" attributes="0"/>
                           <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnExcel" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" pref="592" max="32767" attributes="0"/>
@@ -250,7 +250,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="btnExcel">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/ICON/Excel.png"/>
@@ -258,7 +258,7 @@
                 <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t file excel"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcelActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -328,11 +328,11 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblBanHang9" alignment="1" max="32767" attributes="0"/>
                                   <Component id="lblBanHang7" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="lblNhapHang1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblKhoHang2" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="lblBanHang8" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblBanHang10" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblBanHang11" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblNhapHang" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblKhoHang" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="lblNhanVien" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblNCC" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblPhieuNhap" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lblBanHang12" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lblBanHang13" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -356,7 +356,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang16" max="32767" attributes="0"/>
+                      <Component id="lblTaiKhoan" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -373,25 +373,25 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" pref="21" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblKhoHang2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblKhoHang" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblNhapHang1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNhapHang" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblBanHang7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang8" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNhanVien" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblBanHang9" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang10" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNCC" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang11" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPhieuNhap" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblBanHang12" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblBanHang13" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblBanHang16" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblTaiKhoan" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -428,7 +428,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblKhoHang2">
+            <Component class="javax.swing.JLabel" name="lblKhoHang">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -442,10 +442,10 @@
                 <Property name="text" type="java.lang.String" value="Kho h&#xe0;ng"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKhoHang2MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblKhoHangMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblNhapHang1">
+            <Component class="javax.swing.JLabel" name="lblNhapHang">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -456,7 +456,7 @@
                 <Property name="text" type="java.lang.String" value="Nh&#x1ead;p h&#xe0;ng"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNhapHang1MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNhapHangMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang7">
@@ -476,7 +476,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang7MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBanHang8">
+            <Component class="javax.swing.JLabel" name="lblNhanVien">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -487,7 +487,7 @@
                 <Property name="text" type="java.lang.String" value="Nh&#xe2;n vi&#xea;n"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang8MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNhanVienMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang9">
@@ -510,7 +510,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang9MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBanHang10">
+            <Component class="javax.swing.JLabel" name="lblNCC">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="cc" red="66" type="rgb"/>
@@ -527,10 +527,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang10MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNCCMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBanHang11">
+            <Component class="javax.swing.JLabel" name="lblPhieuNhap">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -541,7 +541,7 @@
                 <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u nh&#x1ead;p h&#xe0;ng"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang11MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblPhieuNhapMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblBanHang12">
@@ -575,7 +575,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang13MouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblBanHang16">
+            <Component class="javax.swing.JLabel" name="lblTaiKhoan">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
@@ -586,7 +586,7 @@
                 <Property name="text" type="java.lang.String" value="T&#xe0;i kho&#x1ea3;n"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblBanHang16MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblTaiKhoanMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

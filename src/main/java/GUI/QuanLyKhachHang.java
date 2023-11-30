@@ -51,6 +51,8 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         // Tìm thông tin nhân viên vừa đăng nhập
         TimTaiKhoan(NV);
         
+        PhanQuyen(TK);
+        
     }
     
     public void TimTaiKhoan(NhanVien NV){
@@ -64,7 +66,17 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
             }
         }
     }
-
+    
+    public void PhanQuyen(TaiKhoan TK){
+        if (TK.getPhanQuyen().equals("Nhanvien")){
+            lblNCC.setVisible(false);
+            lblNhanVien.setVisible(false);
+            lblNhapHang.setVisible(false);
+            lblTaiKhoan.setVisible(false);
+            lblKhoHang.setVisible(false);
+            btnExcel.setVisible(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -85,7 +97,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         lbTimKiem = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnExcel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jpMenu2 = new javax.swing.JPanel();
@@ -93,16 +105,16 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         lblChucVu = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lblKhoHang2 = new javax.swing.JLabel();
-        lblNhapHang1 = new javax.swing.JLabel();
+        lblKhoHang = new javax.swing.JLabel();
+        lblNhapHang = new javax.swing.JLabel();
         lblBanHang7 = new javax.swing.JLabel();
-        lblBanHang8 = new javax.swing.JLabel();
+        lblNhanVien = new javax.swing.JLabel();
         lblBanHang9 = new javax.swing.JLabel();
-        lblBanHang10 = new javax.swing.JLabel();
-        lblBanHang11 = new javax.swing.JLabel();
+        lblNCC = new javax.swing.JLabel();
+        lblPhieuNhap = new javax.swing.JLabel();
         lblBanHang12 = new javax.swing.JLabel();
         lblBanHang13 = new javax.swing.JLabel();
-        lblBanHang16 = new javax.swing.JLabel();
+        lblTaiKhoan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -185,11 +197,11 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
-        jButton4.setText("Xuất file excel");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Excel.png"))); // NOI18N
+        btnExcel.setText("Xuất file excel");
+        btnExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExcelActionPerformed(evt);
             }
         });
 
@@ -220,7 +232,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(btnExcel)
                 .addGap(34, 34, 34))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpKhoLayout.createSequentialGroup()
                 .addComponent(jScrollPane1)
@@ -235,7 +247,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                     .addComponent(jTextField1)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
                 .addContainerGap())
@@ -253,22 +265,22 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/Line.png"))); // NOI18N
 
-        lblKhoHang2.setBackground(new java.awt.Color(255, 255, 255));
-        lblKhoHang2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblKhoHang2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/KhoHang.png"))); // NOI18N
-        lblKhoHang2.setText("Kho hàng");
-        lblKhoHang2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblKhoHang.setBackground(new java.awt.Color(255, 255, 255));
+        lblKhoHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblKhoHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/KhoHang.png"))); // NOI18N
+        lblKhoHang.setText("Kho hàng");
+        lblKhoHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblKhoHang2MouseClicked(evt);
+                lblKhoHangMouseClicked(evt);
             }
         });
 
-        lblNhapHang1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblNhapHang1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhapHang.png"))); // NOI18N
-        lblNhapHang1.setText("Nhập hàng");
-        lblNhapHang1.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNhapHang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhapHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhapHang.png"))); // NOI18N
+        lblNhapHang.setText("Nhập hàng");
+        lblNhapHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblNhapHang1MouseClicked(evt);
+                lblNhapHangMouseClicked(evt);
             }
         });
 
@@ -282,12 +294,12 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
             }
         });
 
-        lblBanHang8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhanVien.png"))); // NOI18N
-        lblBanHang8.setText("Nhân viên");
-        lblBanHang8.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhanVien.png"))); // NOI18N
+        lblNhanVien.setText("Nhân viên");
+        lblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang8MouseClicked(evt);
+                lblNhanVienMouseClicked(evt);
             }
         });
 
@@ -302,23 +314,23 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
             }
         });
 
-        lblBanHang10.setBackground(new java.awt.Color(102, 204, 255));
-        lblBanHang10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhaCungCap.png"))); // NOI18N
-        lblBanHang10.setText("Nhà cung cấp");
-        lblBanHang10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblBanHang10.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNCC.setBackground(new java.awt.Color(102, 204, 255));
+        lblNCC.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/NhaCungCap.png"))); // NOI18N
+        lblNCC.setText("Nhà cung cấp");
+        lblNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNCC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang10MouseClicked(evt);
+                lblNCCMouseClicked(evt);
             }
         });
 
-        lblBanHang11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/PhieuNhapHang_1.png"))); // NOI18N
-        lblBanHang11.setText("Phiếu nhập hàng");
-        lblBanHang11.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblPhieuNhap.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/PhieuNhapHang_1.png"))); // NOI18N
+        lblPhieuNhap.setText("Phiếu nhập hàng");
+        lblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang11MouseClicked(evt);
+                lblPhieuNhapMouseClicked(evt);
             }
         });
 
@@ -341,12 +353,12 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
             }
         });
 
-        lblBanHang16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBanHang16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
-        lblBanHang16.setText("Tài khoản");
-        lblBanHang16.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblTaiKhoan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ICON/user.png"))); // NOI18N
+        lblTaiKhoan.setText("Tài khoản");
+        lblTaiKhoan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblBanHang16MouseClicked(evt);
+                lblTaiKhoanMouseClicked(evt);
             }
         });
 
@@ -361,11 +373,11 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                         .addGroup(jpMenu2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBanHang9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblBanHang7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblNhapHang1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblKhoHang2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblBanHang11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNhapHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblKhoHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNCC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblPhieuNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblBanHang12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblBanHang13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jpMenu2Layout.createSequentialGroup()
@@ -382,7 +394,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                 .addGap(76, 76, 76))
             .addGroup(jpMenu2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblBanHang16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTaiKhoan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpMenu2Layout.setVerticalGroup(
@@ -397,25 +409,25 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblKhoHang2)
+                .addComponent(lblKhoHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNhapHang1)
+                .addComponent(lblNhapHang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang8)
+                .addComponent(lblNhanVien)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang10)
+                .addComponent(lblNCC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang11)
+                .addComponent(lblPhieuNhap)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblBanHang13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBanHang16)
+                .addComponent(lblTaiKhoan)
                 .addGap(0, 46, Short.MAX_VALUE))
         );
 
@@ -500,7 +512,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcelActionPerformed
             // Create a new workbook and sheet
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Sheet 1");
@@ -533,7 +545,7 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnExcelActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
@@ -542,15 +554,15 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         dn.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void lblKhoHang2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhoHang2MouseClicked
+    private void lblKhoHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblKhoHangMouseClicked
         new KhoHang(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblKhoHang2MouseClicked
+    }//GEN-LAST:event_lblKhoHangMouseClicked
 
-    private void lblNhapHang1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapHang1MouseClicked
+    private void lblNhapHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapHangMouseClicked
         new NhapHang(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblNhapHang1MouseClicked
+    }//GEN-LAST:event_lblNhapHangMouseClicked
 
     private void lblBanHang7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang7MouseClicked
         // TODO add your handling code here:
@@ -558,25 +570,25 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblBanHang7MouseClicked
 
-    private void lblBanHang8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang8MouseClicked
+    private void lblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhanVienMouseClicked
         new QuanLyNhanVien(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblBanHang8MouseClicked
+    }//GEN-LAST:event_lblNhanVienMouseClicked
 
     private void lblBanHang9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang9MouseClicked
         new QuanLyKhachHang(NV).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_lblBanHang9MouseClicked
 
-    private void lblBanHang10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang10MouseClicked
+    private void lblNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNCCMouseClicked
         new QuanLyNhaCungCap(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblBanHang10MouseClicked
+    }//GEN-LAST:event_lblNCCMouseClicked
 
-    private void lblBanHang11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang11MouseClicked
+    private void lblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhieuNhapMouseClicked
         new PhieuNhapHang(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblBanHang11MouseClicked
+    }//GEN-LAST:event_lblPhieuNhapMouseClicked
 
     private void lblBanHang12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang12MouseClicked
         new HoaDonBanHang(NV).setVisible(true);
@@ -588,11 +600,11 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblBanHang13MouseClicked
 
-    private void lblBanHang16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHang16MouseClicked
+    private void lblTaiKhoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTaiKhoanMouseClicked
         // TODO add your handling code here:
         new QuanLyTaiKhoan(NV).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_lblBanHang16MouseClicked
+    }//GEN-LAST:event_lblTaiKhoanMouseClicked
     public javax.swing.JTable getJTable1() {
         return jTable1;
     }
@@ -680,9 +692,9 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     private  DefaultTableModel model;
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -697,17 +709,17 @@ public class QuanLyKhachHang extends javax.swing.JFrame {
     private javax.swing.JPanel jpThanhTieuDe;
     private javax.swing.JLabel lbTimKiem;
     private javax.swing.JLabel lblAvatar2;
-    private javax.swing.JLabel lblBanHang10;
-    private javax.swing.JLabel lblBanHang11;
     private javax.swing.JLabel lblBanHang12;
     private javax.swing.JLabel lblBanHang13;
-    private javax.swing.JLabel lblBanHang16;
     private javax.swing.JLabel lblBanHang7;
-    private javax.swing.JLabel lblBanHang8;
     private javax.swing.JLabel lblBanHang9;
     private javax.swing.JLabel lblChucVu;
-    private javax.swing.JLabel lblKhoHang2;
+    private javax.swing.JLabel lblKhoHang;
+    private javax.swing.JLabel lblNCC;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblNhapHang1;
+    private javax.swing.JLabel lblNhanVien;
+    private javax.swing.JLabel lblNhapHang;
+    private javax.swing.JLabel lblPhieuNhap;
+    private javax.swing.JLabel lblTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }

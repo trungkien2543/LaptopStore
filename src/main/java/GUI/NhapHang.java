@@ -446,7 +446,8 @@ public class NhapHang extends javax.swing.JFrame {
         Object[][] data_laptops = new Object[listLaptops.size()][];
 		for (int i=0;i<listLaptops.size();i++) {
 			Laptop obj = listLaptops.get(i);
-			data_laptops[i]= new Object[]{obj.getID(),obj.getTen(),obj.getSoLuongTonKho(),obj.getGia(),obj.getTrangThai()};
+			data_laptops[i]= new Object[]{obj.getID(),obj.getTen(),obj.getSoLuongTonKho(),obj.getGia(),
+					obj.getTrangThai().equals("1")?"Tồn tại":"Không Tồn tại"};
 		}
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
         	data_laptops,
@@ -830,7 +831,6 @@ public class NhapHang extends javax.swing.JFrame {
         		nhaCungCap = tCap.getMaNCC();
         }
         PhieuNhap nhap = new PhieuNhap(MaPhieu, currentDateTime, TongTien, nhaCungCap, NV.getMaNV());
-        phieuNhap_BUS.addPhieuNhap(nhap);
         
         
         for (DTO.ChiTietLaptop ctp : chiTietLaptop_BUS.getListChiTietLaptop()) {
@@ -1026,6 +1026,10 @@ public class NhapHang extends javax.swing.JFrame {
 				}
 			}
 		}
+		if (jTable1.getValueAt(row, 4).toString().equals("Không Tồn tại")) {
+			JOptionPane.showMessageDialog(null, "Không thêm được vì không tồn tại!");
+			return;
+		} 
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 434, 261);

@@ -78,12 +78,15 @@ public class DangNhap extends javax.swing.JFrame {
         			jTextField1.setText("");
         	}
         });
-        jTextField2 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JPasswordField();
+        jTextField2.setEchoChar((char) 0);
         jTextField2.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		if (jTextField2.getText().equals("Password"))
+        		if (jTextField2.getText().equals("Password")) {
         			jTextField2.setText("");
+        			jTextField2.setEchoChar('*');
+        		}
         	}
         });
         jButton1 = new javax.swing.JButton();
@@ -313,5 +316,5 @@ public class DangNhap extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField jTextField2;
 }

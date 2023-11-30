@@ -100,6 +100,24 @@ public class QuanLyTaiKhoan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        lblNhapHang = new javax.swing.JLabel();
+        lblNhapHang.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new NhapHang(NV).setVisible(true);
+                dispose();
+            }
+        });
+
+
+        lblKhoHang = new javax.swing.JLabel();
+        lblKhoHang.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new KhoHang(NV).setVisible(true);
+                dispose();
+            }
+        });
 
         lblBanHang = new javax.swing.JLabel();
         lblBanHang.addMouseListener(new MouseAdapter() {

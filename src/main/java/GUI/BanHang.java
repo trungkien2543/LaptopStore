@@ -129,15 +129,12 @@ public class BanHang extends javax.swing.JFrame {
     
     public void PhanQuyen(TaiKhoan TK){
         if (TK.getPhanQuyen().equals("Nhanvien")){
-            lblHoaDon.setVisible(false);
             lblKhachHang.setVisible(false);
             lblNCC.setVisible(false);
             lblNhanVien.setVisible(false);
             lblNhapHang.setVisible(false);
             lblTaiKhoan.setVisible(false);
-            lblThongKe.setVisible(false);
             lblKhoHang.setVisible(false);
-            lblPhieuNhap.setVisible(false);
         }
     }
     

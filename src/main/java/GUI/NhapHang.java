@@ -1339,7 +1339,7 @@ public class NhapHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        new PhieuNhapHang(NV);
+        new PhieuNhapHang(NV).setVisible(true);;
         dispose();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 

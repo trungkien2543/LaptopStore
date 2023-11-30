@@ -50,6 +50,8 @@ import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.event.AncestorListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.event.AncestorEvent;
 
 /**
@@ -914,7 +916,7 @@ public class NhapHang extends javax.swing.JFrame {
 	            new Object [][] {
 	            },
 	            new String [] {
-	            	"STT", "Serial"
+	            	"STT", "IMEI"
 	            }
 	        ));
 		scrollPane.setViewportView(table);
@@ -923,8 +925,30 @@ public class NhapHang extends javax.swing.JFrame {
 		for (ChiTietLaptop t : ctLaptopList) {
 			if (t.getMauLapTop().equals(jTable2.getValueAt(row, 0)))
 				model.addRow(new Object[] {i++, t.getIDRieng()});
-			
 		}
+		final int length = i-1;
+		System.out.println(length);
+		table.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+//                    int row = e.getFirstRow();
+//                    int column = e.getColumn();
+//                    Object data = model.getValueAt(row, column);
+//                    JOptionPane.showMessageDialog(null, "IMEI at row " + row + " updated. New value: " + data);
+                    int k = 0;
+                    for (int d = 0;d < ctLaptopList.size();d++) {
+            			if (ctLaptopList.get(d).getMauLapTop().equals(jTable2.getValueAt(row, 0))) {
+            				ChiTietLaptop t = ctLaptopList.get(d);
+            				t.setIDRieng(table.getValueAt(k, 1).toString());
+            				ctLaptopList.set(d, t);
+            				k++;
+            				if (k == length) break;
+            			}
+            		}
+                }
+            }
+        });
 		
 		JDialog dialog = new JDialog(thisFr(), "Nhập mã máy", true);
 		dialog.setSize(300,300);
@@ -1046,7 +1070,6 @@ public class NhapHang extends javax.swing.JFrame {
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textField.setBounds(99, 11, 168, 23);
 		panel.add(textField);
-		textField.setColumns(10);
 		textField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -1076,7 +1099,6 @@ public class NhapHang extends javax.swing.JFrame {
 		
 		JTextField textField_1 = new JTextField();
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textField_1.setColumns(10);
 		textField_1.setBounds(99, 45, 168, 23);
 		panel.add(textField_1);
 		textField_1.addKeyListener(new KeyListener() {
@@ -1302,13 +1324,8 @@ public class NhapHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnQuayLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuayLaiActionPerformed
-        // TODO add your handling code here:
-//        jpPhieuNhap.setSelectedIndex(0);
-//        txtFind.setEnabled(true);
-//        btnAdd.setEnabled(true);
-//        btnDelete.setEnabled(true);
-//        btnEdit.setEnabled(true);
-//        cbxNXB.setEnabled(true);
+        new PhieuNhapHang(NV);
+        dispose();
     }//GEN-LAST:event_btnQuayLaiActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed

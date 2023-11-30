@@ -897,6 +897,21 @@ public class NhapHang extends javax.swing.JFrame {
 		lblTongHoaDon.setText(jLabel9.getText());
 		
 		lblMaPhieu.setText((MaPhieu + 1) + "");
+		
+		ArrayList<Laptop> listLaptops = new ArrayList<>();
+		listLaptops = laptop_BUS.getAllLaptop();
+		Object[][] data_laptops = new Object[listLaptops.size()][];
+		for (int i=0;i<listLaptops.size();i++) {
+			Laptop obj = listLaptops.get(i);
+			data_laptops[i]= new Object[]{obj.getID(),obj.getTen(),obj.getSoLuongTonKho(),obj.getGia(),
+					obj.getTrangThai().equals("1")?"Tồn tại":"Không Tồn tại"};
+		}
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        	data_laptops,
+            new String [] {
+                "ID", "Tên", "Tồn Kho", "Giá", "Trạng thái"
+            }
+        ));
         
         JOptionPane.showMessageDialog(null, "Tạo thành công!");
 	}
